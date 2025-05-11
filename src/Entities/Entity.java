@@ -9,6 +9,8 @@ public class Entity {
     bomb, bombPlanted, rWalk1, rWalk2, rWalk3, rWalk4, lWalk1, lWalk2, lWalk3, lWalk4,
      crouchLeft, crouchRight, jumpRight, jumpLeft, pRightBoom1, pRightBoom2, pLeftBoom1,
       pLeftBoom2;
+      public BufferedImage bombHealth;
+      public BufferedImage[] Health, MoveHealth;
     public String direction="left";
     public int moveSpeed;
     public int SpriteNum=0;

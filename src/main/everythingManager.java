@@ -26,10 +26,11 @@ public class everythingManager extends JPanel implements Runnable{
     public int maxWorldVert=72;
     public int worldWidth=maxWorldHoriz*resTileSize;
     public int worldHeight=maxWorldVert*resTileSize;
+    public int boomTotal=0;
     public final int FPS=60;
     public tileManager tileM=new tileManager(this);
     public CollisionChecker cChecker=new CollisionChecker(this);
-    public object[] obj=new object[10];
+    public object[] obj=new object[20];
     public BufferedImage[] backgrounds=new BufferedImage[10];
     public BackgroundDrawer bDrawer=new BackgroundDrawer(this);
     public instantiator instantiate=new instantiator(this);

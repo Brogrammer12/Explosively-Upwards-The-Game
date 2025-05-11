@@ -73,7 +73,13 @@ public class bombBoi extends object{
         if (explode==true) {
                     image=boom;
                     if (timer==0 && Move==true) {
-                        em.p1.velocityY-=20;
+                            if (em.boomTotal+1>=2) {
+                                em.p1.velocityY=-30;
+                            }
+                            else {
+                                em.p1.velocityY-=20;
+                                em.boomTotal++;
+                            }
                     }
                     timer++;
                     if (timer==25) {

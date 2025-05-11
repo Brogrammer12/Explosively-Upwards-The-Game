@@ -21,16 +21,20 @@ public class Player extends Entity{
     public boolean event=false;
     public boolean boom=false;
     public boolean spriteReset=false;
+    public int bombsLeft=10;
+    public int bombsLeftMove=10;
     public Player(everythingManager em) {
         screenX=em.screenWidth/2-(em.resTileSize*3)/2;
         screenY=em.screenHeight/2-(em.resTileSize*3)/2;
         this.em=em;
         solidArea=new Rectangle(40, 20, 70, 124);
         worldX=300;
-        worldY=50;
+        worldY=(em.maxWorldVert*em.resTileSize)-500;
         bombX=(int) (worldX+(em.resTileSize*3)/2+40);
         bombY=(int) (worldY+(em.resTileSize*3)/2+40);
         moveSpeed=4;
+        Health=new BufferedImage[11];
+        MoveHealth=new BufferedImage[11];
         imageLoader();
     }
     public void imageLoader() {
@@ -41,8 +45,6 @@ public class Player extends Entity{
             right1=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRight1.png"));
             rightIdle2=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRightIdle2.png"));
             rightIdle3=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRightIdle3.png"));
-            //bomb=ImageIO.read(getClass().getResourceAsStream("/resources/Player/Bomb.png"));
-            //bombPlanted=ImageIO.read(getClass().getResourceAsStream("/resources/Player/bombPlanted.png"));
             lWalk1=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerLeftWalking1.png"));
             lWalk2=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerLeftWalking2.png"));
             lWalk3=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerLeftWalking3.png"));
@@ -59,6 +61,30 @@ public class Player extends Entity{
             pRightBoom2=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRightBoom2.png"));
             pLeftBoom1=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerLeftBoom1.png"));
             pLeftBoom2=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerLeftBoom2.png"));
+            Health[10]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeft10.png"));
+            Health[9]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeft9.png"));
+            Health[8]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeft8.png"));
+            Health[7]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeft7.png"));
+            Health[6]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeft6.png"));
+            Health[5]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeft5.png"));
+            Health[4]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeft4.png"));
+            Health[3]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeft3.png"));
+            Health[2]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeft2.png"));
+            Health[1]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeft1.png"));
+            Health[0]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeft0.png"));
+            MoveHealth[10]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeftMove10.png"));
+            MoveHealth[9]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeftMove9.png"));
+            MoveHealth[8]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeftMove8.png"));
+            MoveHealth[7]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeftMove7.png"));
+            MoveHealth[6]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeftMove6.png"));
+            MoveHealth[5]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeftMove5.png"));
+            MoveHealth[4]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeftMove4.png"));
+            MoveHealth[3]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeftMove3.png"));
+            MoveHealth[2]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeftMove2.png"));
+            MoveHealth[1]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeftMove1.png"));
+            MoveHealth[0]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeftMove0.png"));
+            bombHealth=ImageIO.read(getClass().getResourceAsStream("/resources/Health/bombPlantedHealth.png"));
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -187,6 +213,9 @@ public class Player extends Entity{
                                 em.obj[i].explode=true;
                             }
                         }
+                        bombsLeftMove=10;
+                        bombsLeft=10;
+                        em.boomTotal=0;
                     }
                     break;
                     case "right":
@@ -207,6 +236,9 @@ public class Player extends Entity{
                                 em.obj[i].explode=true;
                             }
                         }
+                        bombsLeftMove=10;
+                        bombsLeft=10;
+                        em.boomTotal=0;
                     }
                     break;
                 }
@@ -291,6 +323,15 @@ public class Player extends Entity{
         //g2.setColor(Color.WHITE);
         //g2.fillRect(worldX, worldY, em.resTileSize, em.resTileSize);
         g2.drawImage(image, screenX, screenY, em.resTileSize*3, em.resTileSize*3, null);
+        if (Move==true) {
+            g2.drawImage(MoveHealth[bombsLeftMove], em.resTileSize*15, 50, 64*3, em.resTileSize, null);
+        }
+        else {
+            g2.drawImage(Health[bombsLeft], em.resTileSize*15, 50, 64*3, em.resTileSize, null);
+        }
+        g2.drawImage(bombHealth, 50, 40, em.resTileSize, em.resTileSize, null);
+        g2.drawImage(bombHealth, 50+em.resTileSize, 40, em.resTileSize, em.resTileSize, null);
+        g2.drawImage(bombHealth, 50+em.resTileSize*2, 40, em.resTileSize, em.resTileSize, null);
         //g2.setColor(Color.RED);
        // g2.drawRect(screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
        /*  if (em.k.enterPressed==true) {
