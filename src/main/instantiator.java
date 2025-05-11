@@ -12,7 +12,7 @@ public class instantiator {
     }
     public void setObject() {
         if (em.k.enterPressed==true && em.k.hasPressed==false) {
-            em.obj[index]=new bombBoi(em, em.p1.direction);
+            em.obj[index]=new bombBoi(em, em.p1.direction, index);
             if (index==9) {
                 index=0;
             }

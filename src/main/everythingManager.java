@@ -23,7 +23,7 @@ public class everythingManager extends JPanel implements Runnable{
     public final int screenWidth=resTileSize*maxScreenHoriz;
     public final int screenHeight=resTileSize*maxScreenVert;
     public int maxWorldHoriz=20;
-    public int maxWorldVert=12;
+    public int maxWorldVert=72;
     public int worldWidth=maxWorldHoriz*resTileSize;
     public int worldHeight=maxWorldVert*resTileSize;
     public final int FPS=60;

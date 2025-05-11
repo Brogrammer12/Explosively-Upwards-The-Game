@@ -30,8 +30,16 @@ public class CollisionChecker {
         tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityBottomRow];
         tileNum2=em.tileM.mapTileNum[entityRightcol] [entityBottomRow];
         if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
-            entity.velocityY=0;
+            if (entity.velocityY>=0) {
+                entity.velocityY=0;
             entity.grounded=true;
+            }
+            else {
+                entity.velocityY+=entity.gravity;
+        entity.velocityY=Math.min(entity.velocityY, entity.maxFallSpeed);
+        entity.worldY+=entity.velocityY;
+        entity.grounded=false;
+            }
         }
         else {
             entity.velocityY+=entity.gravity;

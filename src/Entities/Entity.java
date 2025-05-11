@@ -5,7 +5,10 @@ import java.awt.image.BufferedImage;
 
 public class Entity {
     public float worldX, worldY;
-    public BufferedImage left1,leftIdle2, leftIdle3, right1, rightIdle2, rightIdle3, bomb, bombPlanted, rWalk1, rWalk2, rWalk3, rWalk4, lWalk1, lWalk2, lWalk3, lWalk4, crouchLeft, crouchRight, jumpRight, jumpLeft;
+    public BufferedImage left1,leftIdle2, leftIdle3, right1, rightIdle2, rightIdle3, 
+    bomb, bombPlanted, rWalk1, rWalk2, rWalk3, rWalk4, lWalk1, lWalk2, lWalk3, lWalk4,
+     crouchLeft, crouchRight, jumpRight, jumpLeft, pRightBoom1, pRightBoom2, pLeftBoom1,
+      pLeftBoom2;
     public String direction="left";
     public int moveSpeed;
     public int SpriteNum=0;
@@ -20,6 +23,6 @@ public class Entity {
     public float velocityY=0;
     public float gravity=0.4f;
     public float jumpStrength=-10f;
-    public float maxFallSpeed=10;
+    public float maxFallSpeed=15;
     public boolean grounded=false;
 }

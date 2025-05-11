@@ -10,9 +10,11 @@ import main.everythingManager;
 public class bombBoi extends object{
     everythingManager em;
     public boolean instantiateCoords=false;
-    public bombBoi(everythingManager em, String direction) {
+    public int index;
+    public bombBoi(everythingManager em, String direction, int index) {
         super(em);
         this.em=em;
+        this.index=index;
         this.direction=direction;
         if (direction=="right") {
             if (em.k.downPressed==true) {
@@ -35,8 +37,18 @@ public class bombBoi extends object{
             }
         }
         try {
-            image=ImageIO.read(getClass().getResourceAsStream("/resources/Player/Bomb.png"));
-            altImage=ImageIO.read(getClass().getResourceAsStream("/resources/Player/bombPlanted.png"));
+            if (em.p1.Move==true) {
+                Move=true;
+                 image=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/BombMove.png"));
+            altImage=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/bombPlantedMove.png"));
+            boom=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/explosionMove.png"));
+            }
+            else {
+                Move=false;
+                image=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/Bomb.png"));
+            altImage=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/bombPlanted.png"));
+            boom=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/explosion.png"));
+            }
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -57,6 +69,18 @@ public class bombBoi extends object{
         }
         else if(bombTriggered==true) {
             image=altImage;
+        }
+        if (explode==true) {
+                    image=boom;
+                    if (timer==0 && Move==true) {
+                        em.p1.velocityY-=20;
+                    }
+                    timer++;
+                    if (timer==25) {
+                        em.obj[index]=null;
+                        timer=0;
+                        explode=false;
+                    }
         }
         screenX=(int) (worldX-em.p1.worldX+em.p1.screenX);
         screenY=(int) (worldY-em.p1.worldY+em.p1.screenY);

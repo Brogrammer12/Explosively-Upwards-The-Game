@@ -2,7 +2,7 @@ package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 public class keyManager implements KeyListener{
-public boolean leftPressed, rightPressed, enterPressed, downPressed, upPressed;
+public boolean leftPressed, rightPressed, enterPressed, downPressed, upPressed, rPressed, ePressed;
 public boolean hasPressed;
     @Override
     public void keyTyped(KeyEvent e) {
@@ -27,6 +27,12 @@ public boolean hasPressed;
         if (keyCode==KeyEvent.VK_ENTER) {
             enterPressed=true;
         }
+        if (keyCode==KeyEvent.VK_R) {
+            rPressed=true;
+        }
+        if (keyCode==KeyEvent.VK_E) {
+            ePressed=true;
+        }
     }
 
     @Override
@@ -46,6 +52,14 @@ public boolean hasPressed;
         }
         if (keyCode==KeyEvent.VK_ENTER) {
             enterPressed=false;
+            hasPressed=false;
+        }
+        if (keyCode==KeyEvent.VK_R) {
+            rPressed=false;
+            hasPressed=false;
+        }
+        if (keyCode==KeyEvent.VK_E) {
+            ePressed=false;
             hasPressed=false;
         }
     }

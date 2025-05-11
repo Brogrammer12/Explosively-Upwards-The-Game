@@ -17,6 +17,10 @@ public class Player extends Entity{
     public boolean bombGoing=false;
     public boolean leftOrRight=false;
     public boolean idle=true;
+    public boolean Move=false;
+    public boolean event=false;
+    public boolean boom=false;
+    public boolean spriteReset=false;
     public Player(everythingManager em) {
         screenX=em.screenWidth/2-(em.resTileSize*3)/2;
         screenY=em.screenHeight/2-(em.resTileSize*3)/2;
@@ -51,12 +55,25 @@ public class Player extends Entity{
             crouchLeft=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerCrouchLeft.png"));
             jumpLeft=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerLeftJump.png"));
             jumpRight=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRightJump.png"));
+            pRightBoom1=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRightBoom1.png"));
+            pRightBoom2=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRightBoom2.png"));
+            pLeftBoom1=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerLeftBoom1.png"));
+            pLeftBoom2=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerLeftBoom2.png"));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
     public void update() {
+        if (em.k.rPressed==true && em.k.hasPressed==false) {
+            if (Move==false) {
+                Move=true;
+            }
+            else if(Move==true) {
+                Move=false;
+            }
+            em.k.hasPressed=true;
+        }
         if (em.k.leftPressed==true) {
             direction="left";
             idle=false;
@@ -68,7 +85,12 @@ public class Player extends Entity{
         if (em.k.upPressed==true) {
             idle=false;
         }
-        if (em.k.rightPressed==false && em.k.leftPressed==false && em.k.downPressed==false && em.k.upPressed==false) {
+        if (em.k.ePressed==true && em.k.hasPressed==false) {
+            event=true;
+            boom=true;
+            em.k.hasPressed=true;
+        }
+        if (em.k.rightPressed==false && em.k.leftPressed==false && em.k.downPressed==false && em.k.upPressed==false && em.k.ePressed==false && em.k.hasPressed==false) {
             idle=true;
         }
         collisionOn=false;
@@ -104,7 +126,7 @@ public class Player extends Entity{
            worldY+=moveSpeed;
         }
         spriteCounter++;
-        if (idle==true) {
+        if (idle==true || event==true) {
             if (SpriteNum==3) {
                 SpriteNum=0;
             }
@@ -139,6 +161,58 @@ public class Player extends Entity{
     }
     public void draw(Graphics2D g2) {
         BufferedImage image=null;
+        if (event==true) {
+            if (boom==true) {
+                if (spriteReset==false) {
+                    SpriteNum=0;
+                    spriteCounter=0;
+                    spriteReset=true;
+                }
+                switch (direction) {
+                    case "left":
+                    if (SpriteNum==0) {
+                        image=pLeftBoom1;
+                    }
+                    else if(SpriteNum==1) {
+                        image=pLeftBoom2;
+                    }
+                    else if(SpriteNum==2) {
+                        image=left1;
+                        event=false;
+                        boom=false;
+                        SpriteNum=0;
+                        spriteReset=false;
+                         for (int i=0; i<em.obj.length; i++) {
+                            if (em.obj[i]!=null) {
+                                em.obj[i].explode=true;
+                            }
+                        }
+                    }
+                    break;
+                    case "right":
+                    if (SpriteNum==0) {
+                        image=pRightBoom1;
+                    }
+                    else if(SpriteNum==1) {
+                        image=pRightBoom2;
+                    }
+                    else if(SpriteNum==2) {
+                        image=right1;
+                        event=false;
+                        boom=false;
+                        SpriteNum=0;
+                        spriteReset=false;
+                        for (int i=0; i<em.obj.length; i++) {
+                            if (em.obj[i]!=null) {
+                                em.obj[i].explode=true;
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        else {
             switch (direction) {
                 case "left":
                 if (em.k.downPressed==true) {
@@ -211,6 +285,7 @@ public class Player extends Entity{
                 }
                 break;
             }
+        }
         
        
         //g2.setColor(Color.WHITE);
