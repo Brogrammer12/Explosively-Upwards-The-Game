@@ -68,16 +68,42 @@ public class bombBoi extends object{
             }
         }
         else if(bombTriggered==true) {
+            if (sideCol==true) {
+                try {
+                    if (Move==true) {
+                    switch (direction) {
+                        case "left":
+                        altImage=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/bombPlantedMoveLeft.png"));
+                        break;
+                        case "right":
+                        altImage=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/bombPlantedMoveRight.png"));
+                    }
+                }
+                else {
+                    switch (direction) {
+                        case "left":
+                        altImage=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/bombPlantedLeft.png"));
+                        break;
+                        case "right":
+                        altImage=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/bombPlantedLeft.png"));
+                        break;
+                    }
+                }
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             image=altImage;
         }
         if (explode==true) {
                     image=boom;
                     if (timer==0 && Move==true) {
                             if (em.boomTotal+1>=2) {
-                                em.p1.velocityY=-30;
+                                em.p1.velocityY=-20;
                             }
                             else {
-                                em.p1.velocityY-=20;
+                                em.p1.velocityY-=15;
                                 em.boomTotal++;
                             }
                     }

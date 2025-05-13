@@ -27,7 +27,7 @@ public class Player extends Entity{
         screenX=em.screenWidth/2-(em.resTileSize*3)/2;
         screenY=em.screenHeight/2-(em.resTileSize*3)/2;
         this.em=em;
-        solidArea=new Rectangle(40, 20, 70, 124);
+        solidArea=new Rectangle(0, 0, em.resTileSize*3, em.resTileSize*3);
         worldX=300;
         worldY=(em.maxWorldVert*em.resTileSize)-500;
         bombX=(int) (worldX+(em.resTileSize*3)/2+40);
@@ -323,41 +323,24 @@ public class Player extends Entity{
         //g2.setColor(Color.WHITE);
         //g2.fillRect(worldX, worldY, em.resTileSize, em.resTileSize);
         g2.drawImage(image, screenX, screenY, em.resTileSize*3, em.resTileSize*3, null);
+        if (bombsLeft==11) {
+            bombsLeft=10;
+        }
+        if (bombsLeftMove==11) {
+            bombsLeftMove=10;
+        }
         if (Move==true) {
             g2.drawImage(MoveHealth[bombsLeftMove], em.resTileSize*15, 50, 64*3, em.resTileSize, null);
         }
         else {
-            g2.drawImage(Health[bombsLeft], em.resTileSize*15, 50, 64*3, em.resTileSize, null);
+            
+                g2.drawImage(Health[bombsLeft], em.resTileSize*15, 50, 64*3, em.resTileSize, null);
         }
         g2.drawImage(bombHealth, 50, 40, em.resTileSize, em.resTileSize, null);
         g2.drawImage(bombHealth, 50+em.resTileSize, 40, em.resTileSize, em.resTileSize, null);
         g2.drawImage(bombHealth, 50+em.resTileSize*2, 40, em.resTileSize, em.resTileSize, null);
         //g2.setColor(Color.RED);
-       // g2.drawRect(screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
-       /*  if (em.k.enterPressed==true) {
-            bombGoing=true;
-            if (direction=="right") {
-                leftOrRight=true;
-            }
-            else if(direction=="left") {
-                leftOrRight=false;
-            }
-        }
-        if (bombGoing==true) {
-            g2.drawImage(bomb, bombX, bombY, em.resTileSize, em.resTileSize, null);
-            if (bombX>=em.maxScreenHoriz*em.resTileSize || bombX<=-em.resTileSize) {
-                bombGoing=false;
-            }
-            if (leftOrRight==true) {
-                bombX+=5;
-            }
-            else if(leftOrRight==false) {
-                bombX-=5;
-            }
-        }
-        else if(em.k.enterPressed==false) {
-            bombX=worldX+(em.resTileSize*3)/2+40;
-            bombY=worldY+(em.resTileSize*3)/2-30;
-        }*/
+        //g2.drawRect(screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
+        //this code shows player hitbox
     }
 }

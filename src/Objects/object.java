@@ -19,6 +19,7 @@ public boolean bombTriggered=false;
 public boolean explode=false;
 public int timer=0;
 public boolean Move;
+public boolean sideCol=false;
 everythingManager em;
 public object(everythingManager em) {
     this.em=em;

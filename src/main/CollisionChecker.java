@@ -64,11 +64,32 @@ public class CollisionChecker {
         int entityBottomRow=entityBottomWorldY/em.resTileSize;
         int tileNum1, tileNum2;
             try {
-                entityBottomRow=(entityBottomWorldY+entity.moveSpeed)/em.resTileSize;
+        switch (entity.direction) {
+            case "left":
+            entityLeftcol=(entityLeftWorldX-entity.moveSpeed)/em.resTileSize;
+        tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityTopRow];
+        tileNum2=em.tileM.mapTileNum[entityLeftcol] [entityBottomRow];
+        if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
+            entity.bombTriggered=true;
+            entity.sideCol=true;
+        }
+            break;
+            case "right":
+        entityRightcol=(entityRightWorldX+entity.moveSpeed)/em.resTileSize;
+        tileNum1=em.tileM.mapTileNum[entityRightcol] [entityTopRow];
+        tileNum2=em.tileM.mapTileNum[entityRightcol] [entityBottomRow];
+        if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
+            entity.bombTriggered=true;
+            entity.sideCol=true;
+        }
+            break;
+        }
+        entityBottomRow=(entityBottomWorldY+entity.moveSpeed)/em.resTileSize;
         tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityBottomRow];
         tileNum2=em.tileM.mapTileNum[entityRightcol] [entityBottomRow];
         if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
             entity.bombTriggered=true;
+            entity.sideCol=false;
         }
             }
             catch (Exception e) {
