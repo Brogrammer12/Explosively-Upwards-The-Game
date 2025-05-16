@@ -85,7 +85,7 @@ public class bombBoi extends object{
                         altImage=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/bombPlantedLeft.png"));
                         break;
                         case "right":
-                        altImage=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/bombPlantedLeft.png"));
+                        altImage=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/bombPlantedRight.png"));
                         break;
                     }
                 }

@@ -5,10 +5,6 @@ import java.awt.image.BufferedImage;
 
 public class Entity {
     public float worldX, worldY;
-    public BufferedImage left1,leftIdle2, leftIdle3, right1, rightIdle2, rightIdle3, 
-    bomb, bombPlanted, rWalk1, rWalk2, rWalk3, rWalk4, lWalk1, lWalk2, lWalk3, lWalk4,
-     crouchLeft, crouchRight, jumpRight, jumpLeft, pRightBoom1, pRightBoom2, pLeftBoom1,
-      pLeftBoom2;
       public BufferedImage bombHealth;
       public BufferedImage[] Health, MoveHealth;
     public String direction="left";

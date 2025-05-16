@@ -40,7 +40,7 @@ public class instantiator {
         }
         for (int i=0; i<em.obj.length; i++) {
             if (em.obj[i]!=null) {
-                if (em.obj[i].direction=="right" && em.obj[i].worldX>=em.maxScreenHoriz*em.resTileSize) {
+                if (em.obj[i].direction=="right" && em.obj[i].worldX>=em.maxScreenHoriz*em.resTileSize+em.resTileSize) {
                     em.obj[i]=null;
                     if (em.p1.Move==true) {
                         em.p1.bombsLeftMove++;

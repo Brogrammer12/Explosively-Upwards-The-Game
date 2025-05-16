@@ -47,6 +47,7 @@ public class everythingManager extends JPanel implements Runnable{
     public void startGameThread() {
         thread=new Thread(this);
         thread.start();
+        this.requestFocusInWindow();
     }
     @Override
     public void run() {

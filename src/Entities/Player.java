@@ -23,6 +23,10 @@ public class Player extends Entity{
     public boolean spriteReset=false;
     public int bombsLeft=10;
     public int bombsLeftMove=10;
+    public BufferedImage left1,leftIdle2, leftIdle3, right1, rightIdle2, rightIdle3, 
+    bomb, bombPlanted, rWalk1, rWalk2, rWalk3, rWalk4, lWalk1, lWalk2, lWalk3, lWalk4,
+     crouchLeft, crouchRight, jumpRight, jumpLeft, pRightBoom1, pRightBoom2, pLeftBoom1,
+      pLeftBoom2;
     public Player(everythingManager em) {
         screenX=em.screenWidth/2-(em.resTileSize*3)/2;
         screenY=em.screenHeight/2-(em.resTileSize*3)/2;
@@ -122,12 +126,21 @@ public class Player extends Entity{
         collisionOn=false;
         falling=false;
         em.cChecker.checkPlayer(this);
-        if (collisionOn==false) {
-            switch (direction) {
-                case "left":
+        switch (direction) {
+            case "left":
+            if (em.k.upPressed==true && grounded==true) {
+                    velocityY-=10;
+                }
+            break;
+            case "right":
                 if (em.k.upPressed==true && grounded==true) {
                     velocityY-=10;
                 }
+            break;
+        }
+        if (collisionOn==false) {
+            switch (direction) {
+                case "left":
                     if (em.k.downPressed==false) {
                         if (em.k.leftPressed==true) {
                             worldX-=moveSpeed;
@@ -136,9 +149,6 @@ public class Player extends Entity{
                 
                 break;
                 case "right":
-                if (em.k.upPressed==true && grounded==true) {
-                    velocityY-=10;
-                }
                     if (em.k.downPressed==false) {
                         if (em.k.rightPressed==true) {
                             worldX+=moveSpeed;
@@ -152,7 +162,7 @@ public class Player extends Entity{
            worldY+=moveSpeed;
         }
         spriteCounter++;
-        if (idle==true || event==true) {
+        if (idle==true && event==false) {
             if (SpriteNum==3) {
                 SpriteNum=0;
             }
@@ -173,8 +183,19 @@ public class Player extends Entity{
                 spriteCounter=0;
              }
         }
-        else if(idle==false) {
+        else if(idle==false && event==false) {
             if (spriteCounter>=12) {
+                if (SpriteNum==3) {
+                    SpriteNum=0;
+                }
+                else {
+                    SpriteNum++;
+                }
+                spriteCounter=0;
+             }
+        }
+        else if(event==true) {
+             if (spriteCounter>=25) {
                 if (SpriteNum==3) {
                     SpriteNum=0;
                 }
