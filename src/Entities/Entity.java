@@ -15,6 +15,7 @@ public class Entity {
     public boolean idleBack=false;
     public int bombX, bombY;
     public Rectangle solidArea;
+    public Rectangle defaultSolidArea=new Rectangle(0, 0, 16*3*3, 16*3*3);
     public boolean collisionOn=false;
     public boolean falling=false;
     public boolean standing=false;

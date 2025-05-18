@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Graphics2D;
 
+import Objects.Exit;
 import Objects.bombBoi;
 
 public class instantiator {
@@ -9,12 +10,13 @@ public class instantiator {
     everythingManager em;
     public instantiator(everythingManager em) {
         this.em=em;
+        setObjects();
     }
-    public void setObject() {
-        if (em.k.enterPressed==true && em.k.hasPressed==false) {
+    public void setBombs() {
+        if ((em.k.enterPressed==true || em.m.mouseClicked==true) && em.k.hasPressed==false && em.k.sRightPressed==false && em.k.sUpPressed==false) {
             if (em.p1.Move==true) {
                 if (em.p1.bombsLeftMove!=0) {
-                em.obj[index]=new bombBoi(em, em.p1.direction, index);
+                em.objBomb[index]=new bombBoi(em, em.p1.direction, index);
             em.p1.bombsLeftMove--;
             if (index==19) {
                 index=0;
@@ -26,7 +28,7 @@ public class instantiator {
             }
             else {
                 if (em.p1.bombsLeft!=0) {
-                em.obj[index]=new bombBoi(em, em.p1.direction, index);
+                em.objBomb[index]=new bombBoi(em, em.p1.direction, index);
             em.p1.bombsLeft--;
             if (index==19) {
                 index=0;
@@ -38,10 +40,10 @@ public class instantiator {
             }
             em.k.hasPressed=true;
         }
-        for (int i=0; i<em.obj.length; i++) {
-            if (em.obj[i]!=null) {
-                if (em.obj[i].direction=="right" && em.obj[i].worldX>=em.maxScreenHoriz*em.resTileSize+em.resTileSize) {
-                    em.obj[i]=null;
+        for (int i=0; i<em.objBomb.length; i++) {
+            if (em.objBomb[i]!=null) {
+                if (em.objBomb[i].direction=="right" && em.objBomb[i].worldX>=em.maxScreenHoriz*em.resTileSize+em.resTileSize) {
+                    em.objBomb[i]=null;
                     if (em.p1.Move==true) {
                         em.p1.bombsLeftMove++;
                     }
@@ -49,8 +51,8 @@ public class instantiator {
                         em.p1.bombsLeft++;
                     }
                     }
-                    else if (em.obj[i].direction=="left" && em.obj[i].worldX<-em.resTileSize) {
-                        em.obj[i]=null;
+                    else if (em.objBomb[i].direction=="left" && em.objBomb[i].worldX<-em.resTileSize) {
+                        em.objBomb[i]=null;
                         if (em.p1.Move==true) {
                         em.p1.bombsLeftMove++;
                     }
@@ -60,6 +62,9 @@ public class instantiator {
                     }
             }
         }
+    }
+    public void setObjects() {
+        em.obj[0]=new Exit(em);
     }
     
 }

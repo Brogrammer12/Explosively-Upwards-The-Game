@@ -23,6 +23,8 @@ public class Player extends Entity{
     public boolean spriteReset=false;
     public int bombsLeft=10;
     public int bombsLeftMove=10;
+    public int timer=0;
+    public int health=3;
     public BufferedImage left1,leftIdle2, leftIdle3, right1, rightIdle2, rightIdle3, 
     bomb, bombPlanted, rWalk1, rWalk2, rWalk3, rWalk4, lWalk1, lWalk2, lWalk3, lWalk4,
      crouchLeft, crouchRight, jumpRight, jumpLeft, pRightBoom1, pRightBoom2, pLeftBoom1,
@@ -95,6 +97,13 @@ public class Player extends Entity{
         }
     }
     public void update() {
+        if (em.k.sRightPressed==false) {
+            if (worldY>=em.maxWorldVert*em.resTileSize+3*em.resTileSize) {
+            worldX=300;
+        worldY=(em.maxWorldVert*em.resTileSize)-500;
+        velocityY=0;
+        health--;
+        }
         if (em.k.rPressed==true && em.k.hasPressed==false) {
             if (Move==false) {
                 Move=true;
@@ -105,11 +114,15 @@ public class Player extends Entity{
             em.k.hasPressed=true;
         }
         if (em.k.leftPressed==true) {
-            direction="left";
+            if (em.m.mouseMode==false) {
+                direction="left";
+            }
             idle=false;
         }
          if(em.k.rightPressed==true) {
-            direction="right";
+            if (em.m.mouseMode==false) {
+                direction="right";
+            }
             idle=false;
         }
         if (em.k.upPressed==true) {
@@ -138,11 +151,12 @@ public class Player extends Entity{
                 }
             break;
         }
+        }
         if (collisionOn==false) {
             switch (direction) {
                 case "left":
                     if (em.k.downPressed==false) {
-                        if (em.k.leftPressed==true) {
+                        if (em.k.leftPressed==true && em.k.sRightPressed==false && em.k.sUpPressed==false) {
                             worldX-=moveSpeed;
                         }
                     }
@@ -150,12 +164,24 @@ public class Player extends Entity{
                 break;
                 case "right":
                     if (em.k.downPressed==false) {
-                        if (em.k.rightPressed==true) {
+                        if (em.k.rightPressed==true && em.k.sRightPressed==false && em.k.sUpPressed==false) {
                             worldX+=moveSpeed;
                         }
                     }
                 
                 break;
+            }
+            if (em.m.mouseMode==true) {
+                if (em.k.downPressed==false && direction!="left") {
+                        if (em.k.leftPressed==true && em.k.sRightPressed==false && em.k.sUpPressed==false) {
+                            worldX-=moveSpeed;
+                        }
+                    }
+                    if (em.k.downPressed==false && direction!="right") {
+                        if (em.k.rightPressed==true && em.k.sRightPressed==false && em.k.sUpPressed==false) {
+                            worldX+=moveSpeed;
+                        }
+                    }
             }
         }
          if (falling==true) {
@@ -229,9 +255,9 @@ public class Player extends Entity{
                         boom=false;
                         SpriteNum=0;
                         spriteReset=false;
-                         for (int i=0; i<em.obj.length; i++) {
-                            if (em.obj[i]!=null) {
-                                em.obj[i].explode=true;
+                         for (int i=0; i<em.objBomb.length; i++) {
+                            if (em.objBomb[i]!=null) {
+                                em.objBomb[i].explode=true;
                             }
                         }
                         bombsLeftMove=10;
@@ -252,9 +278,9 @@ public class Player extends Entity{
                         boom=false;
                         SpriteNum=0;
                         spriteReset=false;
-                        for (int i=0; i<em.obj.length; i++) {
-                            if (em.obj[i]!=null) {
-                                em.obj[i].explode=true;
+                        for (int i=0; i<em.objBomb.length; i++) {
+                            if (em.objBomb[i]!=null) {
+                                em.objBomb[i].explode=true;
                             }
                         }
                         bombsLeftMove=10;
@@ -340,7 +366,9 @@ public class Player extends Entity{
             }
         }
         
-       
+       if (em.k.sUpPressed==true) {
+            image=jumpRight;
+        }
         //g2.setColor(Color.WHITE);
         //g2.fillRect(worldX, worldY, em.resTileSize, em.resTileSize);
         g2.drawImage(image, screenX, screenY, em.resTileSize*3, em.resTileSize*3, null);
@@ -357,11 +385,22 @@ public class Player extends Entity{
             
                 g2.drawImage(Health[bombsLeft], em.resTileSize*15, 50, 64*3, em.resTileSize, null);
         }
-        g2.drawImage(bombHealth, 50, 40, em.resTileSize, em.resTileSize, null);
+        if (health==3) {
+            g2.drawImage(bombHealth, 50, 40, em.resTileSize, em.resTileSize, null);
         g2.drawImage(bombHealth, 50+em.resTileSize, 40, em.resTileSize, em.resTileSize, null);
         g2.drawImage(bombHealth, 50+em.resTileSize*2, 40, em.resTileSize, em.resTileSize, null);
-        //g2.setColor(Color.RED);
-        //g2.drawRect(screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
+        }
+        else if(health==2) {
+            g2.drawImage(bombHealth, 50, 40, em.resTileSize, em.resTileSize, null);
+        g2.drawImage(bombHealth, 50+em.resTileSize, 40, em.resTileSize, em.resTileSize, null);
+        }
+        else if(health==1) {
+            g2.drawImage(bombHealth, 50, 40, em.resTileSize, em.resTileSize, null);
+        }
+        if (em.showHitboxes==true) {
+            g2.setColor(Color.RED);
+        g2.drawRect(screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
         //this code shows player hitbox
+        }
     }
 }

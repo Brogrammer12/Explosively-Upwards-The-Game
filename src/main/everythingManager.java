@@ -22,20 +22,23 @@ public class everythingManager extends JPanel implements Runnable{
     public final int maxScreenVert=12;
     public final int screenWidth=resTileSize*maxScreenHoriz;
     public final int screenHeight=resTileSize*maxScreenVert;
-    public int maxWorldHoriz=23;
+    public int maxWorldHoriz=33;
     public int maxWorldVert=72;
     public int worldWidth=maxWorldHoriz*resTileSize;
     public int worldHeight=maxWorldVert*resTileSize;
     public int boomTotal=0;
+    public boolean showHitboxes=true;
     public final int FPS=60;
     public tileManager tileM=new tileManager(this);
     public CollisionChecker cChecker=new CollisionChecker(this);
-    public object[] obj=new object[20];
+    public object[] objBomb=new object[20];
+    public object[] obj=new object[10];
     public BufferedImage[] backgrounds=new BufferedImage[10];
     public BackgroundDrawer bDrawer=new BackgroundDrawer(this);
     public instantiator instantiate=new instantiator(this);
     Thread thread;
     public keyManager k=new keyManager();
+    public mouseListener m=new mouseListener(this);
     public Player p1=new Player(this);
     public everythingManager() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -43,6 +46,8 @@ public class everythingManager extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.setFocusable(true);
         this.addKeyListener(k);
+        this.addMouseListener(m);
+        this.addMouseMotionListener(m);
     }
     public void startGameThread() {
         thread=new Thread(this);
@@ -73,7 +78,7 @@ public class everythingManager extends JPanel implements Runnable{
     }
     public void update() {
         p1.update();
-        instantiate.setObject();
+        instantiate.setBombs();
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -81,11 +86,17 @@ public class everythingManager extends JPanel implements Runnable{
         bDrawer.drawBackground(backgrounds[0], g2);
         tileM.draw(g2);
         p1.draw(g2);
+        for (int i=0; i<objBomb.length; i++) {
+            if (objBomb[i]!=null) {
+                objBomb[i].objFunction(g2);
+            }
+        }
         for (int i=0; i<obj.length; i++) {
             if (obj[i]!=null) {
                 obj[i].objFunction(g2);
             }
         }
+        
         g2.dispose();
     }
 

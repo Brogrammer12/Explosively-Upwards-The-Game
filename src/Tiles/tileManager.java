@@ -17,6 +17,7 @@ public class tileManager {
     public int mapTileNum[][];
     public tileManager(everythingManager em) {
         this.em=em;
+        newMap("/resources/maps/map1.txt");
         mapTileNum=new int[em.maxWorldHoriz][em.maxWorldVert];
         tile=new tile[10];
         tileLoader();
@@ -47,10 +48,33 @@ public class tileManager {
             tile[6].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallLeftCracked.png"));
             tile[6].collision=true;
             tile[6].grounded=false;
+            tile[6].destructible=true;
             tile[7]=new tile();
             tile[7].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallRightCracked.png"));
             tile[7].collision=true;
             tile[7].grounded=false;
+            tile[7].destructible=true;
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    public void newMap(String filePath) {
+        try {
+            InputStream is=getClass().getResourceAsStream(filePath);
+        BufferedReader br=new BufferedReader(new InputStreamReader(is));
+        String line;
+        int rowCount=0;
+        int columnCount=0;
+            while ((line=br.readLine())!=null) {
+                rowCount++;
+                String[] columns=line.split(" ");
+                columnCount=Math.max(columnCount, columns.length);
+            }
+            em.maxWorldHoriz=columnCount;
+            em.maxWorldVert=rowCount;
+            System.out.println(em.maxWorldHoriz);
+            System.out.println(em.maxWorldVert);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

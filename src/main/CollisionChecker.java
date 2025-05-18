@@ -10,7 +10,8 @@ public class CollisionChecker {
         this.em=em;
     }
     public void checkPlayer(Entity entity) {
-        int entityLeftWorldX=(int) (entity.worldX+entity.solidArea.x);
+        if (em.tileM!=null) {
+            int entityLeftWorldX=(int) (entity.worldX+entity.solidArea.x);
         int entityRightWorldX=(int) (entity.worldX+entity.solidArea.x+entity.solidArea.width);
         int entityTopWorldY=(int) (entity.worldY+entity.solidArea.y);
         int entityBottomWorldY=(int) (entity.worldY+entity.solidArea.y+entity.solidArea.height);
@@ -20,14 +21,16 @@ public class CollisionChecker {
         int entityBottomRow=entityBottomWorldY/em.resTileSize;
         int tileNum1, tileNum2;
         if (entity.worldX>em.worldWidth-3*em.resTileSize || entity.worldX<0 || entity.worldY>em.worldHeight-4*em.resTileSize || entity.worldY<0) {
-            entity.velocityY+=entity.gravity;
+            if (em.k.sUpPressed==false) {
+                entity.velocityY+=entity.gravity;
         entity.velocityY=Math.min(entity.velocityY, entity.maxFallSpeed);
         entity.worldY+=entity.velocityY;
         entity.grounded=false;
+            }
         }
         else {
             try {
-                if (entity.grounded==false && ceiling==false) {
+                if (entity.grounded==false && ceiling==false && em.k.sUpPressed==false) {
                     entityTopRow=(int) ((entityTopWorldY-entity.velocityY)/em.resTileSize);
         tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityTopRow];
         tileNum2=em.tileM.mapTileNum[entityRightcol] [entityTopRow];
@@ -41,33 +44,37 @@ public class CollisionChecker {
                 else {
                     ceiling=false;
                 }
-                entityBottomRow=(int) ((entityBottomWorldY+entity.velocityY)/em.resTileSize);
+                if (em.k.sUpPressed==false) {
+                    entityBottomRow=(int) ((entityBottomWorldY+entity.velocityY)/em.resTileSize);
         tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityBottomRow];
         tileNum2=em.tileM.mapTileNum[entityRightcol] [entityBottomRow];
-        if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
+        if ((em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true)) {
             if (entity.velocityY>=0) {
                 entity.velocityY=0;
             entity.grounded=true;
             }
-            else {
+            else if (em.k.sUpPressed==false) {
                 entity.velocityY+=entity.gravity;
         entity.velocityY=Math.min(entity.velocityY, entity.maxFallSpeed);
         entity.worldY+=entity.velocityY;
         entity.grounded=false;
             }
         }
-        else {
+        else if (em.k.sUpPressed==false) {
             entity.velocityY+=entity.gravity;
         entity.velocityY=Math.min(entity.velocityY, entity.maxFallSpeed);
         entity.worldY+=entity.velocityY;
         entity.grounded=false;
         }
+                }
             }
             catch (Exception e) {
-               
+               e.printStackTrace();
             }
         }
-       switch (entity.direction) {
+        try {
+            if (em.k.sUpPressed==false) {
+                switch (entity.direction) {
             case "left":
             entityLeftcol=(entityLeftWorldX-entity.moveSpeed)/em.resTileSize;
         tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityTopRow];
@@ -88,6 +95,12 @@ public class CollisionChecker {
             }
         }
             break;
+        }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         }
     }
     public void checkBomb(object entity) {
@@ -109,6 +122,12 @@ public class CollisionChecker {
         if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
             entity.bombTriggered=true;
             entity.sideCol=true;
+            if (entity.explode==true && em.tileM.tile[tileNum1].destructible==true && entity.Move==false) {
+                em.tileM.mapTileNum[entityLeftcol] [entityTopRow]=0;
+            }
+            if (entity.explode==true && em.tileM.tile[tileNum2].destructible==true && entity.Move==false) {
+                em.tileM.mapTileNum[entityLeftcol] [entityBottomRow]=0;
+            }
         }
             break;
             case "right":
@@ -118,6 +137,12 @@ public class CollisionChecker {
         if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
             entity.bombTriggered=true;
             entity.sideCol=true;
+            if (entity.explode==true && em.tileM.tile[tileNum1].destructible==true && entity.Move==false) {
+                em.tileM.mapTileNum[entityRightcol] [entityTopRow]=0;
+            }
+            if (entity.explode==true && em.tileM.tile[tileNum2].destructible==true && entity.Move==false) {
+                em.tileM.mapTileNum[entityRightcol] [entityBottomRow]=0;
+            }
         }
             break;
         }

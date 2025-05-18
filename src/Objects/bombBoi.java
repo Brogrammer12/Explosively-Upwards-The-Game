@@ -109,7 +109,7 @@ public class bombBoi extends object{
                     }
                     timer++;
                     if (timer==25) {
-                        em.obj[index]=null;
+                        em.objBomb[index]=null;
                         timer=0;
                         explode=false;
                     }

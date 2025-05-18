@@ -4,6 +4,8 @@ import java.awt.event.KeyListener;
 public class keyManager implements KeyListener{
 public boolean leftPressed, rightPressed, enterPressed, downPressed, upPressed, rPressed, ePressed;
 public boolean hasPressed;
+public boolean sRightPressed=false;
+public boolean sUpPressed=false;
     @Override
     public void keyTyped(KeyEvent e) {
         
@@ -33,6 +35,9 @@ public boolean hasPressed;
         if (keyCode==KeyEvent.VK_E) {
             ePressed=true;
         }
+        if (keyCode==KeyEvent.VK_SPACE) {
+            upPressed=true;
+        }
     }
 
     @Override
@@ -60,6 +65,10 @@ public boolean hasPressed;
         }
         if (keyCode==KeyEvent.VK_E) {
             ePressed=false;
+            hasPressed=false;
+        }
+        if (keyCode==KeyEvent.VK_SPACE) {
+            upPressed=false;
             hasPressed=false;
         }
     }
