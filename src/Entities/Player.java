@@ -25,6 +25,7 @@ public class Player extends Entity{
     public int bombsLeftMove=10;
     public int timer=0;
     public int health=3;
+    public int Level=1;
     public BufferedImage left1,leftIdle2, leftIdle3, right1, rightIdle2, rightIdle3, 
     bomb, bombPlanted, rWalk1, rWalk2, rWalk3, rWalk4, lWalk1, lWalk2, lWalk3, lWalk4,
      crouchLeft, crouchRight, jumpRight, jumpLeft, pRightBoom1, pRightBoom2, pLeftBoom1,

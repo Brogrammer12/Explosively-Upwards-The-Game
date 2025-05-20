@@ -73,7 +73,8 @@ public class CollisionChecker {
             }
         }
         try {
-            if (em.k.sUpPressed==false) {
+            if (em.m.mouseMode==false) {
+                if (em.k.sUpPressed==false) {
                 switch (entity.direction) {
             case "left":
             entityLeftcol=(entityLeftWorldX-entity.moveSpeed)/em.resTileSize;
@@ -96,6 +97,31 @@ public class CollisionChecker {
         }
             break;
         }
+            }
+            }
+            else if (em.m.mouseMode==true) {
+                if (em.k.sUpPressed==false) {
+           if (em.k.leftPressed==true) {
+            entityLeftcol=(entityLeftWorldX-entity.moveSpeed)/em.resTileSize;
+        tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityTopRow];
+        tileNum2=em.tileM.mapTileNum[entityLeftcol] [entityBottomRow];
+        if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
+            if (em.tileM.tile[tileNum1].grounded==false && em.tileM.tile[tileNum2].grounded==false) {
+                entity.collisionOn=true;
+            }
+        }
+           }
+           else if (em.k.rightPressed==true) {
+            entityRightcol=(entityRightWorldX+entity.moveSpeed)/em.resTileSize;
+        tileNum1=em.tileM.mapTileNum[entityRightcol] [entityTopRow];
+        tileNum2=em.tileM.mapTileNum[entityRightcol] [entityBottomRow];
+        if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
+            if (em.tileM.tile[tileNum1].grounded==false && em.tileM.tile[tileNum2].grounded==false) {
+                entity.collisionOn=true;
+            }
+        }
+           }
+            }
             }
         }
         catch (Exception e) {

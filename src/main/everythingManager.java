@@ -83,7 +83,7 @@ public class everythingManager extends JPanel implements Runnable{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2=(Graphics2D)g;
-        bDrawer.drawBackground(backgrounds[0], g2);
+        bDrawer.drawBackground(backgrounds[bDrawer.index], g2);
         tileM.draw(g2);
         p1.draw(g2);
         for (int i=0; i<objBomb.length; i++) {

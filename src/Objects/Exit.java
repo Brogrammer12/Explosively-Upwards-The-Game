@@ -34,7 +34,7 @@ everythingManager em;
         solidArea.y=worldY;
         em.p1.solidArea.x=(int) em.p1.worldX;
         em.p1.solidArea.y=(int) em.p1.worldY;
-        if (solidArea.intersects(em.p1.solidArea)) {
+        if (solidArea.intersects(em.p1.solidArea) && em.p1.Level==1) {
              if (em.p1.worldX<worldX-25) {
                 em.k.sRightPressed=true;
                 em.p1.worldX+=em.p1.moveSpeed;
@@ -48,10 +48,24 @@ everythingManager em;
                     worldY-=moveSpeed;
                     em.p1.screenY-=moveSpeed;
                     em.p1.worldY-=moveSpeed;
+                    if (em.p1.screenY<=-em.resTileSize*2) {
+                        em.bDrawer.index=1;
+                        for (int i=0; i<em.tileM.mapTileNum.length; i++) {
+                            for (int e=0; e<em.tileM.mapTileNum[i].length; e++) {
+                                em.tileM.mapTileNum[i] [e]=0;
+                            }
+                        } 
+                    }
                 if (em.p1.screenY<=-em.resTileSize*3-200) {
                     em.k.sUpPressed=false;
-                    System.out.println("Level Finished!");
-                    System.exit(0);
+                    em.k.sRightPressed=false;
+                    em.tileM.newMap("/resources/maps/map2.txt");
+                    em.tileM.loadMap("/resources/maps/map2.txt");
+                    em.p1.Level++;
+                    em.p1.worldX=300;
+                    em.p1.worldY=(em.maxWorldVert*em.resTileSize)-500;
+                    em.p1.screenX=em.screenWidth/2-(em.resTileSize*3)/2;
+                    em.p1.screenY=em.screenHeight/2-(em.resTileSize*3)/2;
                 }
                 
             }

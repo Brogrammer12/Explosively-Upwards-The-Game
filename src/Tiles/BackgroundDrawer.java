@@ -10,6 +10,7 @@ import main.everythingManager;
 
 public class BackgroundDrawer {
     everythingManager em;
+    public int index=0;
     public BackgroundDrawer(everythingManager em) {
         this.em=em;
         backgroundLoader();

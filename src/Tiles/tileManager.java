@@ -15,13 +15,14 @@ public class tileManager {
     everythingManager em;
     public tile[] tile;
     public int mapTileNum[][];
+    public String realFile="/resources/maps/map1.txt";
     public tileManager(everythingManager em) {
         this.em=em;
-        newMap("/resources/maps/map1.txt");
+        newMap(realFile);
         mapTileNum=new int[em.maxWorldHoriz][em.maxWorldVert];
         tile=new tile[10];
         tileLoader();
-        loadMap("/resources/maps/map1.txt");
+        loadMap(realFile);
     }
     public void tileLoader() {
         try {
@@ -59,27 +60,6 @@ public class tileManager {
             e.printStackTrace();
         }
     }
-    public void newMap(String filePath) {
-        try {
-            InputStream is=getClass().getResourceAsStream(filePath);
-        BufferedReader br=new BufferedReader(new InputStreamReader(is));
-        String line;
-        int rowCount=0;
-        int columnCount=0;
-            while ((line=br.readLine())!=null) {
-                rowCount++;
-                String[] columns=line.split(" ");
-                columnCount=Math.max(columnCount, columns.length);
-            }
-            em.maxWorldHoriz=columnCount;
-            em.maxWorldVert=rowCount;
-            System.out.println(em.maxWorldHoriz);
-            System.out.println(em.maxWorldVert);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
     public void loadMap(String filePath) {
         try {
             InputStream is=getClass().getResourceAsStream(filePath);
@@ -102,6 +82,53 @@ public class tileManager {
         br.close();
         }
         catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void newMap(String fileName) {
+        try {
+            int numCol = 0;
+            int numRow = 0;
+    
+            // Read the map file to determine the number of columns and rows
+            InputStream is = getClass().getResourceAsStream(fileName);
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String line;
+            while ((line = br.readLine()) != null) {
+                String numbers[] = line.split(" ");
+                numRow++;
+                numCol = numbers.length;
+            }
+            br.close();
+    
+            // Load the map data into a new array
+            is = getClass().getResourceAsStream(fileName);
+            br = new BufferedReader(new InputStreamReader(is));
+            int[][] newMapTileNum = new int[numCol][numRow];
+            int row = 0;
+            while ((line = br.readLine()) != null) {
+                String numbers[] = line.split(" ");
+                for (int col = 0; col < numCol; col++) {
+                    newMapTileNum[col][row] = Integer.parseInt(numbers[col]);
+                }
+                row++;
+            }
+            br.close();
+    
+            if (numCol > 0 && numRow > 0) {
+                realFile = fileName;
+                em.maxWorldVert = numRow;
+                em.maxWorldHoriz = numCol;
+    
+                // Update the mapTileNum array dimensions and copy data
+                mapTileNum = new int[numCol][numRow];
+                for (int i = 0; i < numCol; i++) {
+                    for (int j = 0; j < numRow; j++) {
+                        mapTileNum[i][j] = newMapTileNum[i][j];
+                    }
+                }
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
