@@ -1,6 +1,7 @@
 package Objects;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.io.IOException;
 
@@ -48,13 +49,16 @@ everythingManager em;
                     worldY-=moveSpeed;
                     em.p1.screenY-=moveSpeed;
                     em.p1.worldY-=moveSpeed;
-                    if (em.p1.screenY<=-em.resTileSize*2) {
+                    if (em.p1.screenY<=-em.resTileSize*2-30) {
                         em.bDrawer.index=1;
                         for (int i=0; i<em.tileM.mapTileNum.length; i++) {
                             for (int e=0; e<em.tileM.mapTileNum[i].length; e++) {
                                 em.tileM.mapTileNum[i] [e]=0;
                             }
-                        } 
+                        }
+                        g2.setFont(new Font("Pixeboy",Font.BOLD, 30));
+                        g2.setColor(Color.WHITE);
+                        g2.drawString("Level 2", (em.maxScreenHoriz*em.resTileSize)/2, (em.maxScreenVert*em.resTileSize)/2);
                     }
                 if (em.p1.screenY<=-em.resTileSize*3-200) {
                     em.k.sUpPressed=false;
