@@ -98,6 +98,25 @@ public class Player extends Entity{
         }
     }
     public void update() {
+        System.out.println(velocityX);
+        if (em.stopX==true) {
+            if (velocityX>=0) {
+                velocityX=0;
+                em.stopX=false;
+            }
+        }
+        if (em.stopXR==true) {
+            if (velocityX<=0) {
+                velocityX=0;
+                em.stopXR=false;
+            }
+        }
+        if (grounded==true) {
+            XGravity=0.3f;
+        }
+        else {
+            XGravity=0.2f;
+        }
         if (em.k.sRightPressed==false) {
             if (worldY>=em.maxWorldVert*em.resTileSize+3*em.resTileSize) {
             worldX=300;

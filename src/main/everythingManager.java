@@ -27,7 +27,11 @@ public class everythingManager extends JPanel implements Runnable{
     public int worldWidth=maxWorldHoriz*resTileSize;
     public int worldHeight=maxWorldVert*resTileSize;
     public int boomTotal=0;
-    public boolean showHitboxes=true;
+    public boolean showHitboxes=false;
+    public boolean showBoomLine=true;
+    public boolean stopX=false;
+    public boolean disableGravity=false;
+    public boolean stopXR=false;
     public final int FPS=60;
     public tileManager tileM=new tileManager(this);
     public CollisionChecker cChecker=new CollisionChecker(this);

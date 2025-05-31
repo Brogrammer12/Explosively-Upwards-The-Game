@@ -18,6 +18,7 @@ public class BackgroundDrawer {
     public void backgroundLoader() {
         try {
             em.backgrounds[0]=ImageIO.read(getClass().getResourceAsStream("/resources/bgs/skyBackground2.png"));
+            em.backgrounds[2]=ImageIO.read(getClass().getResourceAsStream("/resources/bgs/Factory.png"));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

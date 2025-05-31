@@ -20,7 +20,9 @@ public class Entity {
     public boolean falling=false;
     public boolean standing=false;
     public float velocityY=0;
+    public float velocityX=0;
     public float gravity=0.4f;
+    public float XGravity=0.4f;
     public float jumpStrength=-10f;
     public float maxFallSpeed=15;
     public boolean grounded=false;

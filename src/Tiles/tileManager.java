@@ -20,7 +20,7 @@ public class tileManager {
         this.em=em;
         newMap(realFile);
         mapTileNum=new int[em.maxWorldHoriz][em.maxWorldVert];
-        tile=new tile[10];
+        tile=new tile[11];
         tileLoader();
         loadMap(realFile);
     }
@@ -55,6 +55,15 @@ public class tileManager {
             tile[7].collision=true;
             tile[7].grounded=false;
             tile[7].destructible=true;
+            tile[8]=new tile();
+            tile[8].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/leftTileFactory.png"));
+            tile[8].collision=true;
+            tile[9]=new tile();
+            tile[9].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/middleTileFactory.png"));
+            tile[9].collision=true;
+            tile[10]=new tile();
+            tile[10].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/rightTileFactory.png"));
+            tile[10].collision=true;
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

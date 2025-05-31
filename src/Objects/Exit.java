@@ -49,7 +49,7 @@ everythingManager em;
                     worldY-=moveSpeed;
                     em.p1.screenY-=moveSpeed;
                     em.p1.worldY-=moveSpeed;
-                    if (em.p1.screenY<=-em.resTileSize*2-30) {
+                    if (em.p1.screenY<=-em.resTileSize*2-65) {
                         em.bDrawer.index=1;
                         for (int i=0; i<em.tileM.mapTileNum.length; i++) {
                             for (int e=0; e<em.tileM.mapTileNum[i].length; e++) {
@@ -58,9 +58,11 @@ everythingManager em;
                         }
                         g2.setFont(new Font("Pixeboy",Font.BOLD, 30));
                         g2.setColor(Color.WHITE);
-                        g2.drawString("Level 2", (em.maxScreenHoriz*em.resTileSize)/2, (em.maxScreenVert*em.resTileSize)/2);
+                       int nextLevel=em.p1.Level+1;
+                        g2.drawString("Level: "+nextLevel, (em.maxScreenHoriz*em.resTileSize)/2, (em.maxScreenVert*em.resTileSize)/2);
                     }
                 if (em.p1.screenY<=-em.resTileSize*3-200) {
+                    em.bDrawer.index=2;
                     em.k.sUpPressed=false;
                     em.k.sRightPressed=false;
                     em.tileM.newMap("/resources/maps/map2.txt");
