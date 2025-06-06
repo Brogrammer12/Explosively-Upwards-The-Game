@@ -1,5 +1,6 @@
 package Objects;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.IOException;
@@ -73,6 +74,7 @@ public class bombBoi extends object{
     }
     @Override
     public void objFunction(Graphics2D g2) {
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
             screenX=(int) (worldX-em.p1.worldX+em.p1.screenX);
         screenY=(int) (worldY-em.p1.worldY+em.p1.screenY);
         x1=screenX+em.resTileSize/2;
@@ -94,7 +96,6 @@ public class bombBoi extends object{
      if (Math.abs(em.p1.screenY-newY)>=8*em.resTileSize) {
         newY=-6*em.resTileSize;
      }
-     System.out.println("Worked");
         }
         else {
              if (em.k.rightPressed==true && em.p1.collisionOn==false) {
@@ -183,7 +184,6 @@ public class bombBoi extends object{
                             em.disableGravity=true;
                           }
                           else {
-                            System.out.println("X worked");
                             //em.disableGravity=false;
                             //em.p1.velocityX-=20;
                           }
@@ -193,7 +193,6 @@ public class bombBoi extends object{
                             em.disableGravity=true;
                           }
                           else {
-                            System.out.println("Y worked");
                             em.stopX=true;
                             em.p1.velocityY-=10;
                             em.p1.velocityX-=10;
@@ -208,7 +207,6 @@ public class bombBoi extends object{
                             em.disableGravity=true;
                           }
                           else {
-                            System.out.println("X worked");
                             //em.disableGravity=false;
                             //em.p1.velocityX-=20;
                           }
@@ -218,7 +216,6 @@ public class bombBoi extends object{
                             em.disableGravity=true;
                           }
                           else {
-                            System.out.println("Y worked");
                             em.stopXR=true;
                             em.p1.velocityY-=10;
                             em.p1.velocityX+=10;

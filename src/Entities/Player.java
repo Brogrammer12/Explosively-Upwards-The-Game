@@ -1,10 +1,15 @@
 package Entities;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.File;
 
 import javax.imageio.ImageIO;
 
@@ -26,6 +31,9 @@ public class Player extends Entity{
     public int timer=0;
     public int health=3;
     public int Level=1;
+    public float alpha=1.0f;
+    public boolean warmup=false;
+    public Font fontPixeboy;
     public BufferedImage left1,leftIdle2, leftIdle3, right1, rightIdle2, rightIdle3, 
     bomb, bombPlanted, rWalk1, rWalk2, rWalk3, rWalk4, lWalk1, lWalk2, lWalk3, lWalk4,
      crouchLeft, crouchRight, jumpRight, jumpLeft, pRightBoom1, pRightBoom2, pLeftBoom1,
@@ -34,7 +42,9 @@ public class Player extends Entity{
         screenX=em.screenWidth/2-(em.resTileSize*3)/2;
         screenY=em.screenHeight/2-(em.resTileSize*3)/2;
         this.em=em;
-        solidArea=new Rectangle(0, 0, em.resTileSize*3, em.resTileSize*3);
+        solidArea=new Rectangle(20, 0, em.resTileSize*2+10, em.resTileSize*3);
+        defaultSolidArea.x=20;
+        defaultSolidArea.y=0;
         worldX=300;
         worldY=(em.maxWorldVert*em.resTileSize)-500;
         bombX=(int) (worldX+(em.resTileSize*3)/2+40);
@@ -42,6 +52,16 @@ public class Player extends Entity{
         moveSpeed=4;
         Health=new BufferedImage[11];
         MoveHealth=new BufferedImage[11];
+        try {
+            fontPixeboy=Font.createFont(Font.TRUETYPE_FONT, new File("src/Fonts/PixelifySans-VariableFont_wght.ttf"));
+            fontPixeboy=fontPixeboy.deriveFont(30f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(fontPixeboy);
+
+        }
+        catch (FontFormatException | IOException e) {
+            e.printStackTrace();
+        }
         imageLoader();
     }
     public void imageLoader() {
@@ -98,7 +118,6 @@ public class Player extends Entity{
         }
     }
     public void update() {
-        System.out.println(velocityX);
         if (em.stopX==true) {
             if (velocityX>=0) {
                 velocityX=0;
@@ -161,12 +180,12 @@ public class Player extends Entity{
         em.cChecker.checkPlayer(this);
         switch (direction) {
             case "left":
-            if (em.k.upPressed==true && grounded==true) {
+            if (em.k.upPressed==true && grounded==true && em.k.sRightPressed==false && em.k.sUpPressed==false) {
                     velocityY-=10;
                 }
             break;
             case "right":
-                if (em.k.upPressed==true && grounded==true) {
+                if (em.k.upPressed==true && grounded==true && em.k.sRightPressed==false && em.k.sUpPressed==false) {
                     velocityY-=10;
                 }
             break;
@@ -253,6 +272,14 @@ public class Player extends Entity{
         }
     }
     public void draw(Graphics2D g2) {
+         if (warmup==false) {
+            Graphics2D g2d=g2; // Dummy execution to trigger JIT optimization
+    g2d.setFont(fontPixeboy);
+    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+    g2d.setColor(Color.MAGENTA);
+    g2d.drawString("Warming Up...", 670, 120);
+warmup=true;
+        }
         BufferedImage image=null;
         if (event==true) {
             if (boom==true) {
@@ -421,6 +448,28 @@ public class Player extends Entity{
             g2.setColor(Color.RED);
         g2.drawRect(screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
         //this code shows player hitbox
+        }
+    if (em.m.rightClicked==true && Move==true) {
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+            g2.setFont(fontPixeboy);
+            g2.setColor(Color.MAGENTA);
+            g2.drawString("Subspace Grenade", 670, 120);
+            alpha-=0.02f;
+            if (alpha<0) {
+                alpha=1.0f;
+                em.m.rightClicked=false;
+            }
+        }
+         else if(em.m.rightClicked==true && Move==false) {
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+            g2.setFont(fontPixeboy);
+            g2.setColor(Color.RED);
+            g2.drawString("Explosive Grenade", 670, 120);
+            alpha-=0.02f;
+            if (alpha<0) {
+                alpha=1.0f;
+                em.m.rightClicked=false;
+            }
         }
     }
 }

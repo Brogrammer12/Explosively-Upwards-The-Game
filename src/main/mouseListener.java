@@ -10,6 +10,7 @@ public class mouseListener implements MouseMotionListener, MouseListener{
     public int mouseY;
     public boolean mouseMode=true;
     public boolean mouseClicked=false;
+    public boolean rightClicked=false;
     public mouseListener(everythingManager em) {
         this.em=em;
     }
@@ -28,10 +29,12 @@ public class mouseListener implements MouseMotionListener, MouseListener{
         else if (button==MouseEvent.BUTTON3) {
             if (em.p1.Move==false && em.k.hasPressed==false) {
                 em.p1.Move=true;
+                rightClicked=true;
                 em.k.hasPressed=true;
             }
             else if(em.p1.Move==true && em.k.hasPressed==false) {
                 em.p1.Move=false;
+                rightClicked=true;
                 em.k.hasPressed=true;
             }
         }

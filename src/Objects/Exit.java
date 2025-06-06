@@ -78,8 +78,8 @@ everythingManager em;
         }
          solidArea.x=0;
         solidArea.y=0;
-        em.p1.solidArea.x=0;
-        em.p1.solidArea.y=0;
+        em.p1.solidArea.x=em.p1.defaultSolidArea.x;
+        em.p1.solidArea.y=em.p1.defaultSolidArea.y;
             g2.drawImage(image, screenX, screenY, 96, em.resTileSize, null);
             if (em.showHitboxes==true) {
                 g2.setColor(Color.BLUE);
