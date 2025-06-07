@@ -19,10 +19,4 @@ public class meleeRoman extends Entity{
             e.printStackTrace();
         }
     }
-    public void update() {
-
-    }
-    public void draw() {
-
-    }
 }
