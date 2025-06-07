@@ -35,13 +35,13 @@ everythingManager em;
         solidArea.y=worldY;
         em.p1.solidArea.x=(int) em.p1.worldX;
         em.p1.solidArea.y=(int) em.p1.worldY;
-        if (solidArea.intersects(em.p1.solidArea) && em.p1.Level==1) {
-             if (em.p1.worldX<worldX-25) {
+        if (solidArea.intersects(em.p1.solidArea)) {
+             if (em.p1.worldX<worldX-25 && em.p1.grounded==true) {
                 em.k.sRightPressed=true;
                 em.p1.worldX+=em.p1.moveSpeed;
         
             }
-            else if(em.p1.worldX>=worldX-100) {
+            else if(em.p1.worldX>=worldX-100 && em.p1.grounded==true) {
                 em.k.sRightPressed=false;
                 em.p1.idle=true;
                 em.k.sUpPressed=true;
@@ -70,6 +70,8 @@ everythingManager em;
                     em.p1.Level++;
                     em.p1.worldX=300;
                     em.p1.worldY=(em.maxWorldVert*em.resTileSize)-500;
+                    worldX=1200;
+                    worldY=290;
                     em.p1.screenX=em.screenWidth/2-(em.resTileSize*3)/2;
                     em.p1.screenY=em.screenHeight/2-(em.resTileSize*3)/2;
                 }
