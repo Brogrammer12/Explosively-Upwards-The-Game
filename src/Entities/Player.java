@@ -18,7 +18,6 @@ import main.everythingManager;
 public class Player extends Entity{
     public int screenX;
     public int screenY;
-    everythingManager em;
     public boolean bombGoing=false;
     public boolean leftOrRight=false;
     public boolean idle=true;
@@ -39,10 +38,10 @@ public class Player extends Entity{
      crouchLeft, crouchRight, jumpRight, jumpLeft, pRightBoom1, pRightBoom2, pLeftBoom1,
       pLeftBoom2;
     public Player(everythingManager em) {
+        super(em);
         screenX=em.screenWidth/2-(em.resTileSize*3)/2;
         screenY=em.screenHeight/2-(em.resTileSize*3)/2;
-        this.em=em;
-        solidArea=new Rectangle(20, 0, em.resTileSize*2+10, em.resTileSize*3);
+        solidArea=new Rectangle(10, 0, em.resTileSize*2+10, em.resTileSize*3);
         defaultSolidArea.x=20;
         defaultSolidArea.y=0;
         worldX=300;
@@ -178,6 +177,7 @@ public class Player extends Entity{
         collisionOn=false;
         falling=false;
         em.cChecker.checkPlayer(this);
+        em.cChecker.checkEntity(this, em.meleeroman);
         switch (direction) {
             case "left":
             if (em.k.upPressed==true && grounded==true && em.k.sRightPressed==false && em.k.sUpPressed==false) {
@@ -280,7 +280,7 @@ public class Player extends Entity{
     g2d.drawString("Warming Up...", 670, 120);
 warmup=true;
         }
-        BufferedImage image=null;
+        image=null;
         if (event==true) {
             if (boom==true) {
                 if (spriteReset==false) {

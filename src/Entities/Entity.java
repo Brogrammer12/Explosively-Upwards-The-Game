@@ -1,12 +1,16 @@
 package Entities;
 
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+
+import main.everythingManager;
 
 public class Entity {
     public float worldX, worldY;
       public BufferedImage bombHealth;
       public BufferedImage[] Health, MoveHealth;
+      public BufferedImage image=null;
     public String direction="left";
     public int moveSpeed;
     public int SpriteNum=0;
@@ -26,4 +30,8 @@ public class Entity {
     public float jumpStrength=-10f;
     public float maxFallSpeed=15;
     public boolean grounded=false;
+    everythingManager em;
+    public Entity(everythingManager em) {
+      this.em=em;
+    }
 }

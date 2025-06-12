@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Graphics2D;
 
+import Entities.meleeRoman;
 import Objects.Exit;
 import Objects.bombBoi;
 
@@ -65,6 +66,7 @@ public class instantiator {
     }
     public void setObjects() {
         em.obj[0]=new Exit(em);
+        em.npc[0]=new meleeRoman(em);
     }
     
 }

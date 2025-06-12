@@ -8,7 +8,9 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import Entities.Entity;
 import Entities.Player;
+import Entities.meleeRoman;
 import Objects.object;
 import Tiles.BackgroundDrawer;
 import Tiles.tile;
@@ -37,6 +39,8 @@ public class everythingManager extends JPanel implements Runnable{
     public CollisionChecker cChecker=new CollisionChecker(this);
     public object[] objBomb=new object[20];
     public object[] obj=new object[10];
+    public Entity[] npc=new Entity[10];
+    public meleeRoman meleeroman=new meleeRoman(this);
     public BufferedImage[] backgrounds=new BufferedImage[10];
     public BackgroundDrawer bDrawer=new BackgroundDrawer(this);
     public instantiator instantiate=new instantiator(this);
@@ -82,6 +86,7 @@ public class everythingManager extends JPanel implements Runnable{
     }
     public void update() {
         p1.update();
+        meleeroman.update();
         instantiate.setBombs();
     }
     public void paintComponent(Graphics g) {
@@ -90,6 +95,7 @@ public class everythingManager extends JPanel implements Runnable{
         bDrawer.drawBackground(backgrounds[bDrawer.index], g2);
         tileM.draw(g2);
         p1.draw(g2);
+        meleeroman.draw(g2);
         for (int i=0; i<objBomb.length; i++) {
             if (objBomb[i]!=null) {
                 objBomb[i].objFunction(g2);

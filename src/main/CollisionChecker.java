@@ -236,4 +236,29 @@ public class CollisionChecker {
             }
         
     }
+    public void checkEntity(Entity player,Entity entity) {
+        entity.solidArea.x=(int) entity.worldX;
+         entity.solidArea.y=(int) entity.worldY;
+         player.solidArea.x=(int) player.worldX;
+         player.solidArea.y=(int) player.worldY;
+if (em.k.leftPressed==true) {
+    player.solidArea.x-=player.moveSpeed;
+if (player.solidArea.intersects(entity.solidArea)) {
+    player.collisionOn=true;
+}
+}
+else if(em.k.rightPressed==true) {
+    player.solidArea.x+=player.moveSpeed;
+if (player.solidArea.intersects(entity.solidArea)) {
+    player.collisionOn=true;
+}
+}
+
+
+
+         entity.solidArea.x=entity.defaultSolidArea.x;
+         entity.solidArea.y=entity.defaultSolidArea.y;
+         player.solidArea.x=player.defaultSolidArea.x;
+         player.solidArea.y=player.defaultSolidArea.y;
+    }
 }
