@@ -66,7 +66,6 @@ everythingManager em;
                     em.k.sUpPressed=false;
                     em.k.sRightPressed=false;
                     em.tileM.newMap("/resources/maps/map2.txt");
-                    em.tileM.loadMap("/resources/maps/map2.txt");
                     em.p1.Level++;
                     em.p1.worldX=300;
                     em.p1.worldY=(em.maxWorldVert*em.resTileSize)-500;

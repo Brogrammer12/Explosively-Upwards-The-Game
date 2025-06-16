@@ -7,6 +7,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
+import java.io.File;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import Objects.bombBoi;
 import main.everythingManager;
@@ -15,47 +18,46 @@ public class tileManager {
     everythingManager em;
     public tile[] tile;
     public int mapTileNum[][];
-    public String realFile="/resources/maps/map1.txt";
+    public String realFile="level 1.tmj";
     public tileManager(everythingManager em) {
         this.em=em;
         newMap(realFile);
-        mapTileNum=new int[em.maxWorldHoriz][em.maxWorldVert];
-        tile=new tile[11];
+        //mapTileNum=new int[em.maxWorldHoriz][em.maxWorldVert];
+        tile=new tile[20];
         tileLoader();
-        loadMap(realFile);
     }
     public void tileLoader() {
         try {
             tile[0]=new tile();
             tile[0].image=null;
-            tile[1]=new tile();
-            tile[1].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/leftTile.png"));
-            tile[1].collision=true;
             tile[2]=new tile();
-            tile[2].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/middleTile.png"));
+            tile[2].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/leftTile.png"));
             tile[2].collision=true;
-            tile[3]=new tile();
-            tile[3].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/rightTile.png"));
-            tile[3].collision=true;
             tile[4]=new tile();
-            tile[4].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallLeft.png"));
+            tile[4].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/middleTile.png"));
             tile[4].collision=true;
-            tile[4].grounded=false;
-            tile[5]=new tile();
-            tile[5].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallRight.png"));
-            tile[5].collision=true;
-            tile[5].grounded=false;
             tile[6]=new tile();
-            tile[6].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallLeftCracked.png"));
+            tile[6].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/rightTile.png"));
             tile[6].collision=true;
-            tile[6].grounded=false;
-            tile[6].destructible=true;
-            tile[7]=new tile();
-            tile[7].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallRightCracked.png"));
-            tile[7].collision=true;
-            tile[7].grounded=false;
-            tile[7].destructible=true;
             tile[8]=new tile();
+            tile[8].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallLeft.png"));
+            tile[8].collision=true;
+            tile[8].grounded=false;
+            tile[10]=new tile();
+            tile[10].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallRight.png"));
+            tile[10].collision=true;
+            tile[10].grounded=false;
+            tile[9]=new tile();
+            tile[9].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallLeftCracked.png"));
+            tile[9].collision=true;
+            tile[9].grounded=false;
+            tile[9].destructible=true;
+            tile[11]=new tile();
+            tile[11].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallRightCracked.png"));
+            tile[11].collision=true;
+            tile[11].grounded=false;
+            tile[11].destructible=true;
+           /*  tile[8]=new tile();
             tile[8].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/leftTileFactory.png"));
             tile[8].collision=true;
             tile[9]=new tile();
@@ -63,80 +65,37 @@ public class tileManager {
             tile[9].collision=true;
             tile[10]=new tile();
             tile[10].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/rightTileFactory.png"));
-            tile[10].collision=true;
+            tile[10].collision=true;*/
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
-    public void loadMap(String filePath) {
-        try {
-            InputStream is=getClass().getResourceAsStream(filePath);
-        BufferedReader br=new BufferedReader(new InputStreamReader(is));
-        int col=0;
-        int row=0;
-        while (col<em.maxWorldHoriz && row<em.maxWorldVert) {
-                String line=br.readLine();
-                while (col<em.maxWorldHoriz) {
-                    String[] numbers=line.split(" ");
-                    int num=Integer.parseInt(numbers[col]);
-                    mapTileNum[col] [row]=num;
-                    col++;
-                }
-                if (col==em.maxWorldHoriz) {
-                    col=0;
-                    row++;
-                }
-        }
-        br.close();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     public void newMap(String fileName) {
         try {
-            int numCol = 0;
-            int numRow = 0;
-    
-            // Read the map file to determine the number of columns and rows
-            InputStream is = getClass().getResourceAsStream(fileName);
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            String line;
-            while ((line = br.readLine()) != null) {
-                String numbers[] = line.split(" ");
-                numRow++;
-                numCol = numbers.length;
-            }
-            br.close();
-    
-            // Load the map data into a new array
-            is = getClass().getResourceAsStream(fileName);
-            br = new BufferedReader(new InputStreamReader(is));
-            int[][] newMapTileNum = new int[numCol][numRow];
-            int row = 0;
-            while ((line = br.readLine()) != null) {
-                String numbers[] = line.split(" ");
-                for (int col = 0; col < numCol; col++) {
-                    newMapTileNum[col][row] = Integer.parseInt(numbers[col]);
-                }
-                row++;
-            }
-            br.close();
-    
-            if (numCol > 0 && numRow > 0) {
-                realFile = fileName;
-                em.maxWorldVert = numRow;
-                em.maxWorldHoriz = numCol;
-    
-                // Update the mapTileNum array dimensions and copy data
-                mapTileNum = new int[numCol][numRow];
-                for (int i = 0; i < numCol; i++) {
-                    for (int j = 0; j < numRow; j++) {
-                        mapTileNum[i][j] = newMapTileNum[i][j];
-                    }
+            ObjectMapper mapper=new ObjectMapper();
+            JsonNode root=mapper.readTree(new File(fileName));
+            JsonNode dataNode=root.get("layers").get(0).get("data");
+            JsonNode heightNode=root.get("layers").get(0).get("height");
+            JsonNode widthNode=root.get("layers").get(0).get("width");
+            int[] data=mapper.readValue(dataNode.toString(), int[].class);
+            int height=Integer.parseInt(heightNode.toString());
+            int width=Integer.parseInt(widthNode.toString());
+            mapTileNum=new int[width][height];
+            em.maxWorldHoriz=width;
+            em.maxWorldVert=height;
+            for (int row=0; row<height; row++) {
+                for (int col=0; col<width; col++) {
+                    mapTileNum[col] [row]=data[row*width+col];
                 }
             }
+            for (int row=0; row<height; row++) {
+                for (int col=0; col<width; col++) {
+                    System.out.print(mapTileNum[col][row]+" ");
+                }
+                System.out.println();
+            }
+            //System.exit(0);
         } catch (Exception e) {
             e.printStackTrace();
         }

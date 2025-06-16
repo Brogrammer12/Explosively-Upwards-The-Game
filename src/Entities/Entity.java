@@ -11,6 +11,8 @@ public class Entity {
       public BufferedImage bombHealth;
       public BufferedImage[] Health, MoveHealth;
       public BufferedImage image=null;
+      public int healtha;
+      public int maxHealth;
     public String direction="left";
     public int moveSpeed;
     public int SpriteNum=0;

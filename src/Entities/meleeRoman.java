@@ -13,6 +13,8 @@ public class meleeRoman extends Entity{
     public meleeRoman(everythingManager em) {
         super(em);
         direction="right";
+        healtha=3;
+        maxHealth=3;
         solidArea=new Rectangle(20, 0, em.resTileSize*2-10, em.resTileSize*3-20);
         defaultSolidArea.x=20;
         defaultSolidArea.y=0;
@@ -32,7 +34,8 @@ public class meleeRoman extends Entity{
         }
     }
     public void update() {
-        spriteCounter++;
+        if (healtha>=2) {
+            spriteCounter++;
         if (spriteCounter>=25) {
             spriteCounter=0;
             if (SpriteNum==0) {
@@ -57,15 +60,17 @@ public class meleeRoman extends Entity{
         else if(direction=="right") {
             worldX+=2;
         }
+        }
     }
     public void draw(Graphics2D g2) {
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+        if (healtha>=2) {
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
          image=null;
          solidArea.x=(int) worldX;
          solidArea.y=(int) worldY;
          em.p1.solidArea.x=(int) em.p1.worldX;
          em.p1.solidArea.y=(int) em.p1.worldY;
-         if (solidArea.intersects(em.p1.solidArea)) {
+            if (solidArea.intersects(em.p1.solidArea)) {
             if (direction=="left") {
                 em.p1.velocityX-=10;
                 em.stopX=true;
@@ -75,6 +80,7 @@ public class meleeRoman extends Entity{
                 em.stopXR=true;
             }
          }
+         
          switch (direction) {
             case "left":
             if (SpriteNum==0) {
@@ -99,11 +105,13 @@ public class meleeRoman extends Entity{
          em.p1.solidArea.y=em.p1.defaultSolidArea.y;
           int screenX=(int) (worldX-em.p1.worldX+em.p1.screenX);
             int screenY=(int) (worldY-em.p1.worldY+em.p1.screenY);
-            g2.drawImage(image, screenX, screenY, em.resTileSize*3-20, em.resTileSize*3-20, null);
+                g2.drawImage(image, screenX, screenY, em.resTileSize*3-20, em.resTileSize*3-20, null);
             if (em.showHitboxes==true) {
             g2.setColor(Color.RED);
         g2.drawRect(screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
         //this code shows player hitbox
         }
+           
+        } 
     }
 }

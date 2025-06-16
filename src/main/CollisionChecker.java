@@ -237,7 +237,8 @@ public class CollisionChecker {
         
     }
     public void checkEntity(Entity player,Entity entity) {
-        entity.solidArea.x=(int) entity.worldX;
+        if (entity.healtha>=2) {
+entity.solidArea.x=(int) entity.worldX;
          entity.solidArea.y=(int) entity.worldY;
          player.solidArea.x=(int) player.worldX;
          player.solidArea.y=(int) player.worldY;
@@ -260,5 +261,6 @@ if (player.solidArea.intersects(entity.solidArea)) {
          entity.solidArea.y=entity.defaultSolidArea.y;
          player.solidArea.x=player.defaultSolidArea.x;
          player.solidArea.y=player.defaultSolidArea.y;
+        }
     }
 }

@@ -117,6 +117,7 @@ public class Player extends Entity{
         }
     }
     public void update() {
+        System.out.println(worldX);
         if (em.stopX==true) {
             if (velocityX>=0) {
                 velocityX=0;

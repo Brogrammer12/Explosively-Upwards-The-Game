@@ -34,6 +34,7 @@ public class bombBoi extends object{
         this.em=em;
         this.index=index;
         this.direction=direction;
+        
         if (direction=="right") {
             if (em.k.downPressed==true) {
                 worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2+40);
@@ -117,6 +118,35 @@ public class bombBoi extends object{
             g2.drawLine(x1, y1, (int) (newX), (int) (newY));
         }
         em.cChecker.checkBomb(this);
+        solidArea.x=worldX;
+        solidArea.y=worldY;
+        for (int i=0; i<em.npc.length; i++) {
+            if (em.npc[i]!=null) {
+                if (em.npc[i].healtha>=2) {
+                    em.npc[i].solidArea.x=(int) em.npc[i].worldX;
+            em.npc[i].solidArea.y=(int) em.npc[i].worldY;
+            if (solidArea.intersects(em.npc[i].solidArea)) {
+                if (explode==false) {
+                    em.npc[i].healtha--;
+                    if (Move==true) {
+                        em.p1.bombsLeftMove+=5;
+                        //em.npc[i].velocityX+=10;
+                    }
+                    else {
+                        em.p1.bombsLeft+=5;
+                    }
+                }
+                bombTriggered=true;
+                explode=true;
+            }
+            //numIntersections=0;
+            em.npc[i].solidArea.x=em.npc[i].defaultSolidArea.x;
+            em.npc[i].solidArea.y=em.npc[i].defaultSolidArea.y;
+                }
+            }
+        }
+        solidArea.x=0;
+        solidArea.y=0;
         if (bombTriggered==false) {
             if (direction=="right") {
                 worldX+=moveSpeed;
@@ -251,6 +281,10 @@ public class bombBoi extends object{
                     }
         }
         g2.drawImage(image, screenX, screenY, em.resTileSize, em.resTileSize, null);
+        if (em.showHitboxes==true) {
+            g2.setColor(Color.RED);
+            g2.drawRect(screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
+        }
     }
 
 }
