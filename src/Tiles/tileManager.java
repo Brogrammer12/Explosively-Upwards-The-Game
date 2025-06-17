@@ -57,15 +57,15 @@ public class tileManager {
             tile[11].collision=true;
             tile[11].grounded=false;
             tile[11].destructible=true;
-           /*  tile[8]=new tile();
-            tile[8].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/leftTileFactory.png"));
-            tile[8].collision=true;
-            tile[9]=new tile();
-            tile[9].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/middleTileFactory.png"));
-            tile[9].collision=true;
-            tile[10]=new tile();
-            tile[10].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/rightTileFactory.png"));
-            tile[10].collision=true;*/
+            tile[3]=new tile();
+            tile[3].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/leftTileFactory.png"));
+            tile[3].collision=true;
+            tile[5]=new tile();
+            tile[5].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/middleTileFactory.png"));
+            tile[5].collision=true;
+            tile[7]=new tile();
+            tile[7].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/rightTileFactory.png"));
+            tile[7].collision=true;
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -84,16 +84,12 @@ public class tileManager {
             mapTileNum=new int[width][height];
             em.maxWorldHoriz=width;
             em.maxWorldVert=height;
+            em.worldWidth=em.maxWorldHoriz*em.resTileSize;
+            em.worldHeight=em.maxWorldVert*em.maxWorldVert;
             for (int row=0; row<height; row++) {
                 for (int col=0; col<width; col++) {
                     mapTileNum[col] [row]=data[row*width+col];
                 }
-            }
-            for (int row=0; row<height; row++) {
-                for (int col=0; col<width; col++) {
-                    System.out.print(mapTileNum[col][row]+" ");
-                }
-                System.out.println();
             }
             //System.exit(0);
         } catch (Exception e) {

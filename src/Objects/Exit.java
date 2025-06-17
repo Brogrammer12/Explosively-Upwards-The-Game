@@ -16,7 +16,7 @@ everythingManager em;
         this.em=em;
         solidArea.width=96;
         worldX=em.maxWorldHoriz*em.resTileSize-300;
-        worldY=300;
+        worldY=250;
         imageLoader();
     }
     public void imageLoader() {
@@ -65,12 +65,12 @@ everythingManager em;
                     em.bDrawer.index=2;
                     em.k.sUpPressed=false;
                     em.k.sRightPressed=false;
-                    em.tileM.newMap("/resources/maps/map2.txt");
+                    em.tileM.newMap("Level 2.tmj");
                     em.p1.Level++;
                     em.p1.worldX=300;
                     em.p1.worldY=(em.maxWorldVert*em.resTileSize)-500;
-                    worldX=1200;
-                    worldY=290;
+                    worldX=1500;
+                    worldY=790;
                     em.p1.screenX=em.screenWidth/2-(em.resTileSize*3)/2;
                     em.p1.screenY=em.screenHeight/2-(em.resTileSize*3)/2;
                 }

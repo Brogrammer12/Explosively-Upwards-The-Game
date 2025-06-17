@@ -48,7 +48,7 @@ public class CollisionChecker {
         tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityTopRow];
         tileNum2=em.tileM.mapTileNum[entityRightcol] [entityTopRow];
         if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
-            if (em.tileM.tile[tileNum1].grounded==false && em.tileM.tile[tileNum2].grounded==false) {
+            if (em.tileM.tile[tileNum1].grounded==false || em.tileM.tile[tileNum2].grounded==false) {
                 entity.velocityY=5;
                 ceiling=true;
             }
