@@ -66,6 +66,33 @@ public class tileManager {
             tile[7]=new tile();
             tile[7].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/rightTileFactory.png"));
             tile[7].collision=true;
+            tile[12]=new tile();
+            tile[12].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/leftTileGrand.png"));
+            tile[12].collision=true;
+            tile[13]=new tile();
+            tile[13].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/middleTileGrand.png"));
+            tile[13].collision=true;
+            tile[14]=new tile();
+            tile[14].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/rightTileGrand.png"));
+            tile[14].collision=true;
+            tile[15]=new tile();
+            tile[15].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallLeftCrackedGrand.png"));
+            tile[15].collision=true;
+            tile[15].grounded=false;
+            tile[15].destructible=true;
+            tile[16]=new tile();
+            tile[16].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallLeftGrand.png"));
+            tile[16].collision=true;
+            tile[16].grounded=false;
+            tile[17]=new tile();
+            tile[17].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallRightCrackedGrand.png"));
+            tile[17].collision=true;
+            tile[17].grounded=false;
+            tile[17].destructible=true;
+            tile[18]=new tile();
+            tile[18].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallRightGrand.png"));
+            tile[18].collision=true;
+            tile[18].grounded=false;
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

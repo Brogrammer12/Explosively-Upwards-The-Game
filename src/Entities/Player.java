@@ -117,7 +117,6 @@ public class Player extends Entity{
         }
     }
     public void update() {
-        System.out.println(em.k.sUpPressed);
         if (em.stopX==true) {
             if (velocityX>=0) {
                 velocityX=0;
