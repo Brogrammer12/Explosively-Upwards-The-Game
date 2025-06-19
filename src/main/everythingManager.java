@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfigTemplate;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
@@ -48,6 +49,11 @@ public class everythingManager extends JPanel implements Runnable{
     public keyManager k=new keyManager();
     public mouseListener m=new mouseListener(this);
     public Player p1=new Player(this);
+    public Point[] Exits= {
+        new Point(maxWorldHoriz*resTileSize-300, 250),
+        new Point(1500, 790),
+        new Point(990, 250)
+    };
     public everythingManager() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
