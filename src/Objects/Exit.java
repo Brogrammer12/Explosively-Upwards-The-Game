@@ -31,7 +31,6 @@ public String playerDirection;
     }
     @Override
     public void objFunction(Graphics2D g2) {
-        System.out.println(playerDirection);
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
          int screenX=(int) (worldX-em.p1.worldX+em.p1.screenX);
             int screenY=(int) (worldY-em.p1.worldY+em.p1.screenY);
@@ -73,10 +72,10 @@ public String playerDirection;
                         g2.drawString("Level: "+nextLevel, (em.maxScreenHoriz*em.resTileSize)/2, (em.maxScreenVert*em.resTileSize)/2);
                     }
                 if (em.p1.screenY<=-em.resTileSize*3-200) {
-                    em.bDrawer.index=2;
                     em.k.sUpPressed=false;
                     em.k.sRightPressed=false;
                     int nextLevel=em.p1.Level+1;
+                    em.bDrawer.index=nextLevel;
                     String level="Level "+nextLevel+".tmj";
                     em.tileM.newMap(level);
                     em.p1.Level++;

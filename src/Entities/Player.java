@@ -177,7 +177,7 @@ public class Player extends Entity{
         collisionOn=false;
         falling=false;
         em.cChecker.checkPlayer(this);
-        em.cChecker.checkEntity(this, em.meleeroman);
+        em.cChecker.checkEntity(this, em.npc);
         switch (direction) {
             case "left":
             if (em.k.upPressed==true && grounded==true && em.k.sRightPressed==false && em.k.sUpPressed==false) {

@@ -10,16 +10,18 @@ import javax.imageio.ImageIO;
 import main.everythingManager;
 public class meleeRoman extends Entity{
     public BufferedImage right1, right2, left1, left2;
-    public meleeRoman(everythingManager em) {
+    public int Level;
+    public meleeRoman(everythingManager em, int worldx, int worldy, int Level) {
         super(em);
         direction="right";
         healtha=3;
         maxHealth=3;
+        this.Level=Level;
         solidArea=new Rectangle(20, 0, em.resTileSize*2-10, em.resTileSize*3-20);
         defaultSolidArea.x=20;
         defaultSolidArea.y=0;
-       worldX=em.resTileSize*10;
-       worldY=em.resTileSize*em.maxWorldVert-410;
+       worldX=worldx;
+       worldY=worldy;
         imageLoader();
     }
     public void imageLoader() {
@@ -34,7 +36,8 @@ public class meleeRoman extends Entity{
         }
     }
     public void update() {
-        if (healtha>=2) {
+        if (Level==em.p1.Level) {
+            if (healtha>=2) {
             spriteCounter++;
         if (spriteCounter>=25) {
             spriteCounter=0;
@@ -61,9 +64,11 @@ public class meleeRoman extends Entity{
             worldX+=2;
         }
         }
+        }
     }
     public void draw(Graphics2D g2) {
-        if (healtha>=2) {
+        if (Level==em.p1.Level) {
+            if (healtha>=2) {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
          image=null;
          solidArea.x=(int) worldX;
@@ -113,5 +118,6 @@ public class meleeRoman extends Entity{
         }
            
         } 
+        }
     }
 }

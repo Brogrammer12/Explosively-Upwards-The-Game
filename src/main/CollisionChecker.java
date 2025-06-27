@@ -1,6 +1,7 @@
 package main;
 
 import Entities.Entity;
+import Entities.meleeRoman;
 import Objects.object;
 
 public class CollisionChecker {
@@ -236,31 +237,35 @@ public class CollisionChecker {
             }
         
     }
-    public void checkEntity(Entity player,Entity entity) {
-        if (entity.healtha>=2) {
-entity.solidArea.x=(int) entity.worldX;
-         entity.solidArea.y=(int) entity.worldY;
+    public void checkEntity(Entity player, meleeRoman[] entity) {
+        for (int i=0; i<entity.length; i++) {
+            if (entity[i]!=null) {
+                if (entity[i].healtha>=2 && entity[i].Level==em.p1.Level) {
+entity[i].solidArea.x=(int) entity[i].worldX;
+         entity[i].solidArea.y=(int) entity[i].worldY;
          player.solidArea.x=(int) player.worldX;
          player.solidArea.y=(int) player.worldY;
 if (em.k.leftPressed==true) {
     player.solidArea.x-=player.moveSpeed;
-if (player.solidArea.intersects(entity.solidArea)) {
+if (player.solidArea.intersects(entity[i].solidArea)) {
     player.collisionOn=true;
 }
 }
 else if(em.k.rightPressed==true) {
     player.solidArea.x+=player.moveSpeed;
-if (player.solidArea.intersects(entity.solidArea)) {
+if (player.solidArea.intersects(entity[i].solidArea)) {
     player.collisionOn=true;
 }
 }
 
 
 
-         entity.solidArea.x=entity.defaultSolidArea.x;
-         entity.solidArea.y=entity.defaultSolidArea.y;
+         entity[i].solidArea.x=entity[i].defaultSolidArea.x;
+         entity[i].solidArea.y=entity[i].defaultSolidArea.y;
          player.solidArea.x=player.defaultSolidArea.x;
          player.solidArea.y=player.defaultSolidArea.y;
+        }
+            }
         }
     }
 }

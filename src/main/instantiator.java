@@ -66,7 +66,9 @@ public class instantiator {
     }
     public void setObjects() {
         em.obj[0]=new Exit(em);
-        em.npc[0]=em.meleeroman;
+        em.npc[0]=new meleeRoman(em, em.resTileSize*10, em.resTileSize*em.maxWorldVert-410, 1);
+        em.npc[1]=new meleeRoman(em, em.resTileSize*14, em.resTileSize*em.maxWorldVert/2+200, 1);
+        em.npc[2]=new meleeRoman(em, em.resTileSize*12, em.resTileSize*em.maxWorldVert/2-1000, 1);
     }
     
 }
