@@ -36,7 +36,7 @@ public class Player extends Entity{
     public BufferedImage left1,leftIdle2, leftIdle3, right1, rightIdle2, rightIdle3, 
     bomb, bombPlanted, rWalk1, rWalk2, rWalk3, rWalk4, lWalk1, lWalk2, lWalk3, lWalk4,
      crouchLeft, crouchRight, jumpRight, jumpLeft, pRightBoom1, pRightBoom2, pLeftBoom1,
-      pLeftBoom2;
+      pLeftBoom2, lRun1, lRun2, lRun3, lRun4, rRun1, rRun2, rRun3, rRun4;
     public Player(everythingManager em) {
         super(em);
         screenX=em.screenWidth/2-(em.resTileSize*3)/2;
@@ -79,6 +79,14 @@ public class Player extends Entity{
             rWalk2=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRightWalking2.png"));
             rWalk3=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRightWalking3.png"));
             rWalk4=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRightWalking4.png"));
+            rRun1=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRunRight2.png"));
+            rRun2=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRunRight3.png"));
+            rRun3=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRunRight4.png"));
+            rRun4=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRunRight5.png"));
+            lRun1=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRunLeft2.png"));
+            lRun2=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRunLeft3.png"));
+            lRun3=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRunLeft4.png"));
+            lRun4=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRunLeft5.png"));
             crouchRight=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerCrouchRight.png"));
             crouchLeft=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerCrouchLeft.png"));
             jumpLeft=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerLeftJump.png"));
@@ -181,12 +189,12 @@ public class Player extends Entity{
         switch (direction) {
             case "left":
             if (em.k.upPressed==true && grounded==true && em.k.sRightPressed==false && em.k.sUpPressed==false) {
-                    velocityY-=10;
+                    velocityY-=12;
                 }
             break;
             case "right":
                 if (em.k.upPressed==true && grounded==true && em.k.sRightPressed==false && em.k.sUpPressed==false) {
-                    velocityY-=10;
+                    velocityY-=12;
                 }
             break;
         }
@@ -360,7 +368,24 @@ warmup=true;
                     }
                     }
                     else if(idle==false) {
-                        if (SpriteNum==0) {
+                        if (em.k.shiftPressed==true) {
+                            moveSpeed=6;
+                            if (SpriteNum==0) {
+                        image=lRun1;
+                    }
+                    else if(SpriteNum==1) {
+                            image=lRun2;
+                    }
+                    else if(SpriteNum==2) {
+                            image=lRun3;
+                    }
+                    else if(SpriteNum==3) {
+                        image=lRun4;
+                    }
+                        }
+                        else {
+                            moveSpeed=4;
+                            if (SpriteNum==0) {
                         image=lWalk1;
                     }
                     else if(SpriteNum==1) {
@@ -372,6 +397,7 @@ warmup=true;
                     else if(SpriteNum==3) {
                         image=lWalk4;
                     }
+                        }
                     }
                 }
                 break;
@@ -395,7 +421,24 @@ warmup=true;
                     }
                     }
                     else if(idle==false) {
-                        if (SpriteNum==0) {
+                        if (em.k.shiftPressed==true) {
+                            moveSpeed=6;
+                            if (SpriteNum==0) {
+                            image=rRun1;
+                    }
+                    else if(SpriteNum==1) {
+                            image=rRun2;
+                    }
+                    else if(SpriteNum==2) {
+                            image=rRun3;
+                    }
+                    else if(SpriteNum==3) {
+                        image=rRun4;
+                    }
+                        }
+                        else {
+                            moveSpeed=4;
+                            if (SpriteNum==0) {
                             image=rWalk1;
                     }
                     else if(SpriteNum==1) {
@@ -407,6 +450,7 @@ warmup=true;
                     else if(SpriteNum==3) {
                         image=rWalk4;
                     }
+                        }
                     }
                 }
                 break;

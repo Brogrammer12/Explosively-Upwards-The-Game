@@ -48,12 +48,13 @@ public class meleeRoman extends Entity{
                 SpriteNum=0;
             }
         }
+        collisionOn=false;
         em.cChecker.checkPlayer(this);
-        if (grounded==false && direction=="right") {
+        if ((grounded==false && direction=="right") || collisionOn==true) {
             direction="left";
             worldX-=2;
         }
-        else if(grounded==false && direction=="left") {
+        else if((grounded==false && direction=="left") || collisionOn==true) {
             direction="right";
             worldX+=2;
         }
