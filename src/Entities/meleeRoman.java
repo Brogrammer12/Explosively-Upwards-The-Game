@@ -10,12 +10,13 @@ import javax.imageio.ImageIO;
 import main.everythingManager;
 public class meleeRoman extends Entity{
     public BufferedImage right1, right2, left1, left2;
-    public int Level;
-    public meleeRoman(everythingManager em, int worldx, int worldy, int Level) {
+    public boolean Grand;
+    public meleeRoman(everythingManager em, int worldx, int worldy, int Level, boolean Grand) {
         super(em);
         direction="right";
         healtha=3;
         maxHealth=3;
+        this.Grand=Grand;
         this.Level=Level;
         solidArea=new Rectangle(20, 0, em.resTileSize*2-10, em.resTileSize*3-20);
         defaultSolidArea.x=20;
@@ -26,15 +27,24 @@ public class meleeRoman extends Entity{
     }
     public void imageLoader() {
         try {
-            right1=ImageIO.read(getClass().getResourceAsStream("/resources/Enemies/meleeRoman/meleeRomanRight1.png"));
+            if (Grand==false) {
+                right1=ImageIO.read(getClass().getResourceAsStream("/resources/Enemies/meleeRoman/meleeRomanSoldierRight1.png"));
+            right2=ImageIO.read(getClass().getResourceAsStream("/resources/Enemies/meleeRoman/meleeRomanSoldierRight2.png"));
+            left1=ImageIO.read(getClass().getResourceAsStream("/resources/Enemies/meleeRoman/meleeRomanSoldierLeft1.png"));
+            left2=ImageIO.read(getClass().getResourceAsStream("/resources/Enemies/meleeRoman/meleeRomanSoldierLeft2.png"));
+            }
+            else {
+                right1=ImageIO.read(getClass().getResourceAsStream("/resources/Enemies/meleeRoman/meleeRomanRight1.png"));
             right2=ImageIO.read(getClass().getResourceAsStream("/resources/Enemies/meleeRoman/meleeRomanRight2.png"));
             left1=ImageIO.read(getClass().getResourceAsStream("/resources/Enemies/meleeRoman/meleeRomanLeft1.png"));
             left2=ImageIO.read(getClass().getResourceAsStream("/resources/Enemies/meleeRoman/meleeRomanLeft2.png"));
+            }
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
+    @Override
     public void update() {
         if (Level==em.p1.Level) {
             if (healtha>=2) {
@@ -67,6 +77,7 @@ public class meleeRoman extends Entity{
         }
         }
     }
+    @Override
     public void draw(Graphics2D g2) {
         if (Level==em.p1.Level) {
             if (healtha>=2) {

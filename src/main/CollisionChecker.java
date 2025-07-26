@@ -2,6 +2,8 @@ package main;
 
 import Entities.Entity;
 import Entities.meleeRoman;
+import Objects.arrow;
+import Objects.bombBoi;
 import Objects.object;
 
 public class CollisionChecker {
@@ -180,7 +182,8 @@ public class CollisionChecker {
         }
     }
     public void checkBomb(object entity) {
-        int entityLeftWorldX=entity.worldX+entity.solidArea.x;
+        if (entity.getClass()==bombBoi.class) {
+            int entityLeftWorldX=entity.worldX+entity.solidArea.x;
         int entityRightWorldX=entity.worldX+entity.solidArea.x+entity.solidArea.width;
         int entityTopWorldY=entity.worldY+entity.solidArea.y;
         int entityBottomWorldY=entity.worldY+entity.solidArea.y+entity.solidArea.height;
@@ -205,7 +208,7 @@ public class CollisionChecker {
                 em.p1.bombsLeft=5;
             }
             }
-            if (em.p1.Move==false) {
+            if (entity.Move==false) {
                 entity.explode=true; // makes it explode on impact
                 entity.sideCol=true;
             }
@@ -232,7 +235,7 @@ public class CollisionChecker {
             }
             }
 
-           if (em.p1.Move==false) {
+           if (entity.Move==false) {
                 entity.explode=true; // makes it explode on impact
                 entity.sideCol=true;
             }
@@ -250,7 +253,7 @@ public class CollisionChecker {
         tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityBottomRow];
         tileNum2=em.tileM.mapTileNum[entityRightcol] [entityBottomRow];
         if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
-            if (em.p1.Move==false) {
+            if (entity.Move==false) {
                 entity.bombTriggered=true;
             entity.explode=true;
             }
@@ -269,9 +272,49 @@ public class CollisionChecker {
             catch (Exception e) {
 
             }
-        
+        }
+        else if(entity.getClass()==arrow.class) {
+            int entityLeftWorldX=entity.worldX+entity.solidArea.x;
+        int entityRightWorldX=entity.worldX+entity.solidArea.x+entity.solidArea.width;
+        int entityTopWorldY=entity.worldY+entity.solidArea.y;
+        int entityBottomWorldY=entity.worldY+entity.solidArea.y+entity.solidArea.height;
+        int entityLeftcol=entityLeftWorldX/em.resTileSize;
+        int entityRightcol=entityRightWorldX/em.resTileSize;
+        int entityTopRow=entityTopWorldY/em.resTileSize;
+        int entityBottomRow=entityBottomWorldY/em.resTileSize;
+        int tileNum1, tileNum2;
+        switch (entity.direction) {
+            case "left":
+            entityLeftcol=(entityLeftWorldX-entity.moveSpeed)/em.resTileSize;
+        tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityTopRow];
+        tileNum2=em.tileM.mapTileNum[entityLeftcol] [entityBottomRow];
+        if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
+            entity.kys=true;
+            
+        }
+            break;
+            case "right":
+            entityRightcol=(entityRightWorldX+entity.moveSpeed)/em.resTileSize;
+        tileNum1=em.tileM.mapTileNum[entityRightcol] [entityTopRow];
+        tileNum2=em.tileM.mapTileNum[entityRightcol] [entityBottomRow];
+        if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
+            entity.kys=true;
+            
+        }
+            break;
+        }
+        if (entity.kys!=true) {
+            entityBottomRow=(entityBottomWorldY+entity.moveSpeed)/em.resTileSize;
+        tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityBottomRow];
+        tileNum2=em.tileM.mapTileNum[entityRightcol] [entityBottomRow];
+        if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
+            entity.kys=true;
+            
+        }
+        }
+        }
     }
-    public void checkEntity(Entity player, meleeRoman[] entity) {
+    public void checkEntity(Entity player, Entity[] entity) {
         for (int i=0; i<entity.length; i++) {
             if (entity[i]!=null) {
                 if (entity[i].healtha>=2 && entity[i].Level==em.p1.Level) {

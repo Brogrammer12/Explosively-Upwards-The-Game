@@ -188,6 +188,9 @@ public class bombBoi extends object{
         }
         if (explode==true) {
                     image=boom;
+                    if (timer==1) {
+                        em.playSE(2);
+                    }
                     if (timer==1 && Move==true) {
                         worldx=(int) (newX+em.p1.worldX-em.p1.screenX);  
                         worldy=(int) (newY+em.p1.worldY-em.p1.screenY);

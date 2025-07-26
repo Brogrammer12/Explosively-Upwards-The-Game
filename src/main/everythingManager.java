@@ -36,11 +36,13 @@ public class everythingManager extends JPanel implements Runnable{
     public boolean disableGravity=false;
     public boolean stopXR=false;
     public final int FPS=60;
+    public Sound sound=new Sound();
     public tileManager tileM=new tileManager(this);
     public CollisionChecker cChecker=new CollisionChecker(this);
     public object[] objBomb=new object[20];
+    public object[] objArrow=new object[20];
     public object[] obj=new object[10];
-    public meleeRoman[] npc=new meleeRoman[10];
+    public Entity[] npc=new Entity[10];
     //public meleeRoman meleeroman=new meleeRoman(this);
     public BufferedImage[] backgrounds=new BufferedImage[10];
     public BackgroundDrawer bDrawer=new BackgroundDrawer(this);
@@ -55,6 +57,7 @@ public class everythingManager extends JPanel implements Runnable{
         new Point(990, 250)
     };
     public everythingManager() {
+        playMusic(0);
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
@@ -124,5 +127,16 @@ public class everythingManager extends JPanel implements Runnable{
         
         g2.dispose();
     }
-
+    public void playMusic(int i) {
+        sound.setfile(i);
+        sound.play();
+        sound.loop();
+    }
+    public void stopMusic() {
+        sound.stop();
+    }
+    public void playSE(int i) {
+        sound.setfile(i);
+        sound.play();
+    }
 }

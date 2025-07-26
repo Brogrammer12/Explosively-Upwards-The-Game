@@ -29,11 +29,18 @@ public class Entity {
     public float velocityX=0;
     public float gravity=0.4f;
     public float XGravity=0.4f;
+    public int Level;
     public float jumpStrength=-10f;
     public float maxFallSpeed=15;
     public boolean grounded=false;
     everythingManager em;
     public Entity(everythingManager em) {
       this.em=em;
+    }
+    public void update() {
+
+    }
+    public void draw(Graphics2D g2) {
+
     }
 }

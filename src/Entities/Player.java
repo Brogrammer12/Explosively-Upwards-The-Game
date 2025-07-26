@@ -124,6 +124,7 @@ public class Player extends Entity{
             e.printStackTrace();
         }
     }
+    @Override
     public void update() {
         if (em.stopX==true) {
             if (velocityX>=0) {
@@ -190,11 +191,13 @@ public class Player extends Entity{
             case "left":
             if (em.k.upPressed==true && grounded==true && em.k.sRightPressed==false && em.k.sUpPressed==false) {
                     velocityY-=12;
+                    em.playSE(3);
                 }
             break;
             case "right":
                 if (em.k.upPressed==true && grounded==true && em.k.sRightPressed==false && em.k.sUpPressed==false) {
                     velocityY-=12;
+                    em.playSE(3);
                 }
             break;
         }
@@ -279,6 +282,7 @@ public class Player extends Entity{
              }
         }
     }
+    @Override
     public void draw(Graphics2D g2) {
          if (warmup==false) {
             Graphics2D g2d=g2; // Dummy execution to trigger JIT optimization
