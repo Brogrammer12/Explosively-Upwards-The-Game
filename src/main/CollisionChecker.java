@@ -1,6 +1,7 @@
 package main;
 
 import Entities.Entity;
+import Entities.Player;
 import Entities.meleeRoman;
 import Objects.arrow;
 import Objects.bombBoi;
@@ -16,13 +17,15 @@ public class CollisionChecker {
         if (em.tileM!=null) {
             int entityLeftWorldX=(int) (entity.worldX+entity.solidArea.x);
         int entityRightWorldX=(int) (entity.worldX+entity.solidArea.x+entity.solidArea.width);
+        int entityMiddleWorldX=(int) (entity.worldX+entity.solidArea.x+entity.solidArea.width/2);
         int entityTopWorldY=(int) (entity.worldY+entity.solidArea.y);
         int entityBottomWorldY=(int) (entity.worldY+entity.solidArea.y+entity.solidArea.height);
         int entityLeftcol=entityLeftWorldX/em.resTileSize;
         int entityRightcol=entityRightWorldX/em.resTileSize;
+        int entityMiddlecol=entityMiddleWorldX/em.resTileSize;
         int entityTopRow=entityTopWorldY/em.resTileSize;
         int entityBottomRow=entityBottomWorldY/em.resTileSize;
-        int tileNum1, tileNum2;
+        int tileNum1, tileNum2, tileNum3;
         if (entity.worldX>em.worldWidth-em.resTileSize || entity.worldX<0 || entity.worldY>em.worldHeight-4*em.resTileSize || entity.worldY<0) {
             if (em.k.sUpPressed==false) {
                 entity.velocityY+=entity.gravity;
@@ -46,7 +49,8 @@ public class CollisionChecker {
         }
         else {
             try {
-                if (entity.grounded==false && ceiling==false && em.k.sUpPressed==false && em.disableGravity==false) {
+                if (entity.getClass()==Player.class) {
+                    if (entity.grounded==false && ceiling==false && em.k.sUpPressed==false && em.disableGravity==false) {
                     entityTopRow=(int) ((entityTopWorldY-entity.velocityY)/em.resTileSize);
         tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityTopRow];
         tileNum2=em.tileM.mapTileNum[entityRightcol] [entityTopRow];
@@ -60,13 +64,15 @@ public class CollisionChecker {
                 else {
                     ceiling=false;
                 }
+                }
                 if (em.k.sUpPressed==false && em.disableGravity==false) {
                     entityBottomRow=(int) ((entityBottomWorldY+entity.velocityY)/em.resTileSize);
         tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityBottomRow];
         tileNum2=em.tileM.mapTileNum[entityRightcol] [entityBottomRow];
-        if ((em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true)) {
+        tileNum3=em.tileM.mapTileNum[entityMiddlecol] [entityBottomRow];
+        if ((em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true || em.tileM.tile[tileNum3].collision==true)) {
             if (entity.velocityY>=0) {
-                entity.velocityY=0;
+               entity.velocityY=0;
                 if (entity.velocityX!=0) {
                     if (em.stopX==true) {
                         entity.velocityX+=entity.XGravity;
@@ -125,8 +131,8 @@ public class CollisionChecker {
             }
         }
         try {
-            if (em.m.mouseMode==false) {
-                if (em.k.sUpPressed==false) {
+            if (em.m.mouseMode==false || entity.getClass()!=Player.class) {
+                if (em.k.sUpPressed==false || entity.getClass()!=Player.class) {
                 switch (entity.direction) {
             case "left":
             entityLeftcol=(entityLeftWorldX-entity.moveSpeed)/em.resTileSize;
@@ -153,23 +159,27 @@ public class CollisionChecker {
             }
             else if (em.m.mouseMode==true) {
                 if (em.k.sUpPressed==false) {
-           if (em.k.leftPressed==true) {
+           if (em.k.leftPressed==true || em.p1.velocityX!=0) {
             entityLeftcol=(entityLeftWorldX-entity.moveSpeed)/em.resTileSize;
         tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityTopRow];
         tileNum2=em.tileM.mapTileNum[entityLeftcol] [entityBottomRow];
         if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
             if (em.tileM.tile[tileNum1].grounded==false || em.tileM.tile[tileNum2].grounded==false) {
                 entity.collisionOn=true;
+                em.stopX=false;
+                entity.velocityX=0;
             }
         }
            }
-           else if (em.k.rightPressed==true) {
+           else if (em.k.rightPressed==true || em.p1.velocityX!=0) {
             entityRightcol=(entityRightWorldX+entity.moveSpeed)/em.resTileSize;
         tileNum1=em.tileM.mapTileNum[entityRightcol] [entityTopRow];
         tileNum2=em.tileM.mapTileNum[entityRightcol] [entityBottomRow];
         if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
             if (em.tileM.tile[tileNum1].grounded==false || em.tileM.tile[tileNum2].grounded==false) {
                 entity.collisionOn=true;
+                em.stopXR=false;
+                entity.velocityX=0;
             }
         }
            }

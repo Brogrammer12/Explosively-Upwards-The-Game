@@ -11,6 +11,7 @@ import main.everythingManager;
 public class meleeRoman extends Entity{
     public BufferedImage right1, right2, left1, left2;
     public boolean Grand;
+    public boolean subBomb=false;
     public meleeRoman(everythingManager em, int worldx, int worldy, int Level, boolean Grand) {
         super(em);
         direction="right";
@@ -60,11 +61,11 @@ public class meleeRoman extends Entity{
         }
         collisionOn=false;
         em.cChecker.checkPlayer(this);
-        if ((grounded==false && direction=="right") || collisionOn==true) {
+        if ((grounded==false && direction.equals("right")) || collisionOn==true && direction.equals("right")) {
             direction="left";
             worldX-=2;
         }
-        else if((grounded==false && direction=="left") || collisionOn==true) {
+        else if((grounded==false && direction.equals("left")) || collisionOn==true && direction.equals("left")) {
             direction="right";
             worldX+=2;
         }
@@ -80,20 +81,37 @@ public class meleeRoman extends Entity{
     @Override
     public void draw(Graphics2D g2) {
         if (Level==em.p1.Level) {
+            Rectangle playerArea=new Rectangle(em.p1.solidArea.x, em.p1.solidArea.y, em.p1.solidArea.width,em.p1.solidArea.height);
+            Rectangle thisArea=new Rectangle(solidArea.x, solidArea.y, solidArea.width, solidArea.height);
             if (healtha>=2) {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
          image=null;
-         solidArea.x=(int) worldX;
-         solidArea.y=(int) worldY;
-         em.p1.solidArea.x=(int) em.p1.worldX;
-         em.p1.solidArea.y=(int) em.p1.worldY;
-            if (solidArea.intersects(em.p1.solidArea)) {
-            if (direction=="left") {
-                em.p1.velocityX-=10;
+         thisArea.x+=(int) worldX;
+         thisArea.y+=(int) worldY;
+         playerArea.x+=(int) em.p1.worldX;
+         playerArea.y+=(int) em.p1.worldY;
+         for (int i=0; i<em.objBomb.length; i++) {
+            if (em.objBomb[i]!=null) {
+                if (em.objBomb[i].explode==true && em.objBomb[i].Move==true) {
+                subBomb=true;
+            }
+            }
+         }
+            if (thisArea.intersects(playerArea) && subBomb==false) {
+            if (direction.equals("left")) {
+                if (em.stopX==false) {
+                    em.p1.health--;
+                    em.p1.velocityX-=10;
+                    //worldX+=50;
+                }
                 em.stopX=true;
             }
-            else if(direction=="right") {
-                em.p1.velocityX+=10;
+            else if(direction.equals("right")) {
+                if (em.stopXR==false) {
+                    em.p1.health--;
+                    em.p1.velocityX+=10;
+                    //worldX-=50;
+                }
                 em.stopXR=true;
             }
          }
@@ -116,12 +134,13 @@ public class meleeRoman extends Entity{
             }
             break;
          }
-         solidArea.x=defaultSolidArea.x;
-         solidArea.y=defaultSolidArea.y;
-         em.p1.solidArea.x=em.p1.defaultSolidArea.x;
-         em.p1.solidArea.y=em.p1.defaultSolidArea.y;
+         thisArea.x=defaultSolidArea.x;
+         thisArea.y=defaultSolidArea.y;
+         playerArea.x=em.p1.solidArea.x;
+         playerArea.y=em.p1.solidArea.y;
           int screenX=(int) (worldX-em.p1.worldX+em.p1.screenX);
             int screenY=(int) (worldY-em.p1.worldY+em.p1.screenY);
+            subBomb=false;
                 g2.drawImage(image, screenX, screenY, em.resTileSize*3-20, em.resTileSize*3-20, null);
             if (em.showHitboxes==true) {
             g2.setColor(Color.RED);

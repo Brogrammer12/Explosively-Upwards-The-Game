@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import Entities.Entity;
 import Entities.Player;
 import Entities.meleeRoman;
+import Events.events;
 import Objects.object;
 import Tiles.BackgroundDrawer;
 import Tiles.tile;
@@ -30,19 +31,22 @@ public class everythingManager extends JPanel implements Runnable{
     public int worldWidth=maxWorldHoriz*resTileSize;
     public int worldHeight=maxWorldVert*resTileSize;
     public int boomTotal=0;
-    public boolean showHitboxes=false;
+    public boolean showHitboxes=true;
     public boolean showBoomLine=false;
     public boolean stopX=false;
     public boolean disableGravity=false;
     public boolean stopXR=false;
+    public boolean paused=false;
+    public boolean doEvents=false;
     public final int FPS=60;
     public Sound sound=new Sound();
     public tileManager tileM=new tileManager(this);
+    events[] eventManager=new events[10];
     public CollisionChecker cChecker=new CollisionChecker(this);
     public object[] objBomb=new object[20];
-    public object[] objArrow=new object[20];
+    //public object[] objArrow=new object[20];
     public object[] obj=new object[10];
-    public Entity[] npc=new Entity[10];
+    public Entity[] npc=new Entity[20];
     //public meleeRoman meleeroman=new meleeRoman(this);
     public BufferedImage[] backgrounds=new BufferedImage[10];
     public BackgroundDrawer bDrawer=new BackgroundDrawer(this);
@@ -57,7 +61,7 @@ public class everythingManager extends JPanel implements Runnable{
         new Point(990, 250)
     };
     public everythingManager() {
-        playMusic(0);
+        //playMusic(0);
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
@@ -95,12 +99,14 @@ public class everythingManager extends JPanel implements Runnable{
     }
     public void update() {
         p1.update();
-        for (int i=0; i<npc.length; i++) {
+        if (paused==false) {
+            for (int i=0; i<npc.length; i++) {
             if (npc[i]!=null) {
                 npc[i].update();
             }
         }
         instantiate.setBombs();
+        }
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -109,7 +115,7 @@ public class everythingManager extends JPanel implements Runnable{
         tileM.draw(g2);
         p1.draw(g2);
         //meleeroman.draw(g2);
-        for (int i=0; i<npc.length; i++) {
+            for (int i=0; i<npc.length; i++) {
             if (npc[i]!=null) {
                 npc[i].draw(g2);
             }
@@ -124,6 +130,14 @@ public class everythingManager extends JPanel implements Runnable{
                 obj[i].objFunction(g2);
             }
         }
+        if (doEvents==true) {
+            for (int i=0; i<eventManager.length; i++) {
+            if (eventManager[i]!=null) {
+                eventManager[i].tileEvent(g2);
+            }
+        }
+        }
+        
         
         g2.dispose();
     }

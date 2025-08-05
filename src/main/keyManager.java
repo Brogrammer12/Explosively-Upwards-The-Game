@@ -7,6 +7,7 @@ public boolean hasPressed;
 public boolean sRightPressed=false;
 public boolean sUpPressed=false;
 public boolean shiftPressed=false;
+public boolean escPressed=false;
     @Override
     public void keyTyped(KeyEvent e) {
         
@@ -41,6 +42,9 @@ public boolean shiftPressed=false;
         }
         if (keyCode==KeyEvent.VK_SHIFT) {
             shiftPressed=true;
+        }
+        if (keyCode==KeyEvent.VK_ESCAPE) {
+            escPressed=true;
         }
     }
 
@@ -77,6 +81,10 @@ public boolean shiftPressed=false;
         }
         if (keyCode==KeyEvent.VK_SHIFT) {
             shiftPressed=false;
+        }
+        if (keyCode==KeyEvent.VK_ESCAPE) {
+            escPressed=false;
+            hasPressed=false;
         }
     }
 

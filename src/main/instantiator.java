@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 
 import Entities.meleeRoman;
 import Entities.rangedRoman;
+import Events.tileBreak;
 import Objects.Exit;
 import Objects.bombBoi;
 
@@ -69,13 +70,24 @@ public class instantiator {
     }
     public void setObjects() {
         em.obj[0]=new Exit(em);
+        em.eventManager[0]=new tileBreak(em);
         em.npc[0]=new meleeRoman(em, em.resTileSize*10, em.resTileSize*em.maxWorldVert-410, 1, false);
         em.npc[1]=new meleeRoman(em, em.resTileSize*14, em.resTileSize*em.maxWorldVert/2+200, 1, false);
         em.npc[2]=new meleeRoman(em, em.resTileSize*12, em.resTileSize*em.maxWorldVert/2-1000, 1, false);
-        em.npc[3]=new meleeRoman(em, em.resTileSize*12+100, 900, 2, false);
+        em.npc[3]=new meleeRoman(em, em.resTileSize*12+500, 900, 2, false);
         em.npc[4]=new meleeRoman(em, em.resTileSize*12, 900, 2, false);
         em.npc[5]=new rangedRoman(em, em.resTileSize*20, em.resTileSize*em.maxWorldVert-410, 1, false, "left", 5);
-        em.npc[6]=new rangedRoman(em, em.resTileSize*15, em.resTileSize*em.maxWorldVert-1010, 1, false, "right", 6);
+        em.npc[6]=new rangedRoman(em, em.resTileSize, em.resTileSize*em.maxWorldVert-1250, 1, false, "right", 6);
+        em.npc[7]=new meleeRoman(em, 1000, em.resTileSize*em.maxWorldVert-610, 3, true);
+        em.npc[8]=new meleeRoman(em, 800, em.resTileSize*em.maxWorldVert-2000, 3, true);
+        em.npc[9]=new meleeRoman(em, 1000, em.resTileSize*em.maxWorldVert-2000, 3, true);
+        em.npc[10]=new meleeRoman(em, 1150, em.resTileSize*em.maxWorldVert-2000, 3, true);
+        em.npc[11]=new meleeRoman(em, 800, em.resTileSize*em.maxWorldVert-2300, 3, true);
+        em.npc[12]=new meleeRoman(em, 1000, em.resTileSize*em.maxWorldVert-2300, 3, true);
+        em.npc[13]=new meleeRoman(em, 1150, em.resTileSize*em.maxWorldVert-2300, 3, true);
+        em.npc[14]=new meleeRoman(em, 800, em.resTileSize*em.maxWorldVert-2500, 3, true);
+        em.npc[15]=new meleeRoman(em, 1000, em.resTileSize*em.maxWorldVert-2500, 3, true);
+        em.npc[16]=new meleeRoman(em, 1150, em.resTileSize*em.maxWorldVert-2500, 3, true);
     }
     
 }

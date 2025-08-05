@@ -54,7 +54,8 @@ public int thisIndex=0;
     }
     @Override
     public void update() {
-        if (healtha>=2) {
+        if (Level==em.p1.Level) {
+            if (healtha>=2) {
             spriteCounter++;
         if (spriteCounter>=25) {
             spriteCounter=0;
@@ -74,12 +75,8 @@ public int thisIndex=0;
                 }
             }
             em.obj[index]=new arrow(em, thisIndex, index);
-            if (index==9) {
-                index=0;
-            }
-            else {
-                index++;
-            }
+            
+        }
         }
     }
     @Override

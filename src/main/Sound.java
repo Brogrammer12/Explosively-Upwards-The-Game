@@ -17,6 +17,7 @@ public class Sound {
         soundurl[1]=getClass().getResource("/resources/sound/shoot.wav");
         soundurl[2]=getClass().getResource("/resources/sound/boom.wav");
         soundurl[3]=getClass().getResource("/resources/sound/jump.wav");
+        soundurl[4]=getClass().getResource("/resources/sound/tileBreak.wav");
     }
     public void setfile(int i) {
         try {

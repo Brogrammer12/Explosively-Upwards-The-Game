@@ -126,6 +126,15 @@ public class Player extends Entity{
     }
     @Override
     public void update() {
+        if (em.k.escPressed==true && em.k.hasPressed==false) {
+            if (em.paused==true) {
+                em.paused=false;
+            }
+            else {
+                em.paused=true;
+            }
+            em.k.hasPressed=true;
+        }
         if (em.stopX==true) {
             if (velocityX>=0) {
                 velocityX=0;
@@ -467,10 +476,10 @@ warmup=true;
         //g2.setColor(Color.WHITE);
         //g2.fillRect(worldX, worldY, em.resTileSize, em.resTileSize);
         g2.drawImage(image, screenX, screenY, em.resTileSize*3, em.resTileSize*3, null);
-        if (bombsLeft==11) {
+        if (bombsLeft>=11) {
             bombsLeft=10;
         }
-        if (bombsLeftMove==11) {
+        if (bombsLeftMove>=11) {
             bombsLeftMove=10;
         }
         if (Move==true) {
