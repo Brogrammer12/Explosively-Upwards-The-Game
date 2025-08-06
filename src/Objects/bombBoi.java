@@ -214,7 +214,7 @@ public class bombBoi extends object{
                           if (em.p1.worldX>worldx) {
                             em.p1.worldX-=10;
                             //worldx+=10;
-                            em.disableGravity=true;
+                            em.p1.disableGravity=true;
                           }
                           else {
                             //em.disableGravity=false;
@@ -223,13 +223,13 @@ public class bombBoi extends object{
                           if (em.p1.worldY>worldy) {
                             em.p1.worldY-=10;
                             //worldy+=10;
-                            em.disableGravity=true;
+                            em.p1.disableGravity=true;
                           }
                           else {
                             em.stopX=true;
                             em.p1.velocityY-=10;
                             em.p1.velocityX-=10;
-                            em.disableGravity=false;
+                            em.p1.disableGravity=false;
                             moveDone=true;
                           }      //if line goes top left bottom right
                     }
@@ -237,7 +237,7 @@ public class bombBoi extends object{
                              if (em.p1.worldX<worldx) {
                             em.p1.worldX+=10;
                             //worldx-=10;
-                            em.disableGravity=true;
+                            em.p1.disableGravity=true;
                           }
                           else {
                             //em.disableGravity=false;
@@ -246,13 +246,13 @@ public class bombBoi extends object{
                           if (em.p1.worldY>worldy) {
                             em.p1.worldY-=10;
                            // worldy+=10;
-                            em.disableGravity=true;
+                            em.p1.disableGravity=true;
                           }
                           else {
                             em.stopXR=true;
                             em.p1.velocityY-=10;
                             em.p1.velocityX+=10;
-                            em.disableGravity=false;
+                            em.p1.disableGravity=false;
                             moveDone=true;
                           }  //if line goes bottom left top right
                     }

@@ -33,6 +33,7 @@ public class Entity {
     public float jumpStrength=-10f;
     public float maxFallSpeed=15;
     public boolean grounded=false;
+    public boolean disableGravity=false;
     everythingManager em;
     public Entity(everythingManager em) {
       this.em=em;

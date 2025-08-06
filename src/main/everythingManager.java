@@ -58,7 +58,14 @@ public class everythingManager extends JPanel implements Runnable{
     public Point[] Exits= {
         new Point(maxWorldHoriz*resTileSize-300, 250),
         new Point(1500, 790),
-        new Point(990, 250)
+        new Point(990, 250),
+        new Point(880, 940)
+    };
+    public Point[] playerSpawns= {
+        new Point(300, (maxWorldVert*resTileSize)-500),
+        new Point(300, (maxWorldVert*resTileSize)-500),
+        new Point(300, (maxWorldVert*resTileSize)-500),
+        new Point(460, (maxWorldVert*resTileSize)-420),
     };
     public everythingManager() {
         //playMusic(0);

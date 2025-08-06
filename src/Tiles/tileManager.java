@@ -23,7 +23,7 @@ public class tileManager {
         this.em=em;
         newMap(realFile);
         //mapTileNum=new int[em.maxWorldHoriz][em.maxWorldVert];
-        tile=new tile[20];
+        tile=new tile[30];
         tileLoader();
     }
     public void tileLoader() {
@@ -93,6 +93,33 @@ public class tileManager {
             tile[18].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallRightGrand.png"));
             tile[18].collision=true;
             tile[18].grounded=false;
+            tile[19]=new tile();
+            tile[19].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/lavaLeftTile.png"));
+            tile[19].collision=true;
+            tile[20]=new tile();
+            tile[20].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/lavaMiddleTile.png"));
+            tile[20].collision=true;
+            tile[21]=new tile();
+            tile[21].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/lavaRightTile.png"));
+            tile[21].collision=true;
+            tile[22]=new tile();
+            tile[22].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallRightCrackedLava.png"));
+            tile[22].collision=true;
+            tile[22].grounded=false;
+            tile[22].destructible=true;
+            tile[23]=new tile();
+            tile[23].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallLeftCrackedLava.png"));
+            tile[23].collision=true;
+            tile[23].grounded=false;
+            tile[23].destructible=true;
+            tile[24]=new tile();
+            tile[24].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallRightLava.png"));
+            tile[24].collision=true;
+            tile[24].grounded=false;
+            tile[25]=new tile();
+            tile[25].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallLeftLava.png"));
+            tile[25].collision=true;
+            tile[25].grounded=false;
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

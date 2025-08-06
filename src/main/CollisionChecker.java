@@ -50,7 +50,7 @@ public class CollisionChecker {
         else {
             try {
                 if (entity.getClass()==Player.class) {
-                    if (entity.grounded==false && ceiling==false && em.k.sUpPressed==false && em.disableGravity==false) {
+                    if (entity.grounded==false && ceiling==false && em.k.sUpPressed==false && entity.disableGravity==false) {
                     entityTopRow=(int) ((entityTopWorldY-entity.velocityY)/em.resTileSize);
         tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityTopRow];
         tileNum2=em.tileM.mapTileNum[entityRightcol] [entityTopRow];
@@ -65,7 +65,7 @@ public class CollisionChecker {
                     ceiling=false;
                 }
                 }
-                if (em.k.sUpPressed==false && em.disableGravity==false) {
+                if (em.k.sUpPressed==false && entity.disableGravity==false) {
                     entityBottomRow=(int) ((entityBottomWorldY+entity.velocityY)/em.resTileSize);
         tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityBottomRow];
         tileNum2=em.tileM.mapTileNum[entityRightcol] [entityBottomRow];
@@ -87,7 +87,7 @@ public class CollisionChecker {
         }
             entity.grounded=true;
             }
-            else if (em.k.sUpPressed==false && em.disableGravity==false) {
+            else if (em.k.sUpPressed==false && entity.disableGravity==false) {
                 entity.velocityY+=entity.gravity;
         entity.velocityY=Math.min(entity.velocityY, entity.maxFallSpeed);
         entity.worldY+=entity.velocityY;
@@ -106,7 +106,7 @@ public class CollisionChecker {
         entity.grounded=false;
             }
         }
-        else if (em.k.sUpPressed==false && em.disableGravity==false) {
+        else if (em.k.sUpPressed==false && entity.disableGravity==false) {
             entity.velocityY+=entity.gravity;
         entity.velocityY=Math.min(entity.velocityY, entity.maxFallSpeed);
         entity.worldY+=entity.velocityY;
