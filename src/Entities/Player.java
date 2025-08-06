@@ -30,6 +30,9 @@ public class Player extends Entity{
     public int timer=0;
     public int health=3;
     public int Level=1;
+    public int menuLevel=1;
+    public int menuTimer=0;
+    public boolean startMenuTimer=false;
     public float alpha=1.0f;
     public boolean warmup=false;
     public Font fontPixeboy;
@@ -65,6 +68,8 @@ public class Player extends Entity{
     }
     public void imageLoader() {
         try {
+            bomb=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/Bomb.png"));
+            bombPlanted=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/explosion.png"));
             left1=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerLeft1.png"));
             leftIdle2=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerLeftIdle2.png"));
             leftIdle3=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerLeftIdle3.png"));
@@ -135,7 +140,8 @@ public class Player extends Entity{
             }
             em.k.hasPressed=true;
         }
-        if (em.stopX==true) {
+        if (em.paused==false) {
+            if (em.stopX==true) {
             if (velocityX>=0) {
                 velocityX=0;
                 em.stopX=false;
@@ -290,6 +296,17 @@ public class Player extends Entity{
                 spriteCounter=0;
              }
         }
+        }
+        else {
+            if (em.k.leftPressed==true && em.k.menuHasPressed==false) {
+                System.out.println("left pressed while paused.");
+                em.k.menuHasPressed=true;
+            }
+            else if(em.k.rightPressed==true && em.k.menuHasPressed==false) {
+                System.out.println("right pressed while paused.");
+                em.k.menuHasPressed=true;
+            }
+        }
     }
     @Override
     public void draw(Graphics2D g2) {
@@ -362,11 +379,13 @@ warmup=true;
         else {
             switch (direction) {
                 case "left":
-                if (em.k.downPressed==true) {
-                    image=crouchLeft;
+                if (em.k.downPressed==true && em.paused==false) {
+                        image=crouchLeft;
+                    
                 }
-                else if(em.k.upPressed==true || falling==true) {
-                    image=jumpLeft;
+                else if((em.k.upPressed==true || falling==true) && em.paused==false) {
+                        image=jumpLeft;
+                    
                 }
                 else {
                     if (idle==true) {
@@ -415,11 +434,13 @@ warmup=true;
                 }
                 break;
                 case "right":
-                if (em.k.downPressed==true) {
-                    image=crouchRight;
+                if (em.k.downPressed==true && em.paused==false) {
+                        image=crouchRight;
+                    
                 }
-                else if(em.k.upPressed==true || falling==true) {
-                    image=jumpRight;
+                else if((em.k.upPressed==true || falling==true) && em.paused==false) {
+                        image=jumpRight;
+                    
                 }
                 else {
                     if (idle==true) {
@@ -527,6 +548,38 @@ warmup=true;
                 alpha=1.0f;
                 em.m.rightClicked=false;
             }
+        }
+        if (em.paused==true) {
+            g2.setColor(Color.BLACK);
+            g2.fillRect(em.screenWidth/2-6*em.resTileSize, 0, 11*em.resTileSize, 11*em.resTileSize+em.resTileSize/2);
+            g2.setFont(fontPixeboy);
+            g2.setColor(Color.WHITE);
+            g2.drawString("SETTINGS", em.screenWidth/2-2*em.resTileSize, 70);
+            g2.drawString("EXIT GAME", em.screenWidth/2-2*em.resTileSize, em.resTileSize*8);
+            BufferedImage select=null;
+            if (startMenuTimer==true) {
+                menuTimer++;
+                select=bombPlanted;
+                if (menuTimer==20) {
+                    menuTimer=0;
+                    startMenuTimer=false;
+                    switch (menuLevel) {
+                        case 1:
+                        System.exit(0);
+                        break;
+                    }
+                }
+            }
+            if (em.k.enterPressed==true) {
+                startMenuTimer=true;
+                if (menuTimer==0) {
+                    em.playSE(2);
+                }
+            }
+            else if (startMenuTimer==false) {
+                select=bomb;
+            }
+            g2.drawImage(select, em.screenWidth/2-3*em.resTileSize, em.resTileSize*7+em.resTileSize/4, em.resTileSize, em.resTileSize, null);
         }
     }
 }

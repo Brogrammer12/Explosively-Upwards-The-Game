@@ -27,12 +27,12 @@ public class mouseListener implements MouseMotionListener, MouseListener{
             mouseClicked=true;
         }
         else if (button==MouseEvent.BUTTON3) {
-            if (em.p1.Move==false && em.k.hasPressed==false) {
+            if (em.p1.Move==false && em.k.hasPressed==false && em.paused==false) {
                 em.p1.Move=true;
                 rightClicked=true;
                 em.k.hasPressed=true;
             }
-            else if(em.p1.Move==true && em.k.hasPressed==false) {
+            else if(em.p1.Move==true && em.k.hasPressed==false && em.paused==false) {
                 em.p1.Move=false;
                 rightClicked=true;
                 em.k.hasPressed=true;
@@ -73,11 +73,13 @@ public class mouseListener implements MouseMotionListener, MouseListener{
         mouseX=e.getX();
         mouseY=e.getY();
         if (mouseMode==true) {
-            if (mouseX>em.screenWidth/2) {
+            if (em.paused==false) {
+                if (mouseX>em.screenWidth/2) {
                 em.p1.direction="right";
             }
             else {
                 em.p1.direction="left";
+            }
             }
         }
     }

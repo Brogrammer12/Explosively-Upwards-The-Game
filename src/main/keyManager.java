@@ -4,6 +4,7 @@ import java.awt.event.KeyListener;
 public class keyManager implements KeyListener{
 public boolean leftPressed, rightPressed, enterPressed, downPressed, upPressed, rPressed, ePressed;
 public boolean hasPressed;
+public boolean menuHasPressed;
 public boolean sRightPressed=false;
 public boolean sUpPressed=false;
 public boolean shiftPressed=false;
@@ -53,15 +54,19 @@ public boolean escPressed=false;
         int keyCode=e.getKeyCode();
         if (keyCode==KeyEvent.VK_A) {
             leftPressed=false;
+            menuHasPressed=false;
         }
         else if(keyCode==KeyEvent.VK_D) {
             rightPressed=false;
+            menuHasPressed=false;
         }
         else if(keyCode==KeyEvent.VK_S) {
             downPressed=false;
+            menuHasPressed=false;
         }
         else if(keyCode==KeyEvent.VK_W) {
             upPressed=false;
+            menuHasPressed=false;
         }
         if (keyCode==KeyEvent.VK_ENTER) {
             enterPressed=false;

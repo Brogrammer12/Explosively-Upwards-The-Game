@@ -70,7 +70,7 @@ public class tileBreak extends events{
                 int screenX=(int) (entityMiddlecol*em.resTileSize-em.p1.worldX+em.p1.screenX);
             int screenY=(int) (entityBottomRow*em.resTileSize-em.p1.worldY+em.p1.screenY);
                 g2.drawImage(image, screenX, screenY, em.resTileSize, em.resTileSize, null);
-                if (timer==200) {
+                if (timer==100) {
                     timer=0;
                     em.playSE(4);
                     image=null;

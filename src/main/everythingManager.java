@@ -65,7 +65,7 @@ public class everythingManager extends JPanel implements Runnable{
         new Point(300, (maxWorldVert*resTileSize)-500),
         new Point(300, (maxWorldVert*resTileSize)-500),
         new Point(300, (maxWorldVert*resTileSize)-500),
-        new Point(460, (maxWorldVert*resTileSize)-420),
+        new Point(700, (maxWorldVert*resTileSize)-420),
     };
     public everythingManager() {
         //playMusic(0);
@@ -105,6 +105,9 @@ public class everythingManager extends JPanel implements Runnable{
         }
     }
     public void update() {
+        if (p1.Level==4) {
+            doEvents=true;
+        }
         p1.update();
         if (paused==false) {
             for (int i=0; i<npc.length; i++) {
@@ -120,13 +123,13 @@ public class everythingManager extends JPanel implements Runnable{
         Graphics2D g2=(Graphics2D)g;
         bDrawer.drawBackground(backgrounds[bDrawer.index], g2);
         tileM.draw(g2);
-        p1.draw(g2);
         //meleeroman.draw(g2);
             for (int i=0; i<npc.length; i++) {
             if (npc[i]!=null) {
                 npc[i].draw(g2);
             }
         }
+        p1.draw(g2);
         for (int i=0; i<objBomb.length; i++) {
             if (objBomb[i]!=null) {
                 objBomb[i].objFunction(g2);

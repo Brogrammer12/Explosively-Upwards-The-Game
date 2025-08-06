@@ -148,13 +148,15 @@ public class bombBoi extends object{
         solidArea.x=0;
         solidArea.y=0;
         if (bombTriggered==false) {
-            if (direction=="right") {
+            if (em.paused==false) {
+                if (direction=="right") {
                 worldX+=moveSpeed;
                 worldY+=2;
             }
             else if(direction=="left") {
                 worldX-=moveSpeed;
                 worldY+=2;
+            }
             }
         }
         else if(bombTriggered==true) {
