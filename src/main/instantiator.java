@@ -79,15 +79,15 @@ public class instantiator {
         em.npc[5]=new rangedRoman(em, em.resTileSize*20, em.resTileSize*em.maxWorldVert-410, 1, false, "left", 5);
         em.npc[6]=new rangedRoman(em, em.resTileSize, em.resTileSize*em.maxWorldVert-1250, 1, false, "right", 6);
         em.npc[7]=new meleeRoman(em, 1000, em.resTileSize*em.maxWorldVert-610, 3, true);
-        em.npc[8]=new meleeRoman(em, 800, em.resTileSize*em.maxWorldVert-2000, 3, true);
-        em.npc[9]=new meleeRoman(em, 1000, em.resTileSize*em.maxWorldVert-2000, 3, true);
-        em.npc[10]=new meleeRoman(em, 1150, em.resTileSize*em.maxWorldVert-2000, 3, true);
-        em.npc[11]=new meleeRoman(em, 800, em.resTileSize*em.maxWorldVert-2300, 3, true);
-        em.npc[12]=new meleeRoman(em, 1000, em.resTileSize*em.maxWorldVert-2300, 3, true);
-        em.npc[13]=new meleeRoman(em, 1150, em.resTileSize*em.maxWorldVert-2300, 3, true);
-        em.npc[14]=new meleeRoman(em, 800, em.resTileSize*em.maxWorldVert-2500, 3, true);
-        em.npc[15]=new meleeRoman(em, 1000, em.resTileSize*em.maxWorldVert-2500, 3, true);
-        em.npc[16]=new meleeRoman(em, 1150, em.resTileSize*em.maxWorldVert-2500, 3, true);
+        em.npc[8]=new meleeRoman(em, 800, em.resTileSize*em.maxWorldVert-2300, 3, true);
+        em.npc[9]=new meleeRoman(em, 1000, em.resTileSize*em.maxWorldVert-2300, 3, true);
+        em.npc[10]=new meleeRoman(em, 1150, em.resTileSize*em.maxWorldVert-2300, 3, true);
+        em.npc[11]=new meleeRoman(em, 800, em.resTileSize*em.maxWorldVert-2500, 3, true);
+        em.npc[12]=new meleeRoman(em, 1000, em.resTileSize*em.maxWorldVert-2500, 3, true);
+        em.npc[13]=new meleeRoman(em, 1150, em.resTileSize*em.maxWorldVert-2500, 3, true);
+        em.npc[14]=new meleeRoman(em, 800, em.resTileSize*em.maxWorldVert-2700, 3, true);
+        em.npc[15]=new meleeRoman(em, 1000, em.resTileSize*em.maxWorldVert-2700, 3, true);
+        em.npc[16]=new meleeRoman(em, 1150, em.resTileSize*em.maxWorldVert-2700, 3, true);
     }
     
 }

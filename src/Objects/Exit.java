@@ -79,8 +79,8 @@ public String playerDirection;
                     String level="Level "+nextLevel+".tmj";
                     em.tileM.newMap(level);
                     em.p1.Level++;
-                    em.p1.worldX=300;
-                    em.p1.worldY=(em.maxWorldVert*em.resTileSize)-500;
+                     em.p1.worldX=em.playerSpawns[nextLevel-1].x;
+                    em.p1.worldY=em.playerSpawns[nextLevel-1].y;
                     worldX=em.Exits[nextLevel-1].x;
                     worldY=em.Exits[nextLevel-1].y;
                    // worldX=1500;
@@ -117,7 +117,7 @@ public String playerDirection;
                        int nextLevel=em.p1.Level+1;
                         g2.drawString("Level: "+nextLevel, (em.maxScreenHoriz*em.resTileSize)/2, (em.maxScreenVert*em.resTileSize)/2);
                     }
-                if (em.p1.screenY<=-em.resTileSize*3-200) {
+                /*if (em.p1.screenY<=-em.resTileSize*3-200) {
                     em.bDrawer.index=2;
                     em.k.sUpPressed=false;
                     em.k.sRightPressed=false;
@@ -133,7 +133,7 @@ public String playerDirection;
                    // worldY=790;
                     em.p1.screenX=em.screenWidth/2-(em.resTileSize*3)/2;
                     em.p1.screenY=em.screenHeight/2-(em.resTileSize*3)/2;
-                }
+                }*/
                 
             }
             }

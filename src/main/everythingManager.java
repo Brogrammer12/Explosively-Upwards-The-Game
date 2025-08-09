@@ -59,13 +59,15 @@ public class everythingManager extends JPanel implements Runnable{
         new Point(maxWorldHoriz*resTileSize-300, 250),
         new Point(1500, 790),
         new Point(990, 250),
+        new Point(880, 940),
         new Point(880, 940)
     };
     public Point[] playerSpawns= {
         new Point(300, (maxWorldVert*resTileSize)-500),
-        new Point(300, (maxWorldVert*resTileSize)-500),
-        new Point(300, (maxWorldVert*resTileSize)-500),
-        new Point(700, (maxWorldVert*resTileSize)-420),
+        new Point(300, (maxWorldVert*resTileSize)-600),
+        new Point(300, (maxWorldVert*resTileSize)-600),
+        new Point(500, (maxWorldVert*resTileSize)-420),
+        new Point(500, (maxWorldVert*resTileSize)-420)
     };
     public everythingManager() {
         //playMusic(0);
@@ -107,6 +109,9 @@ public class everythingManager extends JPanel implements Runnable{
     public void update() {
         if (p1.Level==4) {
             doEvents=true;
+        }
+        else {
+            doEvents=false;
         }
         p1.update();
         if (paused==false) {

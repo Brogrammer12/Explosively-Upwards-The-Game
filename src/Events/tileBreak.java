@@ -51,7 +51,7 @@ public class tileBreak extends events{
          tileNum3=em.tileM.mapTileNum[entityMiddlecol] [entityBottomRow];
             }
         if ((em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true || em.tileM.tile[tileNum3].collision==true) || tileFound==true) {
-            if (em.p1.grounded==true || tileFound==true) {
+            if (em.p1.falling==false || tileFound==true) {
                 tileFound=true;
                 //System.out.println("that shit is about to break u stupid nigger!");
                 timer++;

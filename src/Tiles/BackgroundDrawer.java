@@ -21,6 +21,7 @@ public class BackgroundDrawer {
             em.backgrounds[2]=ImageIO.read(getClass().getResourceAsStream("/resources/bgs/Factory.png"));
             em.backgrounds[3]=ImageIO.read(getClass().getResourceAsStream("/resources/bgs/Level 3.png"));
             em.backgrounds[4]=ImageIO.read(getClass().getResourceAsStream("/resources/bgs/Level 4.png"));
+            em.backgrounds[5]=ImageIO.read(getClass().getResourceAsStream("/resources/bgs/Level 5.png"));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
