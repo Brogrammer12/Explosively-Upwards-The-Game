@@ -210,6 +210,7 @@ public class CollisionChecker {
         tileNum2=em.tileM.mapTileNum[entityLeftcol] [entityBottomRow];
         if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
             entity.bombTriggered=true;
+            //entity.sideCol=true;
             if (entity.explode==false && em.p1.Move==false) {
                  if (em.p1.bombsLeft==5) {
                 em.p1.bombsLeft=10;
@@ -220,7 +221,6 @@ public class CollisionChecker {
             }
             if (entity.Move==false) {
                 entity.explode=true; // makes it explode on impact
-                entity.sideCol=true;
             }
             if (entity.explode==true && em.tileM.tile[tileNum1].destructible==true && entity.Move==false) {
                 em.tileM.mapTileNum[entityLeftcol] [entityTopRow]=0;
@@ -236,6 +236,7 @@ public class CollisionChecker {
         tileNum2=em.tileM.mapTileNum[entityRightcol] [entityBottomRow];
         if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
             entity.bombTriggered=true;
+            //entity.sideCol=true;
             if (entity.explode==false && em.p1.Move==false) {
                  if (em.p1.bombsLeft==5) {
                 em.p1.bombsLeft=10;
@@ -247,7 +248,6 @@ public class CollisionChecker {
 
            if (entity.Move==false) {
                 entity.explode=true; // makes it explode on impact
-                entity.sideCol=true;
             }
             if (entity.explode==true && em.tileM.tile[tileNum1].destructible==true && entity.Move==false) {
                 em.tileM.mapTileNum[entityRightcol] [entityTopRow]=0;
@@ -276,6 +276,12 @@ public class CollisionChecker {
             }
             }
             entity.sideCol=false;
+             if (entity.explode==true && em.tileM.tile[tileNum1].destructible==true && entity.Move==false) {
+                em.tileM.mapTileNum[entityLeftcol] [entityBottomRow]=0;
+            }
+            if (entity.explode==true && em.tileM.tile[tileNum2].destructible==true && entity.Move==false) {
+                em.tileM.mapTileNum[entityRightcol] [entityBottomRow]=0;
+            }
         }
         }
             }

@@ -23,7 +23,7 @@ public class tileManager {
         this.em=em;
         newMap(realFile);
         //mapTileNum=new int[em.maxWorldHoriz][em.maxWorldVert];
-        tile=new tile[40];
+        tile=new tile[50];
         tileLoader();
     }
     public void tileLoader() {
@@ -147,6 +147,32 @@ public class tileManager {
             tile[32]=new tile();
             tile[32].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/oceanMiddleTile.png"));
             tile[32].collision=true;
+            tile[33]=new tile();
+            tile[33].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/arrowUp.png"));
+            tile[34]=new tile();
+            tile[34].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/arrowDown.png"));
+            tile[35]=new tile();
+            tile[35].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/arrowLeft.png"));
+            tile[36]=new tile();
+            tile[36].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/arrowRight.png"));
+            tile[37]=new tile();
+            tile[37].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/waterPipeBrokenDown.png"));
+            tile[37].collision=true;
+            tile[38]=new tile();
+            tile[38].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/waterPipeBrokenHoriz.png"));
+            tile[38].collision=true;
+            tile[39]=new tile();
+            tile[39].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/waterPipeBrokenLeft.png"));
+            tile[39].collision=true;
+            tile[40]=new tile();
+            tile[40].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/waterPipeBrokenRight.png"));
+            tile[40].collision=true;
+            tile[41]=new tile();
+            tile[41].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/waterPipeHoriz.png"));
+            tile[41].collision=true;
+            tile[42]=new tile();
+            tile[42].image=ImageIO.read(getClass().getResourceAsStream("/resources/tiles/waterPipeVert.png"));
+            tile[42].collision=true;
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

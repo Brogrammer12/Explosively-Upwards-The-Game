@@ -7,6 +7,8 @@ import Entities.rangedRoman;
 import Events.tileBreak;
 import Objects.Exit;
 import Objects.bombBoi;
+import Objects.boostPad;
+import Objects.bubbles;
 
 public class instantiator {
     int index=0;
@@ -70,6 +72,8 @@ public class instantiator {
     }
     public void setObjects() {
         em.obj[0]=new Exit(em);
+        em.obj[1]=new boostPad(em, "diagLeft", 200, em.maxWorldVert*em.resTileSize-480, 1);
+        em.obj[2]=new bubbles(em, "left", 450, em.maxWorldVert*em.resTileSize-480, 5);
         em.eventManager[0]=new tileBreak(em);
         em.npc[0]=new meleeRoman(em, em.resTileSize*10, em.resTileSize*em.maxWorldVert-410, 1, false);
         em.npc[1]=new meleeRoman(em, em.resTileSize*14, em.resTileSize*em.maxWorldVert/2+200, 1, false);
