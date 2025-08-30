@@ -13,6 +13,7 @@ import main.everythingManager;
 public class Exit extends object{
 everythingManager em;
 public String playerDirection;
+public boolean sRightPressed=false;
     public Exit(everythingManager em) {
         super(em);
         this.em=em;
@@ -47,14 +48,13 @@ public String playerDirection;
             }
             if (playerDirection=="left") {
                 if (em.p1.worldX<worldX-25 && em.p1.grounded==true) {
-                em.k.sRightPressed=true;
+                em.p1.disableGravity=true;
                 em.p1.worldX+=em.p1.moveSpeed;
         
             }
             else if(em.p1.worldX>=worldX-100 && em.p1.grounded==true) {
-                em.k.sRightPressed=false;
+                //em.p1.disableGravity=false;
                 em.p1.idle=true;
-                em.k.sUpPressed=true;
                     screenY-=moveSpeed;
                     worldY-=moveSpeed;
                     em.p1.screenY-=moveSpeed;
@@ -72,8 +72,7 @@ public String playerDirection;
                         g2.drawString("Level: "+nextLevel, (em.maxScreenHoriz*em.resTileSize)/2, (em.maxScreenVert*em.resTileSize)/2);
                     }
                 if (em.p1.screenY<=-em.resTileSize*3-200) {
-                    em.k.sUpPressed=false;
-                    em.k.sRightPressed=false;
+                    em.p1.disableGravity=false;
                     int nextLevel=em.p1.Level+1;
                     em.bDrawer.index=nextLevel;
                     String level="Level "+nextLevel+".tmj";
@@ -93,14 +92,13 @@ public String playerDirection;
             }
             else if(playerDirection=="right") {
                 if (em.p1.worldX>worldX && em.p1.grounded==true) {
-                em.k.sRightPressed=true;
+                em.p1.disableGravity=true;
                 em.p1.worldX-=em.p1.moveSpeed;
         
             }
             else if(em.p1.worldX<=worldX && em.p1.grounded==true) {
-                em.k.sRightPressed=false;
+                em.p1.disableGravity=false;
                 em.p1.idle=true;
-                em.k.sUpPressed=true;
                     screenY-=moveSpeed;
                     worldY-=moveSpeed;
                     em.p1.screenY-=moveSpeed;

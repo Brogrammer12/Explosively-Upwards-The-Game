@@ -13,6 +13,8 @@ public class bombBoi extends object{
     everythingManager em;
     public boolean instantiateCoords=false;
     public int index;
+    public int xMoveSpeed;
+    public int yMoveSpeed;
     int x1;
         int y1;
         int x2;
@@ -36,21 +38,77 @@ public class bombBoi extends object{
         this.direction=direction;
         
         if (direction=="right") {
-            if (em.k.downPressed==true) {
+            if (em.p1.aimDirection=="diagRightDown") {
+                xMoveSpeed=5;
+                yMoveSpeed=5;
+                worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2+40);
+            worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-20);
+            }
+            else if (em.p1.aimDirection=="diagRightUp") {
+                xMoveSpeed=5;
+                yMoveSpeed=-5;
+                worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2+40);
+            worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-20);
+            }
+            else if(em.p1.aimDirection=="up") {
+                xMoveSpeed=0;
+                yMoveSpeed=-5;
+                worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2+40);
+            worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-20);
+            }
+            else if(em.p1.aimDirection=="down") {
+                xMoveSpeed=0;
+                yMoveSpeed=5;
+                worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2+40);
+            worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-20);
+            }
+            else if (em.k.downPressed==true) {
+                xMoveSpeed=5;
+                yMoveSpeed=2;
                 worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2+40);
             worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-20);
             }
             else {
+                xMoveSpeed=5;
+                yMoveSpeed=2;
                 worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2+40);
             worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-30);
             }
         }
         else if(direction=="left") {
-            if (em.k.downPressed==true) {
+            if (em.p1.aimDirection=="diagLeftDown") {
+                xMoveSpeed=-5;
+                yMoveSpeed=5;
+                worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2-90);
+            worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-20);
+            }
+            else if (em.p1.aimDirection=="diagLeftUp") {
+                xMoveSpeed=-5;
+                yMoveSpeed=-5;
+                worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2-90);
+            worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-20);
+            }
+             else if(em.p1.aimDirection=="up") {
+                xMoveSpeed=0;
+                yMoveSpeed=-5;
+                worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2+40);
+            worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-20);
+            }
+            else if(em.p1.aimDirection=="down") {
+                xMoveSpeed=0;
+                yMoveSpeed=5;
+                worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2+40);
+            worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-20);
+            }
+            else if (em.k.downPressed==true) {
+                xMoveSpeed=-5;
+                yMoveSpeed=2;
                 worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2-90);
             worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-20);
             }
             else {
+                xMoveSpeed=-5;
+                yMoveSpeed=2;
                 worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2-90);
             worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-30);
             }
@@ -149,14 +207,8 @@ public class bombBoi extends object{
         solidArea.y=0;
         if (bombTriggered==false) {
             if (em.paused==false) {
-                if (direction=="right") {
-                worldX+=moveSpeed;
-                worldY+=2;
-            }
-            else if(direction=="left") {
-                worldX-=moveSpeed;
-                worldY+=2;
-            }
+                worldX+=xMoveSpeed;
+                worldY+=yMoveSpeed;
             }
         }
         else if(bombTriggered==true) {

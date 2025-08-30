@@ -5,10 +5,14 @@ public class keyManager implements KeyListener{
 public boolean leftPressed, rightPressed, enterPressed, downPressed, upPressed, rPressed, ePressed;
 public boolean hasPressed;
 public boolean menuHasPressed;
-public boolean sRightPressed=false;
-public boolean sUpPressed=false;
+//public boolean sRightPressed=false;
+//public boolean sUpPressed=false;
 public boolean shiftPressed=false;
 public boolean escPressed=false;
+everythingManager em;
+public keyManager(everythingManager em) {
+this.em=em;
+}
     @Override
     public void keyTyped(KeyEvent e) {
         
@@ -46,6 +50,12 @@ public boolean escPressed=false;
         }
         if (keyCode==KeyEvent.VK_ESCAPE) {
             escPressed=true;
+        }
+        if (keyCode==KeyEvent.VK_1) {
+            em.p1.Move=false;
+        }
+        else if (keyCode==KeyEvent.VK_2) {
+            em.p1.Move=true;
         }
     }
 

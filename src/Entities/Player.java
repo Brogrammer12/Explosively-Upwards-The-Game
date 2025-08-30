@@ -18,11 +18,14 @@ import main.everythingManager;
 public class Player extends Entity{
     public int screenX;
     public int screenY;
+    public boolean aim=false;
+    public String aimDirection="";
     public boolean bombGoing=false;
     public boolean leftOrRight=false;
     public boolean idle=true;
+    public boolean above=false;
+    public boolean below=false;
     public boolean Move=false;
-    public boolean event=false;
     public boolean boom=false;
     public boolean spriteReset=false;
     public int bombsLeft=10;
@@ -39,7 +42,8 @@ public class Player extends Entity{
     public BufferedImage left1,leftIdle2, leftIdle3, right1, rightIdle2, rightIdle3, 
     bomb, bombPlanted, rWalk1, rWalk2, rWalk3, rWalk4, lWalk1, lWalk2, lWalk3, lWalk4,
      crouchLeft, crouchRight, jumpRight, jumpLeft, pRightBoom1, pRightBoom2, pLeftBoom1,
-      pLeftBoom2, lRun1, lRun2, lRun3, lRun4, rRun1, rRun2, rRun3, rRun4;
+      pLeftBoom2, lRun1, lRun2, lRun3, lRun4, rRun1, rRun2, rRun3, rRun4, diagRightDown, diagLeftDown, diagRightUp, diagLeftUp, leftUpShoot, rightUpShoot,
+      leftDownShoot, rightDownShoot;
     public Player(everythingManager em) {
         super(em);
         screenX=em.screenWidth/2-(em.resTileSize*3)/2;
@@ -123,6 +127,14 @@ public class Player extends Entity{
             MoveHealth[1]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeftMove1.png"));
             MoveHealth[0]=ImageIO.read(getClass().getResourceAsStream("/resources/Health/BombsLeftMove0.png"));
             bombHealth=ImageIO.read(getClass().getResourceAsStream("/resources/Health/bombPlantedHealth.png"));
+            diagLeftDown=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerLeftDiagonalDown.png"));
+            diagLeftUp=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerLeftDiagonalUp.png"));
+            diagRightDown=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRightDiagonalDown.png"));
+            diagRightUp=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRightDiagonalUp.png"));
+            leftUpShoot=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerLeftUp.png"));
+            leftDownShoot=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerDownShootLeft.png"));
+            rightUpShoot=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerRightUp.png"));
+            rightDownShoot=ImageIO.read(getClass().getResourceAsStream("/resources/Player/PlayerDownShoot.png"));
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -131,6 +143,7 @@ public class Player extends Entity{
     }
     @Override
     public void update() {
+        System.out.println(em.m.rightClicked);
         if (em.k.escPressed==true && em.k.hasPressed==false) {
             if (em.paused==true) {
                 em.paused=false;
@@ -159,7 +172,7 @@ public class Player extends Entity{
         else {
             XGravity=0.2f;
         }
-        if (em.k.sRightPressed==false) {
+        if (disableGravity==false) {
             if (worldY>=em.maxWorldVert*em.resTileSize+3*em.resTileSize) {
             worldX=300;
         worldY=(em.maxWorldVert*em.resTileSize)-500;
@@ -191,7 +204,6 @@ public class Player extends Entity{
             idle=false;
         }
         if (em.k.ePressed==true && em.k.hasPressed==false) {
-            event=true;
             boom=true;
             em.k.hasPressed=true;
         }
@@ -204,13 +216,13 @@ public class Player extends Entity{
         em.cChecker.checkEntity(this, em.npc);
         switch (direction) {
             case "left":
-            if (em.k.upPressed==true && grounded==true && em.k.sRightPressed==false && em.k.sUpPressed==false) {
+            if (em.k.upPressed==true && grounded==true && disableGravity==false) {
                     velocityY-=12;
                     em.playSE(3);
                 }
             break;
             case "right":
-                if (em.k.upPressed==true && grounded==true && em.k.sRightPressed==false && em.k.sUpPressed==false) {
+                if (em.k.upPressed==true && grounded==true && disableGravity==false) {
                     velocityY-=12;
                     em.playSE(3);
                 }
@@ -221,7 +233,7 @@ public class Player extends Entity{
             switch (direction) {
                 case "left":
                     if (em.k.downPressed==false) {
-                        if (em.k.leftPressed==true && em.k.sRightPressed==false && em.k.sUpPressed==false) {
+                        if (em.k.leftPressed==true && disableGravity==false) {
                             worldX-=moveSpeed;
                         }
                     }
@@ -229,7 +241,7 @@ public class Player extends Entity{
                 break;
                 case "right":
                     if (em.k.downPressed==false) {
-                        if (em.k.rightPressed==true && em.k.sRightPressed==false && em.k.sUpPressed==false) {
+                        if (em.k.rightPressed==true && disableGravity==false) {
                             worldX+=moveSpeed;
                         }
                     }
@@ -238,12 +250,12 @@ public class Player extends Entity{
             }
             if (em.m.mouseMode==true) {
                 if (em.k.downPressed==false && direction!="left") {
-                        if (em.k.leftPressed==true && em.k.sRightPressed==false && em.k.sUpPressed==false) {
+                        if (em.k.leftPressed==true && disableGravity==false) {
                             worldX-=moveSpeed;
                         }
                     }
                     if (em.k.downPressed==false && direction!="right") {
-                        if (em.k.rightPressed==true && em.k.sRightPressed==false && em.k.sUpPressed==false) {
+                        if (em.k.rightPressed==true && disableGravity==false && disableGravity==false) {
                             worldX+=moveSpeed;
                         }
                     }
@@ -253,7 +265,7 @@ public class Player extends Entity{
            worldY+=moveSpeed;
         }
         spriteCounter++;
-        if (idle==true && event==false) {
+        if (idle==true && boom==false) {
             if (SpriteNum==3) {
                 SpriteNum=0;
             }
@@ -274,7 +286,7 @@ public class Player extends Entity{
                 spriteCounter=0;
              }
         }
-        else if(idle==false && event==false) {
+        else if(idle==false && boom==false) {
             if (spriteCounter>=12) {
                 if (SpriteNum==3) {
                     SpriteNum=0;
@@ -285,7 +297,7 @@ public class Player extends Entity{
                 spriteCounter=0;
              }
         }
-        else if(event==true) {
+        else if(boom==true) {
              if (spriteCounter>=25) {
                 if (SpriteNum==3) {
                     SpriteNum=0;
@@ -318,8 +330,9 @@ public class Player extends Entity{
     g2d.drawString("Warming Up...", 670, 120);
 warmup=true;
         }
+        //warming up text stuff above
+
         image=null;
-        if (event==true) {
             if (boom==true) {
                 if (spriteReset==false) {
                     SpriteNum=0;
@@ -336,7 +349,6 @@ warmup=true;
                     }
                     else if(SpriteNum==2) {
                         image=left1;
-                        event=false;
                         boom=false;
                         SpriteNum=0;
                         spriteReset=false;
@@ -359,7 +371,6 @@ warmup=true;
                     }
                     else if(SpriteNum==2) {
                         image=right1;
-                        event=false;
                         boom=false;
                         SpriteNum=0;
                         spriteReset=false;
@@ -375,7 +386,8 @@ warmup=true;
                     break;
                 }
             }
-        }
+            //animation for setting of sticky/subspace grenades above
+        
         else {
             switch (direction) {
                 case "left":
@@ -490,8 +502,49 @@ warmup=true;
                 break;
             }
         }
+        if (em.m.mouseY<em.screenHeight/2 && em.m.mouseX>screenX && em.m.mouseX<screenX+em.resTileSize*3 && em.m.rightClicked==true) {
+            aimDirection="up";
+            switch (direction) {
+                case "left":
+                    image=leftUpShoot;
+                    break;
+                case "right":
+                image=rightUpShoot;
+                    break;
+            }
+        }
+         else if (em.m.mouseY>em.screenHeight/2 && em.m.mouseX>screenX && em.m.mouseX<screenX+em.resTileSize*3 && em.m.rightClicked==true) {
+            aimDirection="down";
+            switch (direction) {
+                case "left":
+                    image=leftDownShoot;
+                    break;
+                case "right":
+                image=rightDownShoot;
+                    break;
+            }
+        }
+        else if (em.m.mouseX>em.screenWidth/2 && em.m.mouseY>em.screenHeight/2 && em.m.rightClicked==true) {
+                image=diagRightDown;
+                aimDirection="diagRightDown";
+            }
+            else if (em.m.mouseX>em.screenWidth/2 && em.m.mouseY<em.screenHeight/2 && em.m.rightClicked==true) {
+                image=diagRightUp;
+                aimDirection="diagRightUp";
+            }
+            else if (em.m.mouseX<em.screenWidth/2 && em.m.mouseY<em.screenHeight/2 && em.m.rightClicked==true) {
+                image=diagLeftUp;
+                aimDirection="diagLeftUp";
+            }
+            else if (em.m.mouseX<em.screenWidth/2 && em.m.mouseY>em.screenHeight/2 && em.m.rightClicked==true) {
+                image=diagLeftDown;
+                aimDirection="diagLeftDown";
+            }
+            else if(em.m.rightClicked==false) {
+                aimDirection=null;
+            }
         
-       if (em.k.sUpPressed==true) {
+       if (disableGravity==true) {
             image=jumpRight;
         }
         //g2.setColor(Color.WHITE);
@@ -527,7 +580,7 @@ warmup=true;
         g2.drawRect(screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
         //this code shows player hitbox
         }
-    if (em.m.rightClicked==true && Move==true) {
+    /*if (em.m.rightClicked==true && Move==true) {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
             g2.setFont(fontPixeboy);
             g2.setColor(Color.MAGENTA);
@@ -537,8 +590,8 @@ warmup=true;
                 alpha=1.0f;
                 em.m.rightClicked=false;
             }
-        }
-         else if(em.m.rightClicked==true && Move==false) {
+        }*/
+         /*else if(em.m.rightClicked==true && Move==false) {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
             g2.setFont(fontPixeboy);
             g2.setColor(Color.RED);
@@ -548,7 +601,7 @@ warmup=true;
                 alpha=1.0f;
                 em.m.rightClicked=false;
             }
-        }
+        }*/
         if (em.paused==true) {
             g2.setColor(Color.BLACK);
             g2.fillRect(em.screenWidth/2-6*em.resTileSize, 0, 11*em.resTileSize, 11*em.resTileSize+em.resTileSize/2);

@@ -26,7 +26,7 @@ public class mouseListener implements MouseMotionListener, MouseListener{
             if (button==MouseEvent.BUTTON1) {
             mouseClicked=true;
         }
-        else if (button==MouseEvent.BUTTON3) {
+        /*else if (button==MouseEvent.BUTTON3) {
             if (em.p1.Move==false && em.k.hasPressed==false && em.paused==false) {
                 em.p1.Move=true;
                 rightClicked=true;
@@ -37,19 +37,39 @@ public class mouseListener implements MouseMotionListener, MouseListener{
                 rightClicked=true;
                 em.k.hasPressed=true;
             }
-        }
+        }*/
         else if(button==MouseEvent.BUTTON2) {
-            em.p1.event=true;
+            //em.p1.event=true;
             em.p1.boom=true;
             em.k.hasPressed=true;
         }
+        if (button==MouseEvent.BUTTON3) {
+            rightClicked=true;
+        }
+        /*if (mouseX>em.screenWidth/2 && mouseY>em.screenHeight/2 && em.p1.aim==true) {
+                System.out.println("right down");
+            }
+            else if (mouseX>em.screenWidth/2 && mouseY<em.screenHeight/2 && em.p1.aim==true) {
+                System.out.println("right up");
+            }
+            else if (mouseX<em.screenWidth/2 && mouseY<em.screenHeight/2 && em.p1.aim==true) {
+                System.out.println("left up");
+            }
+            else if (mouseX<em.screenWidth/2 && mouseY>em.screenHeight/2 && em.p1.aim==true) {
+                System.out.println("left down");
+            }*/
         }
         
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        mouseClicked=false;
+        if (mouseClicked==true) {
+            mouseClicked=false;
+        }
+        else {
+            rightClicked=false;
+        }
         em.k.hasPressed=false;
     }
 
@@ -65,7 +85,20 @@ public class mouseListener implements MouseMotionListener, MouseListener{
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        
+        mouseX=e.getX();
+        mouseY=e.getY();
+        if (mouseMode==true) {
+            if (em.paused==false) {
+                if (mouseX>em.screenWidth/2) {
+                em.p1.direction="right";
+                //System.out.println("right");
+            }
+            else {
+                em.p1.direction="left";
+                //System.out.println("left");
+            }
+            }
+        }
     }
 
     @Override
@@ -76,9 +109,11 @@ public class mouseListener implements MouseMotionListener, MouseListener{
             if (em.paused==false) {
                 if (mouseX>em.screenWidth/2) {
                 em.p1.direction="right";
+                //System.out.println("right");
             }
             else {
                 em.p1.direction="left";
+                //System.out.println("left");
             }
             }
         }

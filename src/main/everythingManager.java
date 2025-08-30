@@ -32,7 +32,7 @@ public class everythingManager extends JPanel implements Runnable{
     public int worldHeight=maxWorldVert*resTileSize;
     public int boomTotal=0;
     public boolean showHitboxes=true;
-    public boolean showBoomLine=false;
+    public boolean showBoomLine=true;
     public boolean stopX=false;
     public boolean disableGravity=false;
     public boolean stopXR=false;
@@ -52,7 +52,7 @@ public class everythingManager extends JPanel implements Runnable{
     public BackgroundDrawer bDrawer=new BackgroundDrawer(this);
     public instantiator instantiate=new instantiator(this);
     Thread thread;
-    public keyManager k=new keyManager();
+    public keyManager k=new keyManager(this);
     public mouseListener m=new mouseListener(this);
     public Player p1=new Player(this);
     public Point[] Exits= {
@@ -135,14 +135,14 @@ public class everythingManager extends JPanel implements Runnable{
             }
         }
         p1.draw(g2);
+         for (int i=0; i<obj.length; i++) {
+            if (obj[i]!=null) {
+                obj[i].objFunction(g2);
+            }
+        }
         for (int i=0; i<objBomb.length; i++) {
             if (objBomb[i]!=null) {
                 objBomb[i].objFunction(g2);
-            }
-        }
-        for (int i=0; i<obj.length; i++) {
-            if (obj[i]!=null) {
-                obj[i].objFunction(g2);
             }
         }
         if (doEvents==true) {

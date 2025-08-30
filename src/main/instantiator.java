@@ -18,7 +18,7 @@ public class instantiator {
         setObjects();
     }
     public void setBombs() {
-        if ((em.k.enterPressed==true || em.m.mouseClicked==true) && em.k.hasPressed==false && em.k.sRightPressed==false && em.k.sUpPressed==false) {
+        if ((em.k.enterPressed==true || em.m.mouseClicked==true) && em.k.hasPressed==false && em.p1.disableGravity==false) {
             if (em.p1.Move==true) {
                 if (em.p1.bombsLeftMove!=0) {
                 em.objBomb[index]=new bombBoi(em, em.p1.direction, index);
