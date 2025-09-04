@@ -26,7 +26,7 @@ public class CollisionChecker {
         int entityTopRow=entityTopWorldY/em.resTileSize;
         int entityBottomRow=entityBottomWorldY/em.resTileSize;
         int tileNum1, tileNum2, tileNum3;
-        if (entity.worldX>em.worldWidth-em.resTileSize || entity.worldX<0 || entity.worldY>em.worldHeight-4*em.resTileSize || entity.worldY<0) {
+        if (entity.worldX+entity.solidArea.width>em.worldWidth || entity.worldX<0 || entity.worldY+entity.solidArea.height>em.worldHeight || entity.worldY<0) {
             if (entity.disableGravity==false) {
                 entity.velocityY+=entity.gravity;
         entity.velocityY=Math.min(entity.velocityY, entity.maxFallSpeed);
@@ -192,7 +192,7 @@ public class CollisionChecker {
         }
     }
     public void checkBomb(object entity) {
-        if (entity.getClass()==bombBoi.class) {
+        if (entity.getClass()!=arrow.class) {
             int entityLeftWorldX=entity.worldX+entity.solidArea.x;
         int entityRightWorldX=entity.worldX+entity.solidArea.x+entity.solidArea.width;
         int entityTopWorldY=entity.worldY+entity.solidArea.y;
@@ -211,7 +211,7 @@ public class CollisionChecker {
         if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
             entity.bombTriggered=true;
             //entity.sideCol=true;
-            if (entity.explode==false && em.p1.Move==false) {
+            if (entity.explode==false && em.p1.bombType!="stickyMove") {
                  if (em.p1.bombsLeft==5) {
                 em.p1.bombsLeft=10;
             }
@@ -237,7 +237,7 @@ public class CollisionChecker {
         if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
             entity.bombTriggered=true;
             //entity.sideCol=true;
-            if (entity.explode==false && em.p1.Move==false) {
+            if (entity.explode==false && em.p1.bombType!="stickyMove") {
                  if (em.p1.bombsLeft==5) {
                 em.p1.bombsLeft=10;
             }
@@ -267,7 +267,7 @@ public class CollisionChecker {
                 entity.bombTriggered=true;
             entity.explode=true;
             }
-            if (em.p1.Move==false) {
+            if (em.p1.bombType!="stickyMove") {
                 if (em.p1.bombsLeft==5) {
                 em.p1.bombsLeft=10;
             }

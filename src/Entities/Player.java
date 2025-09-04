@@ -18,14 +18,16 @@ import main.everythingManager;
 public class Player extends Entity{
     public int screenX;
     public int screenY;
+    public int animationNum;
     public boolean aim=false;
+    public boolean stickNades=false;
     public String aimDirection="";
     public boolean bombGoing=false;
     public boolean leftOrRight=false;
     public boolean idle=true;
     public boolean above=false;
     public boolean below=false;
-    public boolean Move=false;
+    //public boolean Move=false;
     public boolean boom=false;
     public boolean spriteReset=false;
     public int bombsLeft=10;
@@ -39,6 +41,7 @@ public class Player extends Entity{
     public float alpha=1.0f;
     public boolean warmup=false;
     public Font fontPixeboy;
+    public String bombType="explosive";
     public BufferedImage left1,leftIdle2, leftIdle3, right1, rightIdle2, rightIdle3, 
     bomb, bombPlanted, rWalk1, rWalk2, rWalk3, rWalk4, lWalk1, lWalk2, lWalk3, lWalk4,
      crouchLeft, crouchRight, jumpRight, jumpLeft, pRightBoom1, pRightBoom2, pLeftBoom1,
@@ -143,7 +146,7 @@ public class Player extends Entity{
     }
     @Override
     public void update() {
-        System.out.println(em.m.rightClicked);
+        System.out.println(stickNades);
         if (em.k.escPressed==true && em.k.hasPressed==false) {
             if (em.paused==true) {
                 em.paused=false;
@@ -180,11 +183,13 @@ public class Player extends Entity{
         health--;
         }
         if (em.k.rPressed==true && em.k.hasPressed==false) {
-            if (Move==false) {
-                Move=true;
+            if (stickNades==false) {
+                stickNades=true;
+                //Move=true;
             }
-            else if(Move==true) {
-                Move=false;
+            else if(stickNades==true) {
+                stickNades=false;
+                //Move=false;
             }
             em.k.hasPressed=true;
         }
@@ -311,11 +316,9 @@ public class Player extends Entity{
         }
         else {
             if (em.k.leftPressed==true && em.k.menuHasPressed==false) {
-                System.out.println("left pressed while paused.");
                 em.k.menuHasPressed=true;
             }
             else if(em.k.rightPressed==true && em.k.menuHasPressed==false) {
-                System.out.println("right pressed while paused.");
                 em.k.menuHasPressed=true;
             }
         }
@@ -393,22 +396,27 @@ warmup=true;
                 case "left":
                 if (em.k.downPressed==true && em.paused==false) {
                         image=crouchLeft;
+                        animationNum=6;
                     
                 }
                 else if((em.k.upPressed==true || falling==true) && em.paused==false) {
                         image=jumpLeft;
+                         animationNum=0;
                     
                 }
                 else {
                     if (idle==true) {
                         if (SpriteNum==0) {
                             image=left1;
+                           animationNum=0;
                     }
                     else if(SpriteNum==1) {
                             image=leftIdle2;
+                            animationNum=1;
                     }
                     else if(SpriteNum==2) {
                             image=leftIdle3;
+                            animationNum=1;
                     }
                     }
                     else if(idle==false) {
@@ -416,30 +424,38 @@ warmup=true;
                             moveSpeed=6;
                             if (SpriteNum==0) {
                         image=lRun1;
+                        animationNum=4;
                     }
                     else if(SpriteNum==1) {
                             image=lRun2;
+                            animationNum=4;
                     }
                     else if(SpriteNum==2) {
                             image=lRun3;
+                            animationNum=4;
                     }
                     else if(SpriteNum==3) {
                         image=lRun4;
+                        animationNum=5;
                     }
                         }
                         else {
                             moveSpeed=4;
                             if (SpriteNum==0) {
                         image=lWalk1;
+                        animationNum=0;
                     }
                     else if(SpriteNum==1) {
                             image=lWalk2;
+                             animationNum=0;
                     }
                     else if(SpriteNum==2) {
                             image=lWalk3;
+                             animationNum=0;
                     }
                     else if(SpriteNum==3) {
                         image=lWalk4;
+                         animationNum=0;
                     }
                         }
                     }
@@ -448,22 +464,27 @@ warmup=true;
                 case "right":
                 if (em.k.downPressed==true && em.paused==false) {
                         image=crouchRight;
+                        animationNum=6;
                     
                 }
                 else if((em.k.upPressed==true || falling==true) && em.paused==false) {
                         image=jumpRight;
+                         animationNum=0;
                     
                 }
                 else {
                     if (idle==true) {
                         if (SpriteNum==0) {
                             image=right1;
+                            animationNum=0;
                     }
                     else if(SpriteNum==1) {
                             image=rightIdle2;
+                            animationNum=1;
                     }
                     else if(SpriteNum==2) {
                             image=rightIdle3;
+                            animationNum=1;
                     }
                     }
                     else if(idle==false) {
@@ -471,30 +492,38 @@ warmup=true;
                             moveSpeed=6;
                             if (SpriteNum==0) {
                             image=rRun1;
+                            animationNum=2;
                     }
                     else if(SpriteNum==1) {
                             image=rRun2;
+                            animationNum=2;
                     }
                     else if(SpriteNum==2) {
                             image=rRun3;
+                            animationNum=2;
                     }
                     else if(SpriteNum==3) {
                         image=rRun4;
+                        animationNum=3;
                     }
                         }
                         else {
                             moveSpeed=4;
                             if (SpriteNum==0) {
                             image=rWalk1;
+                             animationNum=0;
                     }
                     else if(SpriteNum==1) {
                             image=rWalk2;
+                             animationNum=0;
                     }
                     else if(SpriteNum==2) {
                             image=rWalk3;
+                             animationNum=0;
                     }
                     else if(SpriteNum==3) {
                         image=rWalk4;
+                         animationNum=0;
                     }
                         }
                     }
@@ -550,13 +579,14 @@ warmup=true;
         //g2.setColor(Color.WHITE);
         //g2.fillRect(worldX, worldY, em.resTileSize, em.resTileSize);
         g2.drawImage(image, screenX, screenY, em.resTileSize*3, em.resTileSize*3, null);
+        em.lRenderer.renderPlayer(screenX, screenY, 6, g2, direction, animationNum);
         if (bombsLeft>=11) {
             bombsLeft=10;
         }
         if (bombsLeftMove>=11) {
             bombsLeftMove=10;
         }
-        if (Move==true) {
+        if (bombType=="stickyMove") {
             g2.drawImage(MoveHealth[bombsLeftMove], em.resTileSize*15, 50, 64*3, em.resTileSize, null);
         }
         else {

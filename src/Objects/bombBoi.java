@@ -114,7 +114,7 @@ public class bombBoi extends object{
             }
         }
         try {
-            if (em.p1.Move==true) {
+            if (em.p1.bombType=="stickyMove") {
                 Move=true;
                  image=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/BombMove.png"));
             altImage=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/bombPlantedMove.png"));

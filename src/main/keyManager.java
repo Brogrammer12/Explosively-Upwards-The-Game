@@ -52,10 +52,12 @@ this.em=em;
             escPressed=true;
         }
         if (keyCode==KeyEvent.VK_1) {
-            em.p1.Move=false;
+            //em.p1.Move=false;
+            em.p1.bombType="explosive";
         }
         else if (keyCode==KeyEvent.VK_2) {
-            em.p1.Move=true;
+            //em.p1.Move=true;
+            em.p1.bombType="stickyMove";
         }
     }
 

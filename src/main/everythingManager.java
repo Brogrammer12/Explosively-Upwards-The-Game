@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import Entities.Entity;
 import Entities.Player;
+import Entities.layerRenderer;
 import Entities.meleeRoman;
 import Events.events;
 import Objects.object;
@@ -40,6 +41,7 @@ public class everythingManager extends JPanel implements Runnable{
     public boolean doEvents=false;
     public final int FPS=60;
     public Sound sound=new Sound();
+    public layerRenderer lRenderer=new layerRenderer(this);
     public tileManager tileM=new tileManager(this);
     events[] eventManager=new events[10];
     public CollisionChecker cChecker=new CollisionChecker(this);
@@ -70,7 +72,7 @@ public class everythingManager extends JPanel implements Runnable{
         new Point(500, (maxWorldVert*resTileSize)-420)
     };
     public everythingManager() {
-        //playMusic(0);
+        playMusic(0);
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
