@@ -17,7 +17,7 @@ import main.everythingManager;
 public class tileManager {
     everythingManager em;
     public tile[] tile;
-    public int mapTileNum[][];
+    public tileSuperclass mapTileNum[][];
     public String realFile="level 1.tmj";
     public tileManager(everythingManager em) {
         this.em=em;
@@ -188,14 +188,15 @@ public class tileManager {
             int[] data=mapper.readValue(dataNode.toString(), int[].class);
             int height=Integer.parseInt(heightNode.toString());
             int width=Integer.parseInt(widthNode.toString());
-            mapTileNum=new int[width][height];
+            mapTileNum=new tileSuperclass[width][height];
             em.maxWorldHoriz=width;
             em.maxWorldVert=height;
             em.worldWidth=em.maxWorldHoriz*em.resTileSize;
             em.worldHeight=em.maxWorldVert*em.maxWorldVert;
             for (int row=0; row<height; row++) {
                 for (int col=0; col<width; col++) {
-                    mapTileNum[col] [row]=data[row*width+col];
+                    mapTileNum[col] [row]=new tileSuperclass();
+                    mapTileNum[col] [row].tileNum=data[row*width+col];
                 }
             }
             //System.exit(0);
@@ -207,7 +208,7 @@ public class tileManager {
         int col=0;
         int row=0;
         while (col<em.maxWorldHoriz && row<em.maxWorldVert) {
-            int tileNum=mapTileNum[col] [row];
+            int tileNum=mapTileNum[col] [row].tileNum;
             int worldX=col*em.resTileSize;
             int worldY=row*em.resTileSize;
             int screenX=(int) (worldX-em.p1.worldX+em.p1.screenX);

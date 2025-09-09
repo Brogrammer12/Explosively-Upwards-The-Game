@@ -60,9 +60,9 @@ public class tileBreak extends events{
          entityMiddlecol=(int) ((em.p1.worldX+em.p1.solidArea.x+em.p1.solidArea.width/2)/em.resTileSize);
              entityBottomWorldY=(int) (em.p1.worldY+em.p1.solidArea.y+em.p1.solidArea.height);
              entityBottomRow=(int) ((entityBottomWorldY+em.p1.velocityY)/em.resTileSize);
-         tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityBottomRow];
-         tileNum2=em.tileM.mapTileNum[entityRightcol] [entityBottomRow];
-         tileNum3=em.tileM.mapTileNum[entityMiddlecol] [entityBottomRow];
+         tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityBottomRow].tileNum;
+         tileNum2=em.tileM.mapTileNum[entityRightcol] [entityBottomRow].tileNum;
+         tileNum3=em.tileM.mapTileNum[entityMiddlecol] [entityBottomRow].tileNum;
             }
         if ((em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true || em.tileM.tile[tileNum3].collision==true) || tileFound==true) {
             if (em.p1.falling==false || tileFound==true) {
@@ -127,9 +127,9 @@ public class tileBreak extends events{
                     em.playSE(4);
                     image=null;
                     tileFound=false;
-                    em.tileM.mapTileNum[entityLeftcol] [entityBottomRow]=0;
-                    em.tileM.mapTileNum[entityRightcol] [entityBottomRow]=0;
-                    em.tileM.mapTileNum[entityMiddlecol] [entityBottomRow]=0;
+                    em.tileM.mapTileNum[entityLeftcol] [entityBottomRow].tileNum=0;
+                    em.tileM.mapTileNum[entityRightcol] [entityBottomRow].tileNum=0;
+                    em.tileM.mapTileNum[entityMiddlecol] [entityBottomRow].tileNum=0;
                     }
                 }
             }

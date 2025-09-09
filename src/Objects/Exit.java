@@ -63,7 +63,7 @@ public boolean sRightPressed=false;
                         em.bDrawer.index=1;
                         for (int i=0; i<em.tileM.mapTileNum.length; i++) {
                             for (int e=0; e<em.tileM.mapTileNum[i].length; e++) {
-                                em.tileM.mapTileNum[i] [e]=0;
+                                em.tileM.mapTileNum[i] [e].tileNum=0;
                             }
                         }
                         g2.setFont(new Font("Pixeboy",Font.BOLD, 30));
@@ -107,7 +107,7 @@ public boolean sRightPressed=false;
                         em.bDrawer.index=1;
                         for (int i=0; i<em.tileM.mapTileNum.length; i++) {
                             for (int e=0; e<em.tileM.mapTileNum[i].length; e++) {
-                                em.tileM.mapTileNum[i] [e]=0;
+                                em.tileM.mapTileNum[i] [e].tileNum=0;
                             }
                         }
                         g2.setFont(new Font("Pixeboy",Font.BOLD, 30));

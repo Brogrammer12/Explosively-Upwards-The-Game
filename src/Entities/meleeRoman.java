@@ -47,6 +47,7 @@ public class meleeRoman extends Entity{
     }
     @Override
     public void update() {
+        System.out.println(grounded);
         if (Level==em.p1.Level) {
             if (healtha>=2) {
             spriteCounter++;
@@ -61,12 +62,14 @@ public class meleeRoman extends Entity{
         }
         collisionOn=false;
         em.cChecker.checkPlayer(this);
-        if ((grounded==false && direction.equals("right")) || collisionOn==true && direction.equals("right")) {
+        if ((grounded==false && currentlyColliding==false && direction.equals("right")) || collisionOn==true && direction.equals("right")) {
             direction="left";
+            worldY-=1;
             worldX-=2;
         }
-        else if((grounded==false && direction.equals("left")) || collisionOn==true && direction.equals("left")) {
+        else if((grounded==false && currentlyColliding==false && direction.equals("left")) || collisionOn==true && direction.equals("left")) {
             direction="right";
+            worldY-=1;
             worldX+=2;
         }
         if (direction=="left") {

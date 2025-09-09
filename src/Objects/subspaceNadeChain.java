@@ -24,6 +24,7 @@ public class subspaceNadeChain extends object{
     }
     @Override
     public void objFunction(Graphics2D g2) {
+        em.p1.currentlyColliding=false;
         if (em.p1.aimDirection=="down" && explode==false) {
             em.p1.velocityY=-15;
              explode=true;
@@ -34,30 +35,38 @@ public class subspaceNadeChain extends object{
         }
         else if(em.p1.aimDirection=="diagRightDown" && explode==false) {
             em.p1.velocityY=-15;
+            if (em.p1.collisionOn==false) {
             em.p1.velocityX=-10;
             em.stopX=true;
             em.stopXR=false;
+            }
             explode=true;
         }
         else if(em.p1.aimDirection=="diagRightUp" && explode==false) {
             em.p1.velocityY=15;
-            em.p1.velocityX=-10;
+            if (em.p1.collisionOn==false) {
+                em.p1.velocityX=-10;
             em.stopX=true;
             em.stopXR=false;
+            }
             explode=true;
         }
         else if(em.p1.aimDirection=="diagLeftUp" && explode==false) {
             em.p1.velocityY=15;
-            em.p1.velocityX=10;
+            if (em.p1.collisionOn==false) {
+                 em.p1.velocityX=10;
             em.stopXR=true;
             em.stopX=false;
+            }
             explode=true;
         }
         else if(em.p1.aimDirection=="diagLeftDown" && explode==false) {
             em.p1.velocityY=-15;
-            em.p1.velocityX=10;
+            if (em.p1.collisionOn==false) {
+                em.p1.velocityX=10;
             em.stopXR=true;
             em.stopX=false;
+            }
             explode=true;
         }
         timer++;

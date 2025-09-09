@@ -146,7 +146,6 @@ public class Player extends Entity{
     }
     @Override
     public void update() {
-        System.out.println(stickNades);
         if (em.k.escPressed==true && em.k.hasPressed==false) {
             if (em.paused==true) {
                 em.paused=false;
@@ -223,12 +222,14 @@ public class Player extends Entity{
             case "left":
             if (em.k.upPressed==true && grounded==true && disableGravity==false) {
                     velocityY-=12;
+                    currentlyColliding=false;
                     em.playSE(3);
                 }
             break;
             case "right":
                 if (em.k.upPressed==true && grounded==true && disableGravity==false) {
                     velocityY-=12;
+                    currentlyColliding=false;
                     em.playSE(3);
                 }
             break;
