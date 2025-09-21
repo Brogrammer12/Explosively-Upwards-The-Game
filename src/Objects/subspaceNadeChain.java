@@ -24,7 +24,7 @@ public class subspaceNadeChain extends object{
     }
     @Override
     public void objFunction(Graphics2D g2) {
-        em.p1.currentlyColliding=false;
+        //em.p1.currentlyColliding=false;
         if (em.p1.aimDirection=="down" && explode==false) {
             em.p1.velocityY=-15;
              explode=true;

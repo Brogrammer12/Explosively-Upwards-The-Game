@@ -33,7 +33,7 @@ public class Player extends Entity{
     public int bombsLeft=10;
     public int bombsLeftMove=10;
     public int timer=0;
-    public int health=3;
+    public int health=5;
     public int Level=1;
     public int menuLevel=1;
     public int menuTimer=0;
@@ -146,6 +146,7 @@ public class Player extends Entity{
     }
     @Override
     public void update() {
+        //System.out.println(worldY);
         if (em.k.escPressed==true && em.k.hasPressed==false) {
             if (em.paused==true) {
                 em.paused=false;
@@ -156,7 +157,25 @@ public class Player extends Entity{
             em.k.hasPressed=true;
         }
         if (em.paused==false) {
-            if (em.stopX==true) {
+            handleXVelocity();
+            handleMovement();
+            handleSpriteCounting();
+        }
+        else {
+            if (em.k.leftPressed==true && em.k.menuHasPressed==false) {
+                em.k.menuHasPressed=true;
+            }
+            else if(em.k.rightPressed==true && em.k.menuHasPressed==false) {
+                em.k.menuHasPressed=true;
+            }
+        }
+    }
+
+
+
+
+    public void handleXVelocity() {
+        if (em.stopX==true) {
             if (velocityX>=0) {
                 velocityX=0;
                 em.stopX=false;
@@ -174,6 +193,12 @@ public class Player extends Entity{
         else {
             XGravity=0.2f;
         }
+    }
+
+
+
+
+    public void handleMovement() {
         if (disableGravity==false) {
             if (worldY>=em.maxWorldVert*em.resTileSize+3*em.resTileSize) {
             worldX=300;
@@ -220,16 +245,16 @@ public class Player extends Entity{
         em.cChecker.checkEntity(this, em.npc);
         switch (direction) {
             case "left":
-            if (em.k.upPressed==true && grounded==true && disableGravity==false) {
+            if (em.k.upPressed==true && grounded==true && disableGravity==false && aimDirection==null) {
                     velocityY-=12;
-                    currentlyColliding=false;
+                    //currentlyColliding=false;
                     em.playSE(3);
                 }
             break;
             case "right":
-                if (em.k.upPressed==true && grounded==true && disableGravity==false) {
+                if (em.k.upPressed==true && grounded==true && disableGravity==false && aimDirection==null) {
                     velocityY-=12;
-                    currentlyColliding=false;
+                    //currentlyColliding=false;
                     em.playSE(3);
                 }
             break;
@@ -239,7 +264,7 @@ public class Player extends Entity{
             switch (direction) {
                 case "left":
                     if (em.k.downPressed==false) {
-                        if (em.k.leftPressed==true && disableGravity==false) {
+                        if (em.k.leftPressed==true && disableGravity==false && aimDirection==null) {
                             worldX-=moveSpeed;
                         }
                     }
@@ -247,7 +272,7 @@ public class Player extends Entity{
                 break;
                 case "right":
                     if (em.k.downPressed==false) {
-                        if (em.k.rightPressed==true && disableGravity==false) {
+                        if (em.k.rightPressed==true && disableGravity==false && aimDirection==null) {
                             worldX+=moveSpeed;
                         }
                     }
@@ -256,12 +281,12 @@ public class Player extends Entity{
             }
             if (em.m.mouseMode==true) {
                 if (em.k.downPressed==false && direction!="left") {
-                        if (em.k.leftPressed==true && disableGravity==false) {
+                        if (em.k.leftPressed==true && disableGravity==false && aimDirection==null) {
                             worldX-=moveSpeed;
                         }
                     }
                     if (em.k.downPressed==false && direction!="right") {
-                        if (em.k.rightPressed==true && disableGravity==false && disableGravity==false) {
+                        if (em.k.rightPressed==true && disableGravity==false && disableGravity==false && aimDirection==null) {
                             worldX+=moveSpeed;
                         }
                     }
@@ -270,7 +295,13 @@ public class Player extends Entity{
          if (falling==true) {
            worldY+=moveSpeed;
         }
-        spriteCounter++;
+    }
+
+
+
+
+    public void handleSpriteCounting() {
+         spriteCounter++;
         if (idle==true && boom==false) {
             if (SpriteNum==3) {
                 SpriteNum=0;
@@ -314,19 +345,13 @@ public class Player extends Entity{
                 spriteCounter=0;
              }
         }
-        }
-        else {
-            if (em.k.leftPressed==true && em.k.menuHasPressed==false) {
-                em.k.menuHasPressed=true;
-            }
-            else if(em.k.rightPressed==true && em.k.menuHasPressed==false) {
-                em.k.menuHasPressed=true;
-            }
-        }
     }
-    @Override
-    public void draw(Graphics2D g2) {
-         if (warmup==false) {
+
+
+
+
+    public void warmupTextDrawer(Graphics2D g2) {
+        if (warmup==false) {
             Graphics2D g2d=g2; // Dummy execution to trigger JIT optimization
     g2d.setFont(fontPixeboy);
     g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
@@ -334,10 +359,13 @@ public class Player extends Entity{
     g2d.drawString("Warming Up...", 670, 120);
 warmup=true;
         }
-        //warming up text stuff above
+    }
 
-        image=null;
-            if (boom==true) {
+
+
+
+    public void handleDetonateAnim() {
+        if (boom==true) {
                 if (spriteReset==false) {
                     SpriteNum=0;
                     spriteCounter=0;
@@ -390,10 +418,14 @@ warmup=true;
                     break;
                 }
             }
-            //animation for setting of sticky/subspace grenades above
-        
-        else {
-            switch (direction) {
+    }
+
+
+
+
+    public void handleMovementDraw() {
+        if (boom==false) {
+             switch (direction) {
                 case "left":
                 if (em.k.downPressed==true && em.paused==false) {
                         image=crouchLeft;
@@ -532,7 +564,13 @@ warmup=true;
                 break;
             }
         }
-        if (em.m.mouseY<em.screenHeight/2 && em.m.mouseX>screenX && em.m.mouseX<screenX+em.resTileSize*3 && em.m.rightClicked==true) {
+    }
+
+
+
+
+    public void handleAimDirection() {
+         if (em.m.mouseY<em.screenHeight/2 && em.m.mouseX>screenX && em.m.mouseX<screenX+em.resTileSize*3 && em.m.rightClicked==true) {
             aimDirection="up";
             switch (direction) {
                 case "left":
@@ -575,65 +613,43 @@ warmup=true;
             }
         
        if (disableGravity==true) {
+        if (direction=="left") {
+            image=jumpLeft;
+        }
+        else if (direction=="right") {
             image=jumpRight;
         }
-        //g2.setColor(Color.WHITE);
-        //g2.fillRect(worldX, worldY, em.resTileSize, em.resTileSize);
-        g2.drawImage(image, screenX, screenY, em.resTileSize*3, em.resTileSize*3, null);
-        em.lRenderer.renderPlayer(screenX, screenY, 6, g2, direction, animationNum);
-        if (bombsLeft>=11) {
-            bombsLeft=10;
         }
-        if (bombsLeftMove>=11) {
-            bombsLeftMove=10;
+        if (aimDirection!=null) {
+            //em.k.shiftPressed=false;
+            //em.k.hasPressed=false;
+            animationNum=0;
         }
-        if (bombType=="stickyMove") {
-            g2.drawImage(MoveHealth[bombsLeftMove], em.resTileSize*15, 50, 64*3, em.resTileSize, null);
+    }
+
+
+
+
+    public void drawHealth(Graphics2D g2) {
+        for (int i=0; i<health; i++) {
+            g2.drawImage(bombHealth, 50+i*em.resTileSize, 40, em.resTileSize, em.resTileSize, null);
         }
-        else {
-            
-                g2.drawImage(Health[bombsLeft], em.resTileSize*15, 50, 64*3, em.resTileSize, null);
-        }
-        if (health==3) {
-            g2.drawImage(bombHealth, 50, 40, em.resTileSize, em.resTileSize, null);
-        g2.drawImage(bombHealth, 50+em.resTileSize, 40, em.resTileSize, em.resTileSize, null);
-        g2.drawImage(bombHealth, 50+em.resTileSize*2, 40, em.resTileSize, em.resTileSize, null);
-        }
-        else if(health==2) {
-            g2.drawImage(bombHealth, 50, 40, em.resTileSize, em.resTileSize, null);
-        g2.drawImage(bombHealth, 50+em.resTileSize, 40, em.resTileSize, em.resTileSize, null);
-        }
-        else if(health==1) {
-            g2.drawImage(bombHealth, 50, 40, em.resTileSize, em.resTileSize, null);
-        }
-        if (em.showHitboxes==true) {
+    }
+
+
+
+
+    public void drawHitbox(Graphics2D g2) {
             g2.setColor(Color.RED);
         g2.drawRect(screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
         //this code shows player hitbox
-        }
-    /*if (em.m.rightClicked==true && Move==true) {
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-            g2.setFont(fontPixeboy);
-            g2.setColor(Color.MAGENTA);
-            g2.drawString("Subspace Grenade", 670, 120);
-            alpha-=0.02f;
-            if (alpha<0) {
-                alpha=1.0f;
-                em.m.rightClicked=false;
-            }
-        }*/
-         /*else if(em.m.rightClicked==true && Move==false) {
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-            g2.setFont(fontPixeboy);
-            g2.setColor(Color.RED);
-            g2.drawString("Explosive Grenade", 670, 120);
-            alpha-=0.02f;
-            if (alpha<0) {
-                alpha=1.0f;
-                em.m.rightClicked=false;
-            }
-        }*/
-        if (em.paused==true) {
+        
+    }
+
+
+
+    public void handlePauseMenu(Graphics2D g2) {
+         if (em.paused==true) {
             g2.setColor(Color.BLACK);
             g2.fillRect(em.screenWidth/2-6*em.resTileSize, 0, 11*em.resTileSize, 11*em.resTileSize+em.resTileSize/2);
             g2.setFont(fontPixeboy);
@@ -665,5 +681,40 @@ warmup=true;
             }
             g2.drawImage(select, em.screenWidth/2-3*em.resTileSize, em.resTileSize*7+em.resTileSize/4, em.resTileSize, em.resTileSize, null);
         }
+    }
+
+
+
+
+    @Override
+    public void draw(Graphics2D g2) {
+        image=null;
+            warmupTextDrawer(g2);
+        handleDetonateAnim();
+            handleMovementDraw();
+        handleAimDirection();
+        //g2.setColor(Color.WHITE);
+        //g2.fillRect(worldX, worldY, em.resTileSize, em.resTileSize);
+        BufferedImage finalImage=em.Skinner.ReskinPlayer(image, 1);
+        g2.drawImage(finalImage, screenX, screenY, em.resTileSize*3, em.resTileSize*3, null);
+        em.lRenderer.renderPlayer(screenX, screenY, 7, g2, direction, animationNum);
+        if (bombsLeft>=11) {
+            bombsLeft=10;
+        }
+        if (bombsLeftMove>=11) {
+            bombsLeftMove=10;
+        }
+        if (bombType=="stickyMove") {
+            g2.drawImage(MoveHealth[bombsLeftMove], em.resTileSize*15, 50, 64*3, em.resTileSize, null);
+        }
+        else {
+            
+                g2.drawImage(Health[bombsLeft], em.resTileSize*15, 50, 64*3, em.resTileSize, null);
+        }
+        drawHealth(g2);
+        if (em.showHitboxes==true) {
+            drawHitbox(g2);
+        }
+        handlePauseMenu(g2);
     }
 }

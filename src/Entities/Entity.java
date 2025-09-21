@@ -25,7 +25,6 @@ public class Entity {
     public boolean collisionOn=false;
     public boolean falling=false;
     public boolean standing=false;
-    public boolean currentlyColliding=false;
     public float velocityY=0;
     public float velocityX=0;
     public float gravity=0.4f;

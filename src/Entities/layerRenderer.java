@@ -28,6 +28,7 @@ public class layerRenderer {
             hairstylesRight[4]=ImageIO.read(getClass().getResourceAsStream("/resources/hairstyles/mohawk2.png"));
             hairstylesRight[5]=ImageIO.read(getClass().getResourceAsStream("/resources/hairstyles/afro.png"));
             hairstylesRight[6]=ImageIO.read(getClass().getResourceAsStream("/resources/hairstyles/ponytail.png"));
+            hairstylesRight[7]=ImageIO.read(getClass().getResourceAsStream("/resources/hairstyles/slickHair.png"));
             hairstylesLeft[0]=ImageIO.read(getClass().getResourceAsStream("/resources/hairstyles/ogHairLeft.png"));
             hairstylesLeft[1]=ImageIO.read(getClass().getResourceAsStream("/resources/hairstyles/baldLeft.png"));
             hairstylesLeft[2]=ImageIO.read(getClass().getResourceAsStream("/resources/hairstyles/bandanaLeft.png"));
@@ -35,6 +36,7 @@ public class layerRenderer {
             hairstylesLeft[4]=ImageIO.read(getClass().getResourceAsStream("/resources/hairstyles/mohawk2Left.png"));
             hairstylesLeft[5]=ImageIO.read(getClass().getResourceAsStream("/resources/hairstyles/afroLeft.png"));
             hairstylesLeft[6]=ImageIO.read(getClass().getResourceAsStream("/resources/hairstyles/ponytailLeft.png"));
+            hairstylesLeft[7]=ImageIO.read(getClass().getResourceAsStream("/resources/hairstyles/slickHairLeft.png"));
             hairCoords[0]=new Point(0, 0);
             hairCoords[1]=new Point(0, 5);
             hairCoords[2]=new Point(18, 0);

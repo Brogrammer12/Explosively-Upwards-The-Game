@@ -13,6 +13,7 @@ import Entities.Entity;
 import Entities.Player;
 import Entities.layerRenderer;
 import Entities.meleeRoman;
+import Entities.reskinSystem;
 import Events.events;
 import Objects.object;
 import Tiles.BackgroundDrawer;
@@ -40,6 +41,7 @@ public class everythingManager extends JPanel implements Runnable{
     public boolean paused=false;
     public boolean doEvents=false;
     public final int FPS=60;
+    public reskinSystem Skinner=new reskinSystem(this);
     public Sound sound=new Sound();
     public layerRenderer lRenderer=new layerRenderer(this);
     public tileManager tileM=new tileManager(this);
@@ -72,7 +74,7 @@ public class everythingManager extends JPanel implements Runnable{
         new Point(500, (maxWorldVert*resTileSize)-420)
     };
     public everythingManager() {
-        playMusic(0);
+        //playMusic(0);
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
