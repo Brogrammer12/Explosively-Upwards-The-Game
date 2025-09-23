@@ -27,6 +27,62 @@ int Level;
     public void objFunction(Graphics2D g2) {
         Rectangle playerArea=new Rectangle(em.p1.defaultSolidArea.x, em.p1.defaultSolidArea.y, em.p1.defaultSolidArea.width,em.p1.defaultSolidArea.height);
         if (Level==em.p1.Level) {
+            if (Math.abs(worldX-em.p1.worldX)<200 && Math.abs(worldY-em.p1.worldY)<200) {
+                 try {
+                int entityLeftWorldX=(int) (em.p1.worldX+em.p1.solidArea.x);
+        int entityRightWorldX=(int) (em.p1.worldX+em.p1.solidArea.x+em.p1.solidArea.width);
+        int entityMiddleWorldX=(int) (em.p1.worldX+em.p1.solidArea.x+em.p1.solidArea.width/2);
+        int entityTopWorldY=(int) (em.p1.worldY+em.p1.solidArea.y);
+        int entityBottomWorldY=(int) (em.p1.worldY+em.p1.solidArea.y+em.p1.solidArea.height);
+        int entityLeftcol=entityLeftWorldX/em.resTileSize;
+        int entityRightcol=entityRightWorldX/em.resTileSize;
+        int entityMiddlecol=entityMiddleWorldX/em.resTileSize;
+        int entityTopRow=entityTopWorldY/em.resTileSize;
+        int entityBottomRow=entityBottomWorldY/em.resTileSize;
+        int tileNum1, tileNum2, tileNum3;
+            int bottomRow=(entityBottomWorldY-em.resTileSize)/em.resTileSize;
+            entityLeftcol=(entityLeftWorldX-em.p1.moveSpeed)/em.resTileSize;
+        tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityTopRow].tileNum;
+        tileNum2=em.tileM.mapTileNum[entityLeftcol] [bottomRow].tileNum;
+        //collisionFound=false;
+        //collisionFoundRight=false;
+        if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
+            if (em.tileM.tile[tileNum1].grounded==false || em.tileM.tile[tileNum2].grounded==false) {
+                //entity.collisionOn=true;
+                //em.stopX=false;
+                //entity.velocityX=0;
+                //collisionFound=true;
+                //explode=true;
+                em.p1.velocityX=0;
+                em.stopX=false;
+                em.stopXR=false;
+                em.p1.worldX+=5;
+                //worldX+=10;
+            }
+        }
+            entityRightcol=(entityRightWorldX+em.p1.moveSpeed)/em.resTileSize;
+        tileNum1=em.tileM.mapTileNum[entityRightcol] [entityTopRow].tileNum;
+        tileNum2=em.tileM.mapTileNum[entityRightcol] [bottomRow].tileNum;
+        if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
+            if (em.tileM.tile[tileNum1].grounded==false || em.tileM.tile[tileNum2].grounded==false) {
+                
+                //entity.collisionOn=true;
+                //em.stopXR=false;
+                //entity.velocityX=0;
+                //collisionFoundRight=true;
+                //explode=true;
+                em.p1.velocityX=0;
+                em.stopX=false;
+                em.stopXR=false;
+                em.p1.worldX-=5;
+                //worldX-=10;
+            }
+        }
+            }
+            catch (Exception e) {
+
+            }
+            }
             if (em.paused==false) {
                 if (em.npc[index]==null) {
             em.obj[arrowIndex]=null;

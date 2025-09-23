@@ -50,7 +50,7 @@ public class CollisionChecker {
         else {
             try {
                 if (entity.getClass()==Player.class) {
-                    if (entity.grounded==false && ceiling==false && entity.disableGravity==false && entity.disableGravity==false) {
+                    if (entity.grounded==false && ceiling==false) {
                     entityTopRow=(int) ((entityTopWorldY-entity.velocityY)/em.resTileSize);
         tileNum1=em.tileM.mapTileNum[entityLeftcol] [entityTopRow].tileNum;
         tileNum2=em.tileM.mapTileNum[entityRightcol] [entityTopRow].tileNum;
