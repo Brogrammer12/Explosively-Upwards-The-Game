@@ -82,6 +82,11 @@ public class instantiator {
     public void setObjects() {
         em.obj[0]=new Exit(em);
         em.obj[1]=new boostPad(em, "diagLeft", 200, em.maxWorldVert*em.resTileSize-480, 1);
+        em.obj[3]=new boostPad(em, "diagLeft", 100, em.maxWorldVert*em.resTileSize-1150, 1);
+        em.obj[4]=new boostPad(em, "diagRight", 900, em.maxWorldVert*em.resTileSize-1430, 1);
+        em.obj[5]=new boostPad(em, "Vert", 220, em.maxWorldVert*em.resTileSize-1530, 1);
+        em.obj[6]=new boostPad(em, "Vert", 430, em.maxWorldVert*em.resTileSize-2160, 1);
+        em.obj[7]=new boostPad(em, "Vert", 770, em.maxWorldVert*em.resTileSize-2160, 1);
         em.obj[2]=new bubbles(em, "left", 450, em.maxWorldVert*em.resTileSize-480, 5);
         em.eventManager[0]=new tileBreak(em);
         em.npc[0]=new meleeRoman(em, em.resTileSize*10, em.resTileSize*em.maxWorldVert-410, 1, false);
@@ -90,7 +95,7 @@ public class instantiator {
         em.npc[3]=new meleeRoman(em, em.resTileSize*12+500, 900, 2, false);
         em.npc[4]=new meleeRoman(em, em.resTileSize*12, 900, 2, false);
         em.npc[5]=new rangedRoman(em, em.resTileSize*20, em.resTileSize*em.maxWorldVert-410, 1, false, "left", 5);
-        em.npc[6]=new rangedRoman(em, em.resTileSize, em.resTileSize*em.maxWorldVert-1250, 1, false, "right", 6);
+       // em.npc[6]=new rangedRoman(em, em.resTileSize, em.resTileSize*em.maxWorldVert-1400, 1, false, "right", 6);
         em.npc[7]=new meleeRoman(em, 1000, em.resTileSize*em.maxWorldVert-610, 3, true);
         em.npc[8]=new meleeRoman(em, 800, em.resTileSize*em.maxWorldVert-2300, 3, true);
         em.npc[9]=new meleeRoman(em, 1000, em.resTileSize*em.maxWorldVert-2300, 3, true);

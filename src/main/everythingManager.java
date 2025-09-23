@@ -49,7 +49,7 @@ public class everythingManager extends JPanel implements Runnable{
     public CollisionChecker cChecker=new CollisionChecker(this);
     public object[] objBomb=new object[20];
     //public object[] objArrow=new object[20];
-    public object[] obj=new object[10];
+    public object[] obj=new object[20];
     public Entity[] npc=new Entity[20];
     //public meleeRoman meleeroman=new meleeRoman(this);
     public BufferedImage[] backgrounds=new BufferedImage[10];
