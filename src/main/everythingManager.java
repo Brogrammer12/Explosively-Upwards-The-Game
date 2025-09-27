@@ -63,15 +63,63 @@ public class everythingManager extends JPanel implements Runnable{
     public Player p1=new Player(this);
     public Point[] Exits= {
         new Point(maxWorldHoriz*resTileSize-300, 250),
+        new Point(maxWorldHoriz*resTileSize-300, 250),
+        new Point(maxWorldHoriz*resTileSize-300, 250),
+        new Point(maxWorldHoriz*resTileSize-300, 250),
+        new Point(maxWorldHoriz*resTileSize-300, 250),
+
         new Point(1500, 790),
+        new Point(1500, 790),
+        new Point(1500, 790),
+        new Point(1500, 790),
+        new Point(1500, 790),
+
         new Point(990, 250),
+        new Point(990, 250),
+        new Point(990, 250),
+        new Point(990, 250),
+        new Point(990, 250),
+
+        new Point(880, 940),
+        new Point(880, 940),
+        new Point(880, 940),
+        new Point(880, 940),
+        new Point(880, 940),
+
+        new Point(880, 940),
+        new Point(880, 940),
+        new Point(880, 940),
         new Point(880, 940),
         new Point(880, 940)
     };
     public Point[] playerSpawns= {
         new Point(300, (maxWorldVert*resTileSize)-500),
+        new Point(300, (maxWorldVert*resTileSize)-500),
+        new Point(300, (maxWorldVert*resTileSize)-500),
+        new Point(300, (maxWorldVert*resTileSize)-500),
+        new Point(300, (maxWorldVert*resTileSize)-500),
+
         new Point(300, (maxWorldVert*resTileSize)-600),
         new Point(300, (maxWorldVert*resTileSize)-600),
+        new Point(300, (maxWorldVert*resTileSize)-600),
+        new Point(300, (maxWorldVert*resTileSize)-600),
+        new Point(300, (maxWorldVert*resTileSize)-600),
+
+        new Point(300, (maxWorldVert*resTileSize)-600),
+        new Point(300, (maxWorldVert*resTileSize)-600),
+        new Point(300, (maxWorldVert*resTileSize)-600),
+        new Point(300, (maxWorldVert*resTileSize)-600),
+        new Point(300, (maxWorldVert*resTileSize)-600),
+
+        new Point(500, (maxWorldVert*resTileSize)-420),
+        new Point(500, (maxWorldVert*resTileSize)-420),
+        new Point(500, (maxWorldVert*resTileSize)-420),
+        new Point(500, (maxWorldVert*resTileSize)-420),
+        new Point(500, (maxWorldVert*resTileSize)-420),
+
+        new Point(500, (maxWorldVert*resTileSize)-420),
+        new Point(500, (maxWorldVert*resTileSize)-420),
+        new Point(500, (maxWorldVert*resTileSize)-420),
         new Point(500, (maxWorldVert*resTileSize)-420),
         new Point(500, (maxWorldVert*resTileSize)-420)
     };
@@ -114,7 +162,7 @@ public class everythingManager extends JPanel implements Runnable{
     }
     public void update() {
         if (titleScreenFinished==true) {
-             if (p1.Level==4) {
+             if (p1.Level>=11 && p1.Level<21) {
             doEvents=true;
         }
         else {

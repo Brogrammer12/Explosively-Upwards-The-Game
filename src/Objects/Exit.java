@@ -74,7 +74,21 @@ public boolean sRightPressed=false;
                 if (em.p1.screenY<=-em.resTileSize*3-200) {
                     em.p1.disableGravity=false;
                     int nextLevel=em.p1.Level+1;
-                    em.bDrawer.index=nextLevel;
+                    if (nextLevel>5 && nextLevel<11) {
+                        em.bDrawer.index=2;
+                    }
+                    else if (nextLevel>10 && nextLevel<16) {
+                        em.bDrawer.index=3;
+                    }
+                    else if(nextLevel>15 && nextLevel<21) {
+                        em.bDrawer.index=4;
+                    }
+                    else if (nextLevel>20 && nextLevel<=25) {
+                        em.bDrawer.index=5;
+                    }
+                    else {
+                        em.bDrawer.index=0;
+                    }
                     String level="Level "+nextLevel+".tmj";
                     em.tileM.newMap(level);
                     em.p1.Level++;
