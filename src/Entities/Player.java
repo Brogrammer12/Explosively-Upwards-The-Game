@@ -648,44 +648,6 @@ warmup=true;
 
 
 
-    public void handlePauseMenu(Graphics2D g2) {
-         if (em.paused==true) {
-            g2.setColor(Color.BLACK);
-            g2.fillRect(em.screenWidth/2-6*em.resTileSize, 0, 11*em.resTileSize, 11*em.resTileSize+em.resTileSize/2);
-            g2.setFont(fontPixeboy);
-            g2.setColor(Color.WHITE);
-            g2.drawString("SETTINGS", em.screenWidth/2-2*em.resTileSize, 70);
-            g2.drawString("EXIT GAME", em.screenWidth/2-2*em.resTileSize, em.resTileSize*8);
-            BufferedImage select=null;
-            if (startMenuTimer==true) {
-                menuTimer++;
-                select=bombPlanted;
-                if (menuTimer==20) {
-                    menuTimer=0;
-                    startMenuTimer=false;
-                    switch (menuLevel) {
-                        case 1:
-                        System.exit(0);
-                        break;
-                    }
-                }
-            }
-            if (em.k.enterPressed==true) {
-                startMenuTimer=true;
-                if (menuTimer==0) {
-                    em.playSE(2);
-                }
-            }
-            else if (startMenuTimer==false) {
-                select=bomb;
-            }
-            g2.drawImage(select, em.screenWidth/2-3*em.resTileSize, em.resTileSize*7+em.resTileSize/4, em.resTileSize, em.resTileSize, null);
-        }
-    }
-
-
-
-
     @Override
     public void draw(Graphics2D g2) {
         image=null;
@@ -695,7 +657,7 @@ warmup=true;
         handleAimDirection();
         //g2.setColor(Color.WHITE);
         //g2.fillRect(worldX, worldY, em.resTileSize, em.resTileSize);
-        BufferedImage finalImage=em.Skinner.ReskinPlayer(image, 1);
+        BufferedImage finalImage=em.Skinner.ReskinPlayer(image, 2);
         g2.drawImage(finalImage, screenX, screenY, em.resTileSize*3, em.resTileSize*3, null);
         em.lRenderer.renderPlayer(screenX, screenY, 7, g2, direction, animationNum);
         if (bombsLeft>=11) {
@@ -715,6 +677,5 @@ warmup=true;
         if (em.showHitboxes==true) {
             drawHitbox(g2);
         }
-        handlePauseMenu(g2);
     }
 }

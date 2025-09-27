@@ -58,7 +58,7 @@ public int Level;
         solidArea.y=worldY;
         playerArea.x=(int) em.p1.worldX;
         playerArea.y=(int) em.p1.worldY;
-        if (playerArea.intersects(solidArea)) {
+        if (playerArea.intersects(solidArea) && em.p1.worldY<worldY-playerArea.height+60) {
             if (timer==0) {
                 //em.p1.currentlyColliding=false;
                 em.playSE(2);

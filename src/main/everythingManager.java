@@ -40,7 +40,9 @@ public class everythingManager extends JPanel implements Runnable{
     public boolean stopXR=false;
     public boolean paused=false;
     public boolean doEvents=false;
+    public boolean titleScreenFinished=false;
     public final int FPS=60;
+    public Menus menus=new Menus(this);
     public reskinSystem Skinner=new reskinSystem(this);
     public Sound sound=new Sound();
     public layerRenderer lRenderer=new layerRenderer(this);
@@ -111,7 +113,8 @@ public class everythingManager extends JPanel implements Runnable{
         }
     }
     public void update() {
-        if (p1.Level==4) {
+        if (titleScreenFinished==true) {
+             if (p1.Level==4) {
             doEvents=true;
         }
         else {
@@ -126,11 +129,13 @@ public class everythingManager extends JPanel implements Runnable{
         }
         instantiate.setBombs();
         }
+        }
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2=(Graphics2D)g;
-        bDrawer.drawBackground(backgrounds[bDrawer.index], g2);
+         bDrawer.drawBackground(backgrounds[bDrawer.index], g2);
+        if (titleScreenFinished==true) {
         tileM.draw(g2);
         //meleeroman.draw(g2);
             for (int i=0; i<npc.length; i++) {
@@ -156,8 +161,9 @@ public class everythingManager extends JPanel implements Runnable{
             }
         }
         }
-        
-        
+        menus.drawPauseMenu(g2);
+        }
+        menus.drawTitle(g2);
         g2.dispose();
     }
     public void playMusic(int i) {
