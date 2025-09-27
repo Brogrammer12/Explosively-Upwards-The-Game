@@ -210,6 +210,7 @@ public class everythingManager extends JPanel implements Runnable{
         }
         }
         menus.drawPauseMenu(g2);
+        menus.drawDeathScreen(g2);
         }
         menus.drawTitle(g2);
         g2.dispose();

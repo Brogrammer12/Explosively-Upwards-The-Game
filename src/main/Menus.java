@@ -22,6 +22,7 @@ public class Menus {
     public int menuTimer=0;
     public int menuLevel=1;
     public boolean startMenuTimer=false;
+    public boolean playerDied=false;
     public Menus(everythingManager em) {
         this.em=em;
         try {
@@ -73,8 +74,38 @@ warmup=true;
             em.titleScreenFinished=true;
         }
     }
+    
+    public void drawDeathScreen(Graphics2D g2) {
+        if (em.p1.health<=0) {
+            em.paused=true;
+            playerDied=true;
+            fontPixeboy=fontPixeboy.deriveFont(30f);
+            g2.setColor(Color.BLACK);
+            g2.fillRect(em.screenWidth/2-6*em.resTileSize, 0, 11*em.resTileSize, 11*em.resTileSize+em.resTileSize/2);
+            g2.setFont(fontPixeboy);
+            g2.setColor(Color.WHITE);
+            g2.drawString("YOU DIED", em.screenWidth/2-2*em.resTileSize, 70);
+            g2.drawString("RESPAWN?", em.screenWidth/2-2*em.resTileSize, em.resTileSize*6);
+            if (em.m.mouseClicked==true || em.k.enterPressed==true) {
+                em.p1.Level=1;
+                em.bDrawer.index=0;
+                em.p1.health=5;
+                em.tileM.newMap("level 1.tmj");
+                playerDied=false;
+                em.m.mouseClicked=false;
+                em.k.enterPressed=false;
+                em.paused=false;
+                em.p1.velocityX=0;
+                em.p1.velocityY=0;
+                em.instantiate.setObjects();
+                em.p1.worldX=em.playerSpawns[0].x;
+                em.p1.worldY=em.playerSpawns[0].y;
+            }
+        }
+    }
+
     public void drawPauseMenu(Graphics2D g2) {
-        if (em.paused==true) {
+        if (em.paused==true && playerDied==false) {
             fontPixeboy=fontPixeboy.deriveFont(30f);
             g2.setColor(Color.BLACK);
             g2.fillRect(em.screenWidth/2-6*em.resTileSize, 0, 11*em.resTileSize, 11*em.resTileSize+em.resTileSize/2);
