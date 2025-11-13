@@ -33,8 +33,8 @@ public class everythingManager extends JPanel implements Runnable{
     public int worldWidth=maxWorldHoriz*resTileSize;
     public int worldHeight=maxWorldVert*resTileSize;
     public int boomTotal=0;
-    public boolean showHitboxes=true;
-    public boolean showBoomLine=true;
+    public boolean showHitboxes=false;
+    public boolean showBoomLine=false;
     public boolean stopX=false;
     public boolean disableGravity=false;
     public boolean stopXR=false;

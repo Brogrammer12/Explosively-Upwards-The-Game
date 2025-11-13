@@ -113,7 +113,24 @@ warmup=true;
             g2.setColor(Color.WHITE);
             g2.drawString("SETTINGS", em.screenWidth/2-2*em.resTileSize, 70);
             g2.drawString("EXIT GAME", em.screenWidth/2-2*em.resTileSize, em.resTileSize*8);
+            g2.drawString("LEVEL SELECT", em.screenWidth/2-2*em.resTileSize, em.resTileSize*6);
             BufferedImage select=null;
+            int y;
+            if ((em.k.downPressed==true || em.k.upPressed==true) && em.k.menuHasPressed==false) {
+                if (menuLevel==1) {
+                    menuLevel=2;
+                }
+                else {
+                    menuLevel=1;
+                }
+                em.k.menuHasPressed=true;
+            }
+            if (menuLevel==1) {
+                y=em.resTileSize*7+em.resTileSize/4;
+            }
+            else {
+                 y=em.resTileSize*5+em.resTileSize/4;
+            }
             if (startMenuTimer==true) {
                 menuTimer++;
                 select=bombPlanted;
@@ -123,6 +140,9 @@ warmup=true;
                     switch (menuLevel) {
                         case 1:
                         System.exit(0);
+                        break;
+                        case 2:
+                        System.out.println("I worked I guess");
                         break;
                     }
                 }
@@ -136,7 +156,7 @@ warmup=true;
             else if (startMenuTimer==false) {
                 select=bomb;
             }
-            g2.drawImage(select, em.screenWidth/2-3*em.resTileSize, em.resTileSize*7+em.resTileSize/4, em.resTileSize, em.resTileSize, null);
+            g2.drawImage(select, em.screenWidth/2-3*em.resTileSize, y, em.resTileSize, em.resTileSize, null);
         }
     }
 }

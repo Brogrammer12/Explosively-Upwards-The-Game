@@ -3,6 +3,7 @@ package Objects;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -12,10 +13,12 @@ import main.everythingManager;
 public class bombBoi extends object{
     everythingManager em;
     public boolean instantiateCoords=false;
+    public boolean bombCanTravel=false;
     public int index;
     public int xMoveSpeed;
     public int yMoveSpeed;
     int x1;
+    int boomTimer=0;
         int y1;
         int x2;
         int y2;
@@ -31,36 +34,38 @@ public class bombBoi extends object{
     int worldy;
     boolean moveDone=false;
     public boolean playerBoomed=false;
+    public BufferedImage boom1, boom2, boom3, boom4, regBomb;
     public bombBoi(everythingManager em, String direction, int index) {
         super(em);
         this.em=em;
         this.index=index;
         this.direction=direction;
-        
+        explode=true;
+        em.p1.bombsLeft+=5;
         if (direction=="right") {
             if (em.p1.aimDirection=="diagRightDown") {
                 xMoveSpeed=5;
                 yMoveSpeed=5;
                 worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2+40);
-            worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-20);
+            worldY=(int) (em.p1.worldY+em.p1.solidArea.height-em.resTileSize);
             }
             else if (em.p1.aimDirection=="diagRightUp") {
                 xMoveSpeed=5;
                 yMoveSpeed=-5;
                 worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2+40);
-            worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-20);
+            worldY=(int) (em.p1.worldY);
             }
             else if(em.p1.aimDirection=="up") {
                 xMoveSpeed=0;
                 yMoveSpeed=-5;
-                worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2+40);
-            worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-20);
+                worldX=(int) ((em.p1.worldX+100)-em.resTileSize);
+            worldY=(int) (em.p1.worldY-em.resTileSize);
             }
             else if(em.p1.aimDirection=="down") {
                 xMoveSpeed=0;
                 yMoveSpeed=5;
-                worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2+40);
-            worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-20);
+                worldX=(int) ((em.p1.worldX+100)-em.resTileSize);
+            worldY=(int) (em.p1.worldY+em.p1.solidArea.height);
             }
             else if (em.k.downPressed==true) {
                 xMoveSpeed=5;
@@ -80,25 +85,25 @@ public class bombBoi extends object{
                 xMoveSpeed=-5;
                 yMoveSpeed=5;
                 worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2-90);
-            worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-20);
+            worldY=(int) (em.p1.worldY+em.p1.solidArea.height-em.resTileSize);
             }
             else if (em.p1.aimDirection=="diagLeftUp") {
                 xMoveSpeed=-5;
                 yMoveSpeed=-5;
                 worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2-90);
-            worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-20);
+            worldY=(int) (em.p1.worldY);
             }
              else if(em.p1.aimDirection=="up") {
                 xMoveSpeed=0;
                 yMoveSpeed=-5;
-                worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2+40);
-            worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-20);
+                worldX=(int) ((em.p1.worldX+100)-em.resTileSize);
+            worldY=(int) (em.p1.worldY-em.resTileSize);
             }
             else if(em.p1.aimDirection=="down") {
                 xMoveSpeed=0;
                 yMoveSpeed=5;
-                worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2+40);
-            worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-20);
+                worldX=(int) ((em.p1.worldX+100)-em.resTileSize);
+            worldY=(int) (em.p1.worldY+em.p1.solidArea.height);
             }
             else if (em.k.downPressed==true) {
                 xMoveSpeed=-5;
@@ -116,19 +121,150 @@ public class bombBoi extends object{
         try {
             if (em.p1.bombType=="stickyMove") {
                 Move=true;
-                 image=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/BombMove.png"));
+                 regBomb=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/BombMove.png"));
             altImage=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/bombPlantedMove.png"));
             boom=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/explosionMove.png"));
             }
             else {
                 Move=false;
-                image=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/Bomb.png"));
+                regBomb=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/Bomb.png"));
             altImage=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/bombPlanted.png"));
             boom=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/explosion.png"));
+            if (direction=="left") {
+                if (em.p1.aimDirection=="diagLeftDown") {
+                boom1=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomDownLeft1.png"));
+            boom2=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomDownLeft2.png"));
+            boom3=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomDownLeft3.png"));
+            boom4=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomDownLeft4.png"));
+            }
+            else if (em.p1.aimDirection=="diagLeftUp") {
+                boom1=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomUpLeft1.png"));
+            boom2=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomUpLeft2.png"));
+            boom3=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomUpLeft3.png"));
+            boom4=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomUpLeft4.png"));
+            }
+             else if(em.p1.aimDirection=="up") {
+                boom1=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomUp1.png"));
+            boom2=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomUp2.png"));
+            boom3=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomUp3.png"));
+            boom4=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomUp4.png"));
+            }
+            else if(em.p1.aimDirection=="down") {
+                boom1=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomDown1.png"));
+            boom2=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomDown2.png"));
+            boom3=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomDown3.png"));
+            boom4=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomDown4.png"));
+            }
+            else {
+                boom1=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomLeft1.png"));
+            boom2=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomLeft2.png"));
+            boom3=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomLeft3.png"));
+            boom4=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomLeft4.png"));
+            }
+            }
+            else {
+                if (em.p1.aimDirection=="diagRightDown") {
+                boom1=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomDownRight1.png"));
+            boom2=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomDownRight2.png"));
+            boom3=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomDownRight3.png"));
+            boom4=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomDownRight4.png"));
+            }
+            else if (em.p1.aimDirection=="diagRightUp") {
+                boom1=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomUpRight1.png"));
+            boom2=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomUpRight2.png"));
+            boom3=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomUpRight3.png"));
+            boom4=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomUpRight4.png"));
+            }
+             else if(em.p1.aimDirection=="up") {
+                boom1=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomUp1.png"));
+            boom2=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomUp2.png"));
+            boom3=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomUp3.png"));
+            boom4=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomUp4.png"));
+            }
+            else if(em.p1.aimDirection=="down") {
+                boom1=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomDown1.png"));
+            boom2=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomDown2.png"));
+            boom3=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomDown3.png"));
+            boom4=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomDown4.png"));
+            }
+            else {
+                boom1=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboom1.png"));
+            boom2=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboom2.png"));
+            boom3=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboom3.png"));
+            boom4=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboom4.png"));
+            }
+            }
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+    }
+    public void regularBomb(Graphics2D g2) {
+        if (bombCanTravel==false && Move==false) {
+            boomTimer++;
+            if (boomTimer<=1) {
+                solidArea.x=worldX;
+        solidArea.y=worldY;
+                for (int i=0; i<em.npc.length; i++) {
+                    if (em.npc[i]!=null) {
+                        em.npc[i].solidArea.x=(int) em.npc[i].worldX;
+            em.npc[i].solidArea.y=(int) em.npc[i].worldY;
+                    if (em.npc[i].solidArea.intersects(solidArea)) {
+                        em.npc[i].healtha--;
+                    boomTimer=1;
+                    }
+                    em.npc[i].solidArea.x=em.npc[i].defaultSolidArea.x;
+            em.npc[i].solidArea.y=em.npc[i].defaultSolidArea.y;
+                    }
+                }
+                solidArea.x=0;
+        solidArea.y=0;
+            }
+            if (boomTimer<4) {
+                image=boom1;
+            }
+            else if (boomTimer>4 && boomTimer<=8) {
+                image=boom2;
+            }
+             else if (boomTimer>8 && boomTimer<=12) {
+                image=boom3;
+            }
+             else if (boomTimer>12 && boomTimer<=16) {
+                image=boom4;
+            }
+             else if (boomTimer>16) {
+                image=null;
+            }
+        }
+        else if(bombCanTravel==true && Move==false) {
+            em.cChecker.checkBomb(this);
+            if (bombTriggered==true) {
+                image=regBomb;
+                if (sideCol==true) {
+                    try {
+                        switch (direction) {
+                        case "left":
+                        altImage=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/bombPlantedLeft.png"));
+                        break;
+                        case "right":
+                        altImage=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/bombPlantedRight.png"));
+                        break;
+                    }
+                    }
+                    catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (explode==true) {
+                    image=boom;
+                }
+            }
+            else {
+                worldX+=xMoveSpeed;
+            worldY+=yMoveSpeed;
+
+            } 
         }
     }
     @Override
@@ -184,8 +320,9 @@ public class bombBoi extends object{
                     em.npc[i].solidArea.x=(int) em.npc[i].worldX;
             em.npc[i].solidArea.y=(int) em.npc[i].worldY;
             if (solidArea.intersects(em.npc[i].solidArea)) {
-                if (explode==false) {
+                if (boomTimer<1) {
                     em.npc[i].healtha--;
+                    boomTimer=1;
                     if (Move==true) {
                         em.p1.bombsLeftMove+=5;
                         //em.npc[i].velocityX+=10;
@@ -194,8 +331,6 @@ public class bombBoi extends object{
                         em.p1.bombsLeft+=5;
                     }
                 }
-                bombTriggered=true;
-                explode=true;
             }
             //numIntersections=0;
             em.npc[i].solidArea.x=em.npc[i].defaultSolidArea.x;
@@ -206,7 +341,7 @@ public class bombBoi extends object{
         solidArea.x=0;
         solidArea.y=0;
         if (bombTriggered==false) {
-            if (em.paused==false) {
+            if (em.paused==false && explode==false) {
                 worldX+=xMoveSpeed;
                 worldY+=yMoveSpeed;
             }
@@ -238,13 +373,28 @@ public class bombBoi extends object{
                     e.printStackTrace();
                 }
             }
-            image=altImage;
+            //image=altImage;
         }
         if (explode==true) {
             if (Move==true) {
                 checkCollision();
             }
-                    image=boom;
+            boomTimer++;
+            if (boomTimer<4) {
+                image=boom1;
+            }
+            else if (boomTimer>4 && boomTimer<=8) {
+                image=boom2;
+            }
+             else if (boomTimer>8 && boomTimer<=12) {
+                image=boom3;
+            }
+             else if (boomTimer>12 && boomTimer<=16) {
+                image=boom4;
+            }
+             else if (boomTimer>16) {
+                image=null;
+            }
                     if (timer==1) {
                         em.playSE(2);
                     }
@@ -334,6 +484,7 @@ public class bombBoi extends object{
                         timer++;
                     }
                     if (timer==25) {
+                        boomTimer=0;
                         em.objBomb[index]=null;
                         moveDone=false;
                         timer=0;

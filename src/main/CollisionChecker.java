@@ -213,7 +213,7 @@ public class CollisionChecker {
         tileNum2=em.tileM.mapTileNum[entityLeftcol] [entityBottomRow].tileNum;
         if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
             entity.bombTriggered=true;
-            //entity.sideCol=true;
+            entity.sideCol=true;
             if (entity.explode==false && em.p1.bombType!="stickyMove") {
                  if (em.p1.bombsLeft==5) {
                 em.p1.bombsLeft=10;
@@ -223,7 +223,7 @@ public class CollisionChecker {
             }
             }
             if (entity.Move==false) {
-                entity.explode=true; // makes it explode on impact
+                //entity.explode=true; // makes it explode on impact
             }
             if (entity.explode==true && em.tileM.tile[tileNum1].destructible==true && entity.Move==false) {
                 em.tileM.mapTileNum[entityLeftcol] [entityTopRow].tileNum=0;
@@ -239,7 +239,7 @@ public class CollisionChecker {
         tileNum2=em.tileM.mapTileNum[entityRightcol] [entityBottomRow].tileNum;
         if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
             entity.bombTriggered=true;
-            //entity.sideCol=true;
+            entity.sideCol=true;
             if (entity.explode==false && em.p1.bombType!="stickyMove") {
                  if (em.p1.bombsLeft==5) {
                 em.p1.bombsLeft=10;
@@ -250,7 +250,7 @@ public class CollisionChecker {
             }
 
            if (entity.Move==false) {
-                entity.explode=true; // makes it explode on impact
+                //entity.explode=true; // makes it explode on impact
             }
             if (entity.explode==true && em.tileM.tile[tileNum1].destructible==true && entity.Move==false) {
                 em.tileM.mapTileNum[entityRightcol] [entityTopRow].tileNum=0;
@@ -268,7 +268,7 @@ public class CollisionChecker {
         if (em.tileM.tile[tileNum1].collision==true || em.tileM.tile[tileNum2].collision==true) {
             if (entity.Move==false) {
                 entity.bombTriggered=true;
-            entity.explode=true;
+            //entity.explode=true;
             }
             if (em.p1.bombType!="stickyMove") {
                 if (em.p1.bombsLeft==5) {

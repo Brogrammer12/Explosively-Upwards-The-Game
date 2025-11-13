@@ -1,6 +1,7 @@
 package Objects;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -9,6 +10,8 @@ import main.everythingManager;
 
 public class subspaceNadeChain extends object{
 public boolean collisionFound=false;
+public BufferedImage boom1, boom2, boom3, boom4;
+public int boomTimer=0;
     public subspaceNadeChain(everythingManager em) {
         super(em);
         worldX=(int) em.p1.worldX;
@@ -17,6 +20,18 @@ public boolean collisionFound=false;
     }
     public void loadImage() {
         try {
+             if (em.p1.direction.equals("left")) {
+                boom1=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomMoveLeft1.png"));
+            boom2=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomMoveLeft2.png"));
+            boom3=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomMoveLeft3.png"));
+            boom4=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomMoveLeft4.png"));
+            }
+            else {
+                boom1=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomMove1.png"));
+            boom2=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomMove2.png"));
+            boom3=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomMove3.png"));
+            boom4=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/kaboomMove4.png"));
+            }
             image=ImageIO.read(getClass().getResourceAsStream("/resources/bomb/explosionMove.png"));
         } catch (IOException e) {
             e.printStackTrace();
@@ -24,6 +39,31 @@ public boolean collisionFound=false;
     }
     @Override
     public void objFunction(Graphics2D g2) {
+        boomTimer++;
+        if (em.p1.direction=="right") {
+            worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2+40);
+            worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-30);
+        }
+        else {
+            worldX=(int) (em.p1.worldX+(em.resTileSize*3)/2-90);
+            worldY=(int) (em.p1.worldY+(em.resTileSize*3)/2-30);
+        }
+            if (boomTimer<4) {
+                image=boom1;
+            }
+            else if (boomTimer>4 && boomTimer<=8) {
+                image=boom2;
+            }
+             else if (boomTimer>8 && boomTimer<=12) {
+                image=boom3;
+            }
+             else if (boomTimer>12 && boomTimer<=16) {
+                image=boom4;
+            }
+             else if (boomTimer>16) {
+                image=null;
+            }
+        
         int entityLeftWorldX=(int) (em.p1.worldX+em.p1.solidArea.x);
         int entityRightWorldX=(int) (em.p1.worldX+em.p1.solidArea.x+em.p1.solidArea.width);
         int entityMiddleWorldX=(int) (em.p1.worldX+em.p1.solidArea.x+em.p1.solidArea.width/2);

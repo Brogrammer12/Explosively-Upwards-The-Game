@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -11,6 +12,7 @@ public class mouseListener implements MouseMotionListener, MouseListener{
     public boolean mouseMode=true;
     public boolean mouseClicked=false;
     public boolean rightClicked=false;
+    public Rectangle mouseRect;
     public mouseListener(everythingManager em) {
         this.em=em;
     }
